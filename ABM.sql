@@ -55,7 +55,9 @@ $$
 
 --insert into personas(id_persona)values((select max(id_persona)from personas)+1)
 
+--MODIFICICACION PERSONA
 
+create or replace function sp_modificacion_persona(doc integer, tipo_d text, que integer, dato text)
 	returns void as
 $$
 begin
