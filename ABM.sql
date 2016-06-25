@@ -1,4 +1,6 @@
 ﻿--ABM socios
+--ALTA SOCIO
+
 create or replace function sp_alta_socio(nombre_ text, apellido_ text, doc integer, tip_doc text)
 	returns void as 
 $$
@@ -6,14 +8,14 @@ declare
 	id_pers integer; num_soc integer; id_doc smallint;
 begin
 	--controles
-	if nombre_='' then
+	if nombre_=''or nombre_ is null then
 		raise exception 'El nombre no puede ser nulo';
 	end if;
-	if apellido_='' then
+	if apellido_='' or apellido_ is null then
 		raise exception 'El apellido no puede ser nulo';
 	end if;
-	if doc<0 then
-		raise exception 'El documento no puede ser negativo';
+	if doc<0 or doc is null then
+		raise exception 'Documento invalido';
 	end if;
 	--determinar el numero de socio
 	if (select max(numero_socio) from socios) is null then
@@ -24,6 +26,7 @@ begin
 	--determinar id tipo de documento
 	id_doc:= (select id_tipo_doc from tipos_doc where tipo_doc like '%'||tip_doc||'%');
 	--control de existencia de persona
+	--puedo insertar una persona con el mismo numero pero distinto tipo de documento
 	if (select id_persona from personas where dni=doc and id_tipo_doc=id_doc) is null then
 		--determinar el id de persona
 		if (select max(id_persona) from personas) is null then
@@ -40,11 +43,15 @@ begin
 	--insertar socio
 	insert into socios(numero_socio, id_persona, fechaingreso, estadocuenta)
 		values (num_soc, id_pers, default, default);
+	exception			
+		when unique_violation then
+			raise exception 'El documento ya existe';
 end;
 $$
 	language plpgsql;
 
-select sp_alta_socio('Noelia Analia', 'Lastra', 12345678, 'LC')
 
-insert into personas(id_persona)values((select max(id_persona)from personas)+1)
+--select sp_alta_socio('Melena', 'Jones', null, 'LC')
+
+--insert into personas(id_persona)values((select max(id_persona)from personas)+1)
 
