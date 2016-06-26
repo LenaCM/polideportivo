@@ -5,41 +5,17 @@ create or replace function sp_alta_socio(nombre_ text, apellido_ text, doc integ
 	returns void as 
 $$
 declare
-	id_pers integer; num_soc integer; id_doc smallint;
+	num_soc integer; id_pers integer; id_doc smallint;
 begin
-	--controles
-	if nombre_=''or nombre_ is null then
-		raise exception 'El nombre no puede ser nulo';
-	end if;
-	if apellido_='' or apellido_ is null then
-		raise exception 'El apellido no puede ser nulo';
-	end if;
-	if doc<0 or doc is null then
-		raise exception 'Documento invalido';
-	end if;
 	--determinar el numero de socio
 	if (select max(numero_socio) from socios) is null then
 		num_soc:=1;
 	else
 		num_soc:= (select max(numero_socio) from socios) + 1;
 	end if;
-	--determinar id tipo de documento
-	id_doc:= (select id_tipo_doc from tipos_doc where tipo_doc like '%'||tip_doc||'%');
-	--control de existencia de persona
-	--puedo insertar una persona con el mismo numero pero distinto tipo de documento
-	if (select id_persona from personas where dni=doc and id_tipo_doc=id_doc) is null then
-		--determinar el id de persona
-		if (select max(id_persona) from personas) is null then
-			id_pers:=1;
-		else
-			id_pers:= (select max(id_persona) from personas) + 1;
-		end if;
-		--insertar persona
-		insert into personas(id_persona, dni, id_tipo_doc, nombre, apellido)
-			values (id_pers, doc, id_doc, nombre_, apellido_);
-	else
-		id_pers:=(select id_persona from personas where dni=doc and id_tipo_doc=id_doc);
-	end if;
+	perform sp_alta_persona(nombre_, apellido_, doc, tip_doc);
+	id_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%' || tip_doc || '%');
+	id_pers:=(select id_persona from personas where dni=doc and id_tipo_doc=id_doc);
 	--insertar socio
 	insert into socios(numero_socio, id_persona, fechaingreso, estadocuenta)
 		values (num_soc, id_pers, default, default);
@@ -51,9 +27,9 @@ $$
 	language plpgsql;
 
 */
-
+--select sp_alta_socio('Ana', 'Lagoria', 39560790, 'DNI')
 --MODIFICACION SOCIO
-
+/*
 create or replace function sp_modificacion_socio(tipo_busq integer, tipo_d text, numero integer, campo integer, dato text)
 	returns void as
 $$
@@ -69,6 +45,11 @@ begin
 end;
 $$
 	language plpgsql;
-
+*/
 --select sp_modificacion_socio(1,'LC',1,1,'Malena')
 --select sp_modificacion_persona(12345678, 'LC', 1, 'Noe')
+
+--BAJA SOCIO
+
+
+	
