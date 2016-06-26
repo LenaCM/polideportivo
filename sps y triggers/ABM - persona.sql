@@ -38,7 +38,7 @@ end;
 $$
 	language plpgsql;
 */
---select sp_alta_persona('Ana', 'Lagoria', 39560790, 'DNI')
+--select sp_alta_persona('Lola', 'Mento', 39560791, 'DNI')
 --MODIFICICACION PERSONA
 /*
 create or replace function sp_modificacion_persona(doc integer, tipo_d text, que integer, dato text)
@@ -73,3 +73,22 @@ $$
 	language plpgsql;
 */
 
+--BAJA PERSONA
+create or replace function sp_baja_persona(doc integer,tip_doc text)
+	returns void as
+$$
+declare
+	id_doc smallint;
+begin
+	id_doc := (select id_tipo_doc from tipos_doc where tipo_doc like '%'||tip_doc||'%');
+	if (select id_persona from personas where dni=doc and id_tipo_doc=id_doc) is null then
+		raise exception 'La persona no existe';
+	else
+		delete from personas
+		where dni=doc and id_tipo_doc=id_doc;
+	end if;
+end;
+$$
+	language plpgsql;
+
+select sp_baja_persona(39560791, 'DNI')
