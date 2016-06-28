@@ -74,6 +74,7 @@ $$
 */
 
 --BAJA PERSONA
+/*
 create or replace function sp_baja_persona(doc integer,tip_doc text)
 	returns void as
 $$
@@ -90,5 +91,5 @@ begin
 end;
 $$
 	language plpgsql;
-
-select sp_baja_persona(39560791, 'DNI')
+*/
+--select sp_baja_persona(39560791, 'DNI')

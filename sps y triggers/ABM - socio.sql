@@ -50,7 +50,7 @@ $$
 --select sp_modificacion_persona(12345678, 'LC', 1, 'Noe')
 
 --BAJA SOCIO
-
+/*
 create or replace function sp_baja_socio(tipo_busq integer, tipo_d text, numero integer)
 	returns void as
 $$
@@ -79,5 +79,5 @@ begin
 end;
 $$
 	language plpgsql;
-	
+*/
 --select sp_baja_socio(2, 'DNI', 12345678)
