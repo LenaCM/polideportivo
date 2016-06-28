@@ -25,6 +25,7 @@
 }
 .wpcf7-form input,
 .wpcf7-form textarea,
+#contactForm select,
 #contactForm input,
 #contactForm textarea,
 #commentform input,
@@ -40,6 +41,7 @@
 }
 .wpcf7-form input:focus,
 .wpcf7-form textarea:focus,
+#contactForm select:focus,
 #contactForm input:focus,
 #contactForm textarea:focus,
 #commentform input:focus,
@@ -52,6 +54,7 @@
 }
 .wpcf7-form input[type="text"],
 .wpcf7-form input[type="text"],
+#contactForm select,
 #contactForm input[type="text"],
 #commentform input[type="text"],
 #contactForm input[type="password"],
