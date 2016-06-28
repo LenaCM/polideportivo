@@ -87,27 +87,33 @@
 					</div>		
 					<div class="toggle-container">
 						<!-- form -->
-				<form id="contactForm" action="#" method="post">
+				<!-- Modificado 28/06/2016 -->
+				<form id="contactForm" action="php/alta.php" method="post">
 					<fieldset>
 														
 						<p>
-							<label for="name" >Name</label>
-							<input name="name"  id="name" type="text" class="form-poshytip" title="Enter your full name" />
+							<label for="name" >Nombre</label>
+							<input name="name"  id="name" type="text" class="form-poshytip" title="Enter your name" />
 						</p>
 						
 						<p>
-							<label for="email" >Email</label>
-							<input name="email"  id="email" type="text" class="form-poshytip" title="Enter your email address" />
+							<label for="apellido" >Apellido</label>
+							<input name="Apellido"  id="apellido" type="text" class="form-poshytip" title="Enter your sub name" />
 						</p>
 						
 						<p>
-							<label for="web">Website</label>
-							<input name="web"  id="web" type="text" class="form-poshytip" title="Enter your website" />
-						</p>
+							<label for="tipo_doc">Tipo de Documento</label>
+							<select name="Tipo_doc" id="tipo_doc" class="form-poshytip" title="Enter your type of document">
+								<option value="DNI" selected>DNI</option>
+								<option value="PAS">PASAPORTE</option>
+								<option value="LE">LIBRETA DE ENROLAMIENTO</option>
+								<option value="LC">LIBRETA CIVICA</option>
+							</select>
+						</p><br>
 						
 						<p>
-							<label for="comments">Message</label>
-							<textarea  name="comments"  id="comments" rows="5" cols="20" class="form-poshytip" title="Enter your comments"></textarea>
+							<label for="num_doc">Numero de Documento</label>
+							<input name="num_doc" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" />
 						</p>
 						
 						<!-- send mail configuration -->
@@ -116,7 +122,7 @@
 						<input type="hidden" value="send-mail.php" name="sendMailUrl" id="sendMailUrl" />
 						<!-- ENDS send mail configuration -->
 						
-						<p><input type="button" value="Send" name="submit" id="submit" /> <span id="error" class="warning">Message</span></p>
+						<p><input type="submit" value="Send" name="submit" id="submit" /> <span id="error" class="warning">Message</span></p>
 					</fieldset>
 					
 				</form>
