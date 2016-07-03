@@ -1,4 +1,4 @@
-﻿--ABM empleados
+﻿--ABM empleados--
 --alta empleado
 /*
 create or replace function sp_alta_empleado(nombre_ text, apellido_ text, doc integer, tip_doc text, sueldo numeric, ant integer, ho_ent time without time zone, ho_sal time without time zone)
