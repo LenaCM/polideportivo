@@ -67,3 +67,24 @@ $$
 	language plpgsql;
 */
 --select sp_modificacion_empleado(33333334, 'LE', 8, '13:00:00')
+
+--BAJA empleado
+create or replace function sp_baja_empleado(tipo_d character varying, numero integer)
+	returns void as
+$$ 
+declare
+	id_dc smallint; id_pers integer;
+begin 
+	id_dc := (select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
+	id_pers :=(select id_persona from personas where dni=numero and id_tipo_doc=id_dc);
+	if id_pers is not null then
+		delete from empleados where id_persona=id_pers;
+	else
+		raise exception 'El empleado no existe';
+	end if;
+	perform sp_baja_persona(numero, tipo_d);
+end;
+$$
+	language  plpgsql;
+
+--select sp_baja_empleado('LE', 33333333);
