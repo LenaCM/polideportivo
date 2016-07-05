@@ -19,14 +19,16 @@ begin
 	end if;
 	--determinar id tipo de documento
 	id_doc:= (select id_tipo_doc from tipos_doc where tipo_doc like '%'||tip_doc||'%');
-	--control de existencia de persona
-	--puedo insertar una persona con el mismo numero pero distinto tipo de documento
+	
+	
 	--determinar el id de persona
 	if (select max(id_persona) from personas) is null then
 		id_pers:=1;
 	else
 		id_pers:= (select max(id_persona) from personas) + 1;
 	end if;
+	--control de existencia de persona
+	--puedo insertar una persona con el mismo numero pero distinto tipo de documento
 	--insertar persona
 	if(select id_persona from personas where dni=doc and id_tipo_doc=id_doc) is null then
 		insert into personas(id_persona, dni, id_tipo_doc, nombre, apellido)
