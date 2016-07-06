@@ -89,7 +89,7 @@
 					<div class="toggle-container">
 						<!-- form -->
 				<!-- Modificado 28/06/2016 -->
-				<form id="contactForm" action="php/alta.php" method="post">
+				<form id="contactForm" action="alta.php" method="post">
 					<fieldset>
 														
 						<p>
@@ -123,7 +123,7 @@
 						<input type="hidden" value="send-mail.php" name="sendMailUrl" id="sendMailUrl" />
 						<!-- ENDS send mail configuration -->
 						
-						<p><input type="submit" value="Send" name="submit" id="submit" /> <span id="error" class="warning">Message</span></p>
+						<p><input type="submit" value="Enviar" name="submit" id="submit" /> <span id="error" class="warning">Message</span></p>
 					</fieldset>
 					
 				</form>
@@ -139,7 +139,42 @@
 						<img class="menos" src="img/bullets/minus.png">
 					</div>				
 					<div class="toggle-container">
-						Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
+						
+						<form id="contactForm" action="modificar_persona.php" method="post">
+							<fieldset>
+								<p>
+									<label for="tipo_doc">Tipo de Documento</label>
+									<select name="tipo_doc" id="tipo_doc" class="form-poshytip" title="Enter your type of document">
+										<option value="DNI" selected>DNI</option>
+										<option value="PAS">PASAPORTE</option>
+										<option value="LE">LIBRETA DE ENROLAMIENTO</option>
+										<option value="LC">LIBRETA CIVICA</option>
+									</select>
+								</p><br>
+						
+								<p>
+									<label for="num_doc">Numero de Documento</label>
+									<input name="num_doc" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" />
+								</p>
+
+								<p>
+									<label for="opc">Elija la opcion que desea modificar: </label>
+									<select name="opc" id="opc" class="form-poshytip" title="Ingrese la opcion a modificar">
+										<option value="1" selected>Nombre</option>
+										<option value="2">Apellido</option>
+										<option value="3">Numero de Documento</option>
+										<option value="4">Tipo de Documento</option>
+									</select>
+								</p>
+
+								<p>
+									<label for="dato">Dato nuevo</label>
+									<input name="dato" id="dato" type="text" class="form-poshytip" title="Enter your document number" />
+								</p>
+
+								<p><input type="submit" value="Modificar" name="submit" id="submit"> </p>
+							</fieldset>
+						</form>
 					</div>
 					
 					<div class="toggle-trigger">
@@ -150,7 +185,10 @@
 						<img class="menos" src="img/bullets/minus.png">
 					</div>				
 					<div class="toggle-container">
-						Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
+						<form id="contactForm" action="modificar_persona.php" method="post">
+							<fieldset>
+							</fieldset>
+						</form>
 					</div>
 					<div class="toggle-trigger">
 						<img class="mas" src="img/bullets/plus.png">
