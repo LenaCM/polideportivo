@@ -16,7 +16,7 @@ begin
 	if apellido_='' or apellido_ is null then
 		raise exception 'El apellido no puede ser nulo';
 	end if;
-	if doc<0 or doc is null then
+	if doc<1000000 or doc is null then
 		raise exception 'Documento invalido';
 	end if;
 	--determinar id tipo de documento
@@ -69,7 +69,7 @@ $$
 -----------------------------------------------------------------------------------------------------
 --modificar persona segunda version
 -----------------------------------------------------------------------------------------------------
-
+/*
 create or replace function sp_modificacion_persona(doc integer, tipo_d text, dni_mod integer, tipo_d_mod text, nombre_mod varchar , apellido_mod varchar)
 	returns void as
 $$
@@ -89,11 +89,15 @@ begin
 		end if;
 		
 		if dni_mod is not null then
-			update personas
-				set dni=dni_mod
-			where dni=doc and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
-			--cambio el documento para buscar
-			doc=(select dni from personas where dni=dni_mod and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%'));
+			if dni_mod<1000000 then
+				raise exception 'Numero de documento inválido, debe ser mayor a 1000000';
+			else
+				update personas
+					set dni=dni_mod
+				where dni=doc and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
+				--cambio el documento para buscar
+				doc=(select dni from personas where dni=dni_mod and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%'));
+			end if;
 		end if;
 		
 		if tipo_d_mod is not null then
@@ -111,5 +115,5 @@ begin
 end;
 $$
 	language plpgsql;
-
---select sp_modificacion_persona(45676777, 'LE',39574733,'LE', 'Luna', null)
+*/
+--select sp_modificacion_persona(45676777, 'LE',567,'LE', 'Luna', null)
