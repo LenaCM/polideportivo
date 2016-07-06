@@ -42,9 +42,8 @@ $$
 declare
 	id_dc smallint; id_pers integer;
 begin 
-	id_dc := (select busca_id_documento(tipo_d));
-	id_pers :=(select id_persona from empleados inner join personas using(id_persona) where dni=numero and id_tipo_doc=id_dc);
-	
+	id_dc := (select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
+	id_pers :=(select id_persona from personas where dni=numero and id_tipo_doc=id_dc);
 	if id_pers is not null then
 		delete from empleados where id_persona=id_pers;
 	else
@@ -55,7 +54,7 @@ end;
 $$
 	language  plpgsql;
 */
---select sp_baja_empleado('DNI', 7804213);
+--select sp_baja_empleado('LE', 33333333);
 
 -----------------------------------------------------------------------------------------------------
 --MODIFICAR EMPLEADO segunda version
