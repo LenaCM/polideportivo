@@ -1,4 +1,4 @@
-﻿create or replace busca_id_documento(tipo varchar)
+﻿create or replace function busca_id_documento(tipo varchar)
 	returns integer as
 $$
 declare 
