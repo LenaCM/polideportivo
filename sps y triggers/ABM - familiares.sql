@@ -26,6 +26,7 @@ $$
 -----------------------------------------------------------------------------------------------------
 --MODIFICACION familiares
 -----------------------------------------------------------------------------------------------------
+/*
 create or replace function sp_modificacion_familiar(doc integer, tipo_d text, dni_mod integer, tipo_d_mod text, nombre_mod varchar , apellido_mod varchar, dni_empleado_mod integer, tipo_doc_empleado_mod varchar, parentezco_mod varchar)
 	returns void as
 $$
@@ -62,7 +63,27 @@ begin
 end;
 $$
 	language plpgsql;
+*/
 --select sp_modificacion_familiar(1680884, 'LE', null, null, null ,null, 39567456, 'LE', 'HIJO')
 -----------------------------------------------------------------------------------------------------
 --BAJA familiares
 -----------------------------------------------------------------------------------------------------
+create or replace function sp_baja_familiares(tipo_d character varying, numero integer)
+	returns void as
+$$
+declare
+	id_doc smallint; id_persona_fam integer;
+begin
+	id_doc := (select busca_id_documento(tipo_d));
+	id_persona_fam := (select id_persona from familiares inner join personas using(id_persona) where dni=numero and id_tipo_doc=id_doc);
+	if id_persona_fam is null then 
+		raise exception 'El familiar no existe';
+	else 
+		perform sp_baja_persona(numero, tipo_d);
+	end if;
+	
+end;
+$$
+	language plpgsql;
+
+--select sp_baja_familiares('LE', 1680884);
