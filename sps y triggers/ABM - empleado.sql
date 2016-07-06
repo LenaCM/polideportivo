@@ -109,4 +109,4 @@ end;
 $$
 	language plpgsql;
 */
--- select sp_modificar_empleado(33333333, 'LE', null, null, null, null, null, null, null, '15:00:00')
+-- select sp_modificar_empleado(33333333, 'LE', null, null, null, null, 9567.99, 11, '09:00:00', '14:00:00')
