@@ -1,5 +1,7 @@
 ﻿--ABM personas
+-----------------------------------------------------------------------------------------------------
 --ALTA PERSONA
+-----------------------------------------------------------------------------------------------------
 /*
 create or replace function sp_alta_persona(nombre_ text, apellido_ text, doc integer, tip_doc text)
 	returns void as 
@@ -41,45 +43,10 @@ $$
 	language plpgsql;
 */
 --select sp_alta_persona('Lola', 'Mento', 39560791, 'DNI')
---MODIFICICACION PERSONA
-/*
-create or replace function sp_modificacion_persona(doc integer, tipo_d text, que integer, dato text)
-	returns void as
-$$
-begin
-	if dato is null then
-		raise exception 'Dato inválido';
-	end if;
-	if exists(select * from personas where dni=doc and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%')) then
-		if que=1 then
-			update personas
-				set nombre=dato
-			where dni=doc and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
-		elsif que=2 then
-			update personas
-				set apellido=dato
-			where dni=doc and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
-		elsif que=3 then
-			update personas
-				set dni=cast(dato as int4)
-			where dni=doc and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
-		elsif que=4 then
-			update personas
-				set id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||dato||'%')
-			where dni=doc and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
-		end if;
-	else 
-		raise exception 'La persona no existe';
-	end if;
-	exception
-		when unique_violation then
-			raise exception 'El documento ya existe';
-end;
-$$ 
-	language plpgsql;
-*/
 
+-----------------------------------------------------------------------------------------------------
 --BAJA PERSONA
+-----------------------------------------------------------------------------------------------------
 /*
 create or replace function sp_baja_persona(doc integer,tip_doc text)
 	returns void as
@@ -99,3 +66,50 @@ $$
 	language plpgsql;
 */
 --select sp_baja_persona(39560791, 'DNI')
+-----------------------------------------------------------------------------------------------------
+--modificar persona segunda version
+-----------------------------------------------------------------------------------------------------
+
+create or replace function sp_modificacion_persona(doc integer, tipo_d text, dni_mod integer, tipo_d_mod text, nombre_mod varchar , apellido_mod varchar)
+	returns void as
+$$
+begin
+	if exists(select * from personas where dni=doc and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%')) then
+		
+		if nombre_mod is not null then
+			update personas
+				set nombre=nombre_mod
+			where dni=doc and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
+		end if;
+		
+		if apellido_mod is not null then
+			update personas
+				set apellido=apellido_mod
+			where dni=doc and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
+		end if;
+		
+		if dni_mod is not null then
+			update personas
+				set dni=dni_mod
+			where dni=doc and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
+			--cambio el documento para buscar
+			doc=(select dni from personas where dni=dni_mod and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%'));
+		end if;
+		
+		if tipo_d_mod is not null then
+			update personas
+				set id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d_mod||'%')
+			where dni=doc and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
+		end if;
+		
+	else 
+		raise exception 'La persona no existe';
+	end if;
+	exception
+		when unique_violation then
+			raise exception 'El documento ya existe';
+end;
+$$
+	language plpgsql;
+
+--select sp_modificacion_persona(45676777, 'LE',39574733,'LE', 'Luna', null)

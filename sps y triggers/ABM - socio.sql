@@ -1,5 +1,7 @@
 ﻿--ABM socios
+-----------------------------------------------------------------------------------------------------
 --ALTA SOCIO
+-----------------------------------------------------------------------------------------------------
 /*
 create or replace function sp_alta_socio(nombre_ text, apellido_ text, doc integer, tip_doc text)
 	returns void as 
@@ -27,57 +29,102 @@ $$
 	language plpgsql;
 
 */
---select sp_alta_socio('Babi', 'Lu', 12345678, 'DNI')
---MODIFICACION SOCIO
+-----------------------------------------------------------------------------------------------------
+--TRIGGER QUE INSERTA AUTOMATICAMENTE EN SOCIOS ACTIVOS
+-----------------------------------------------------------------------------------------------------
 /*
-create or replace function sp_modificacion_socio(tipo_busq integer, tipo_d text, numero integer, campo integer, dato text)
+create or replace function sp_insertar_sactivo()
+	returns trigger as
+$tg_insertar_sactivo$
+begin
+	insert into socios_activos values(NEW.numero_socio, NEW.id_persona);
+	return NEW;
+end;
+$tg_insertar_sactivo$
+	language plpgsql;
+
+create trigger tg_insertar_sactivos after insert on socios for each row execute procedure sp_insertar_sactivo();
+*/
+
+
+--select sp_alta_socio('Joan', 'Robinson', 7041358, 'LC')
+
+-----------------------------------------------------------------------------------------------------
+--BAJA SOCIO
+-----------------------------------------------------------------------------------------------------
+/*
+create or replace function sp_baja_socio(tipo_busq integer, tipo_d text, numero integer)
+	returns void as
+$$
+declare docu integer; num_soc integer; id_dc smallint;
+begin
+	if tipo_busq=1 then
+		if (select numero_socio from socios where numero_socio=numero) is null then
+			raise exception 'El socio no existe';
+		elsif (select numero_socio from socios_activos where numero_socio=numero) is null then
+			raise exception 'El socio no esta activo';
+		else
+			delete from socios_activos where numero_socio=numero;
+		end if;
+				
+	elsif tipo_busq=2 then
+	
+		id_dc := (select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
+		num_soc := (select numero_socio from socios inner join personas using (id_persona) where dni=numero and id_tipo_doc=id_dc);
+		if num_soc is null then
+			raise exception 'El socio no existe';
+		elsif (select numero_socio from socios_activos where numero_socio=num_soc) is null then
+			raise exception 'El socio no esta activo';
+		else
+			delete from socios_activos where numero_socio=num_soc;
+		end if;
+	end if;	
+end;
+$$
+	language plpgsql;
+	
+*/
+-----------------------------------------------------------------------------------------------------
+--TRIGGER QUE INSERTA AUTOMATICAMENTE EN SOCIOS INACTIVOS
+-----------------------------------------------------------------------------------------------------
+/*
+create or replace function sp_insertar_sinactivo()
+	returns trigger as
+$tg_insertar_sinactivo$
+begin
+	insert into socios_inactivos values(OLD.numero_socio, OLD.id_persona);
+	return OLD;
+end;
+$tg_insertar_sinactivo$
+	language plpgsql;
+
+create trigger tg_insertar_sinactivo after delete on socios_activos for each row execute procedure sp_insertar_sinactivo();
+
+*/
+--select sp_baja_socio(1, null, 4)
+
+-----------------------------------------------------------------------------------------------------
+--MODIFICACION SOCIO segunda version
+-----------------------------------------------------------------------------------------------------
+/*
+create or replace function sp_modificacion_socio(tipo_busq integer, tipo_d text, numero integer, dni_mod integer, tipo_d_mod text, nombre_mod varchar , apellido_mod varchar)
 	returns void as
 $$
 declare docu integer; tipo_dc text;
 begin
 	if tipo_busq=1 then
-		docu:=(select dni from personas p inner join socios s using(id_persona) where s.numero_socio=numero);
-		tipo_dc:=(select tipo_doc from tipos_doc t inner join personas p using(id_tipo_doc) where p.dni=docu);
-		perform sp_modificacion_persona(docu,tipo_dc, campo, dato); 
-	elsif tipo_busq=2 then
-		perform sp_modificacion_persona(numero, tipo_d, campo, dato);
-	end if;	
-end;
-$$
-	language plpgsql;
-*/
---select sp_modificacion_socio(1,'LC',1,1,'Malena')
---select sp_modificacion_persona(12345678, 'LC', 1, 'Noe')
-
---BAJA SOCIO
-/*
-create or replace function sp_baja_socio(tipo_busq integer, tipo_d text, numero integer)
-	returns void as
-$$
-declare docu integer; tipo_dc text; id_pers integer; id_dc smallint;
-begin
-	if tipo_busq=1 then
-		docu:=(select dni from personas p inner join socios s using(id_persona) where s.numero_socio=numero);
-		tipo_dc:=(select tipo_doc from tipos_doc t inner join personas p using(id_tipo_doc) where p.dni=docu);
-		if docu is not null then
-			delete from socios where numero_socio=numero;
-		else 
+		if (select numero_socio from socios where numero_socio=numero) is null then
 			raise exception 'El socio no existe';
-		end if;
-		perform sp_baja_persona(docu,tipo_dc);
-	elsif tipo_busq=2 then
-	
-		id_dc := (select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
-		id_pers :=(select id_persona from personas where dni=numero and id_tipo_doc=id_dc);
-		if id_pers is not null then
-			delete from socios where id_persona=id_pers;
 		else
-			raise exception 'El socio no existe';
+			docu:=(select dni from personas p inner join socios s using(id_persona) where s.numero_socio=numero);
+			tipo_dc:=(select tipo_doc from tipos_doc t inner join personas p using(id_tipo_doc) where p.dni=docu);
+			perform sp_modificacion_persona(docu, tipo_dc, dni_mod, tipo_d_mod, nombre_mod , apellido_mod); 
 		end if;
-		perform sp_baja_persona(numero, tipo_d);
+	elsif tipo_busq=2 then
+		perform sp_modificacion_persona(numero, tipo_d, dni_mod, tipo_d_mod, nombre_mod , apellido_mod);
 	end if;	
 end;
 $$
 	language plpgsql;
 */
---select sp_baja_socio(2, 'DNI', 12345678)
+--select sp_modificacion_socio(2,'LC', 39574733, null, null, 'Clarisa', null)
