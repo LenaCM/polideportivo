@@ -68,6 +68,7 @@ $$
 -----------------------------------------------------------------------------------------------------
 --BAJA familiares
 -----------------------------------------------------------------------------------------------------
+/*
 create or replace function sp_baja_familiares(tipo_d character varying, numero integer)
 	returns void as
 $$
@@ -85,5 +86,5 @@ begin
 end;
 $$
 	language plpgsql;
-
+*/
 --select sp_baja_familiares('LE', 1680884);
