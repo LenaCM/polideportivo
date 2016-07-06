@@ -1,25 +1,39 @@
-<?php 
+<?php
 
 	require('conexion.php');
 
-	$nom = $_POST['name'];
-	$ape = $_POST['Apellido'];
-	$num_doc = $_POST['num_doc'];
-	$tipo = $_POST['Tipo_doc'];
+	$ID = $_GET['ID'];
 
-	$consulta = "SELECT sp_alta_socio('$nom','$ape', $num_doc,'$tipo')";
+	$consulta = "SELECT * FROM socios INNER JOIN personas USING (id_persona) INNER JOIN tipos_doc USING (id_tipo_doc) WHERE id_persona = $ID";
+	$result = pg_query($connect,$consulta);
 
-	echo $consulta;
-
-	if (!$result = pg_query($connect,$consulta)) {
-		echo "Error al dar el Alta";
-	} else {
-		echo "Datos ingresados correctamente<br>";
+	while ($row=pg_fetch_assoc($result)){
+		$name = $row['nombre'];
+		$apellido = $row['apellido'];
+		$doc = $row['dni'];
+		$tipo = $row ['tipo_doc'];
 	}
 
-	$id_pers = pg_query($connect, "SELECT id_persona FROM socios INNER JOIN personas USING (id_persona) INNER JOIN tipos_doc USING (id_tipo_doc) WHERE dni = $num_doc AND tipo_doc = '$tipo'");
+	if (isset ($_POST['Modificar'])) {
+		if (isset($_POST['name']) && !empty($_POST['name']) && 
+			isset($_POST['apellido']) && !empty($_POST['apellido']) &&
+			isset($_POST['num_doc']) && !empty($_POST['num_doc']) &&
+			isset($_POST['tipo_doc']) && !empty($_POST['tipo_doc']))
+		{
+			$name2 = $_POST['name'];
+			$ape2 = $_POST['apellido'];
+			$doc2 = $_POST['num_doc'];
+			$tipo2 = $_POST['tipo_doc'];
 
-	echo $id_pers;
+			pg_query($connect, "SELECT sp_modificacion_persona($doc,'$tipo',$doc2,'$tipo2','$name2','$ape2')");
+
+			header('refresh:1;url=socios.php');
+
+			echo "<p style='color:green';>MODIFICACION REALIZADA CON EXITO</p>";
+		} else {
+			echo "Error";
+		}
+	}
 
 ?>
 
@@ -72,27 +86,32 @@
 		</header>
 
 		<div class="toggle-container">
-			<table><tr>
-				<td>Nombre</td>
-				<td>Apellido</td>
-				<td>Numero de Documento</td>
-				<td>Tipo de Documento</td>
-				<td>Numero de Socio</td>
-				<td>Fecha de Ingreso</td>
-				<td>Estado de Cuenta</td>
-			</tr>
-			<?php
-			$consulta2 = "SELECT * FROM socios INNER JOIN personas USING (id_persona) INNER JOIN tipos_doc USING (id_tipo_doc) WHERE id_persona = $id_pers";
-				$row = pg_query($connect, $consulta2);
-				while ($reg = pg_fetch_assoc($row)){
-					$id_soc = $reg['numero_socio'];
-					$fecha_alta = $reg['fechaingreso'];
-					$estado = $reg['estadocuenta'];
-				}
-				echo "<tr><td>$nom</td><td>$ape</td><td>$num_doc</td><td>$tipo</td><td>$id_soc</td><td>$fecha_alta</td><td>$estado</td></tr>";
-			?>
-
-			</table>
+			<form id="contactForm" method = "POST" action="">
+				<p>
+					<label for="name" >Nombre</label>
+					<input name="name"  id="name" type="text" class="form-poshytip" value="<?php echo $name;?>" title="Enter your name" />
+				</p>
+				
+				<p>
+					<label for="apellido" >Apellido</label>
+					<input name="apellido"  id="apellido" type="text" class="form-poshytip" value="<?php echo $apellido;?>" title="Enter your sub name" value="AMAYA" />
+				</p>
+				
+				<p>
+					<label for="tipo_doc">Tipo de Documento</label>
+					<select name="tipo_doc" id="tipo_doc" class="form-poshytip" value="<?php echo $tipo;?>" title="Enter your type of document">
+						<option value="DNI" selected>DNI</option>
+						<option value="PAS">PASAPORTE</option>
+						<option value="LE">LIBRETA DE ENROLAMIENTO</option>
+						<option value="LC">LIBRETA CIVICA</option>
+					</select>
+				</p><br>
+				<p>
+					<label for="num_doc">Numero de Documento</label>
+					<input name="num_doc" id="num_doc" type="text" class="form-poshytip" value="<?php echo $doc;?>" title="Enter your document number" />
+				</p>
+				<input type="submit" value="Modificar" name="Modificar"/>
+			</form>
 		</div>
 	</div>
 </body>

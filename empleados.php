@@ -1,3 +1,7 @@
+<?php
+	require('conexion.php');
+
+?>
 <!doctype html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -7,14 +11,10 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 	<meta charset="utf-8">
-		
 	<title>Polideportivo</title>
 	<meta name="description" content="">
-	
 	<!-- Mobile viewport optimized: h5bp.com/viewport -->
 	<meta name="viewport" content="width=device-width">
-	
-	
 	<link rel="stylesheet" media="screen" href="css/superfish.css" /> 
 	<link rel="stylesheet" href="css/nivo-slider.css" media="all"  /> 
 	<link rel="stylesheet" href="css/tweet.css" media="all"  />
@@ -32,9 +32,8 @@
 	<!-- WRAPPER -->
 	<div class="wrapper cf">
 	
-	
 		<header class="cf">
-			
+						
 			<div id="logo" class="cf">
 				<a href="index.html" ><img src="img/logo.png" alt="" /></a>
 			</div>
@@ -43,13 +42,13 @@
 			<nav class="cf">
 				<ul id="nav" class="sf-menu">
 					<!-- Nuevo menu para socios? -->
-					<li class="current-menu-item"><a href="index.html"><span>INICIO</span></a></li>
+					<li><a href="index.html"><span>INICIO</span></a></li>
 					<li><a href="socios.php"><span>SOCIOS</span></a></li> 
-					<li><a href="empleados.php"><span>EMPLEADOS</span></a></li>
+					<li class="current-menu-item"><a href="empleados.php"><span>EMPLEADOS</span></a></li>
 					<li><a href="proveedores.php"><span>PROVEEDORES</span></a></li>
 					<li><a href="insumos.php"><span>INSUMOS</span></a></li>
-					<li><a href="contact.html"><span>FLIA EMPLEADOS</span></a></li>
-					<li><a href="contact.html"><span>FLIA SOCIOS</span></a></li>
+					<li><a href="flia_emp.php"><span>FLIA EMPLEADOS</span></a></li>
+					<li><a href="flia_soc.php"><span>FLIA SOCIOS</span></a></li>
 				</ul>
 				<div id="combo-holder"></div>
 			</nav>
@@ -57,65 +56,136 @@
 			
 		</header>
 		
-		
 		<!-- MAIN -->
 		<div role="main" id="main" class="cf">
-		
-			<!-- SLIDER -->
-			<div class="slider-wrapper theme-halftone">
-	            <div id="slider" class="nivoSlider">
-	                <img src="img/dummies/slides/01.jpg" alt=""  />
-	                <img src="img/dummies/slides/02.jpg" alt="" />
-	                <img src="img/dummies/slides/03.jpg" alt="" />
-	            </div>
-	            <div class="slider-left"></div>
-	            <div class="slider-right"></div>
-	        </div>
-			<!-- ENDS SLIDER -->
-			
 			
 			<!-- headline -->
-			<div class="headline">HALFTONE IS STYLISH AND CUTE</div>
+			<div class="headline">Panel Administracion de Empleados</div>
 			<!-- ENDS headline -->
 			
-  			
-			<!-- featured -->
-			<ul class="feature cf">
-				<li>
-					<a href="single.html" class="thumb" >
-						<img src="img/dummies/t1.jpg" alt="Thumbnail" />
-						<div class="img-overlay"><i class="icon-plus-sign"></i></div>
-						<div class="date"><span class="m">JAN</span><span class="d">09</span></div>
-					</a>
-					<a href="single.html"  class="excerpt">Pellentesque habitant morbi tristique senectus</a>
-					<div class="categories"><a href="#" >webdesign, </a><a href="#" >print, </a><a href="#" >photo, </a></div>
-				</li>
+			<!-- Toggle opciones -->
+				<div class="page-content entry-content feature cf">
 				
-				<li>
-					<a href="single.html" class="thumb" >
-						<img src="img/dummies/t2.jpg" alt="Thumbnail" />
-						<div class="img-overlay"><i class="icon-plus-sign"></i></div>
-						<div class="date"><span class="m">JAN</span><span class="d">09</span></div>
-					</a>
-					<a href="single.html"  class="excerpt">Pellentesque habitant morbi tristique senectus</a>
-					<div class="categories"><a href="#" >webdesign, </a><a href="#" >print, </a><a href="#" >photo, </a></div>
-				</li>
-				
-				<li>
-					<a href="single.html" class="thumb" >
-						<img src="img/dummies/t3.jpg" alt="Thumbnail" />
-						<div class="img-overlay"><i class="icon-plus-sign"></i></div>
-						<div class="date"><span class="m">JAN</span><span class="d">09</span></div>
-					</a>
-					<a href="single.html"  class="excerpt">Pellentesque habitant morbi tristique senectus</a>
-					<div class="categories"><a href="#" >webdesign, </a><a href="#" >print, </a><a href="#" >photo, </a></div>
-				</li>
-			</ul>
+					<h2 class="heading" style="text-align:center;">Opciones</h2>
+
+					<div class="toggle-trigger">
+						<img class="mas" src="img/bullets/plus.png">
+						<img class="menos" src="img/bullets/minus.png">
+						Dar de alta un Nuevo Empleado
+						<img class="mas" src="img/bullets/plus.png">
+						<img class="menos" src="img/bullets/minus.png">
+					</div>		
+					<div class="toggle-container">
+						<!-- form -->
+				<!-- Modificado 28/06/2016 -->
+				<form id="contactForm" action="alta.php" method="post">
+					<fieldset>				
+						<p>
+							<label for="name" >Nombre</label>
+							<input name="name"  id="name" type="text" class="form-poshytip" title="Enter your name" />
+						</p>
+						
+						<p>
+							<label for="apellido" >Apellido</label>
+							<input name="Apellido"  id="apellido" type="text" class="form-poshytip" title="Enter your sub name" />
+						</p>
+						
+						<p>
+							<label for="tipo_doc">Tipo de Documento</label>
+							<select name="Tipo_doc" id="tipo_doc" class="form-poshytip" title="Enter your type of document">
+								<option value="DNI" selected>DNI</option>
+								<option value="PAS">PASAPORTE</option>
+								<option value="LE">LIBRETA DE ENROLAMIENTO</option>
+								<option value="LC">LIBRETA CIVICA</option>
+							</select>
+						</p><br>
+						
+						<p>
+							<label for="num_doc">Numero de Documento</label>
+							<input name="num_doc" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" />
+						</p>
+						
+						<!-- send mail configuration -->
+						<input type="hidden" value="your@email.com" name="to" id="to" />
+						<input type="hidden" value="ENter the subject here" name="subject" id="subject" />
+						<input type="hidden" value="send-mail.php" name="sendMailUrl" id="sendMailUrl" />
+						<!-- ENDS send mail configuration -->
+						
+						<p><input type="submit" value="Enviar" name="submit" id="submit" /></p>
+					</fieldset>
+					
+				</form>
+				<!-- ENDS form -->
+					</div>
+										
+					<div class="toggle-trigger">
+						<img class="mas" src="img/bullets/plus.png">
+						<img class="menos" src="img/bullets/minus.png">
+						Modificar datos de un Empleado
+						<img class="mas" src="img/bullets/plus.png">
+						<img class="menos" src="img/bullets/minus.png">
+					</div>				
+					<div class="toggle-container">
+
+						<?php
+
+							$consulta = "SELECT * from socios s inner join personas p using(id_persona)";
+							$result = pg_query($connect, $consulta);
+
+							echo "<table><tr><td>Número</td><td>Nombres</td><td>Apellidos</td><td>Modificar</td></tr>";
+							while($row = pg_fetch_assoc($result)){
+								echo "<tr><td>".$row['numero_socio']."</td><td>".$row['nombre']."</td><td>".$row['apellido']."</td><td><a href=modificar.php?ID=".$row['numero_socio'].">Modificar</a></tr>";
+							}
+							echo "</table>";
+
+						?>
+						
+					</div>
+					
+					<div class="toggle-trigger">
+						<img class="mas" src="img/bullets/plus.png">
+						<img class="menos" src="img/bullets/minus.png">
+						Dar de baja a un Empleado
+						<img class="mas" src="img/bullets/plus.png">
+						<img class="menos" src="img/bullets/minus.png">
+					</div>				
+					<div class="toggle-container">
+						<form id="contactForm" action="modificar_persona.php" method="post">
+							<fieldset>
+							</fieldset>
+						</form>
+					</div>
+					<div class="toggle-trigger">
+						<img class="mas" src="img/bullets/plus.png">
+						<img class="menos" src="img/bullets/minus.png">
+						Buscar un Empleado
+						<img class="mas" src="img/bullets/plus.png">
+						<img class="menos" src="img/bullets/minus.png">
+					</div>				
+					<div class="toggle-container">
+						<table class="hol">
+								<tr>
+									<th>Numero de Socio</th>
+									<th>Nombres</th>
+									<th>Apellidos</th>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td>Malena</td>
+									<td>Corrales Moyano</td>
+								</tr>
+							</table>
+					</div>
+					<!-- ENDS Toggle opciones -->
+				</div>
+			
 			<!-- ENDS featured -->
 			
 		</div>
+
 		<!-- ENDS MAIN -->
 		
+
 		<footer>
 		
 			<!-- text message -->
