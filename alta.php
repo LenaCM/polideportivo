@@ -7,7 +7,7 @@
 	$num_doc = $_POST['num_doc'];
 	$tipo = $_POST['Tipo_doc'];
 
-	$consulta = "SELECT sp_alta_persona('$nom','$ape', $num_doc,'$tipo')";
+	$consulta = "SELECT sp_alta_socio('$nom','$ape', $num_doc,'$tipo')";
 
 	echo $consulta;
 
