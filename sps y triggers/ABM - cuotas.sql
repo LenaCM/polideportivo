@@ -219,9 +219,20 @@ $$
 create or replace function sp_baja_deudores()
 	returns trigger as
 $tg_baja_deudores$
+declare 
+	debe smallint;
 begin
-	if (select count(pagada) from cuotas where numero_socio=NEW.numero_socio and pagada=false)=12 and (NEW.numero_socio in (select numero_socio from socios_activos))  then
+	debe := (select count(pagada) from cuotas where numero_socio=NEW.numero_socio and pagada=false);
+	
+	if debe=12 and (NEW.numero_socio in (select numero_socio from socios_activos))  then
 		perform sp_baja_socio(1, null, NEW.numero_socio);
+		update socios 
+		set estadocuenta='INACTIVO'
+		where numero_socio=NEW.numero_socio;
+	else
+		update socios
+		set estadocuenta='Adeuda '||debe||' cuotas'
+		where numero_socio=NEW.numero_socio;
 	end if; 
 	return NEW;
 end;
