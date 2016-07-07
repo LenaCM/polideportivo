@@ -54,7 +54,7 @@ end;
 $$
 language plpgsql;
 */
---select sp_alta_alquiler(2, 'LC', 39567455, 'PISCINA 1', '09/07/2016', '07:00:00', 234.45,false)
+--select sp_alta_alquiler(1, null, 2, 'CANCHA DE FUTBOL 11', '2016-07-07', '12:00:00', 234.45,false)
 -----------------------------------------------------------------------------------------------------
 --ALTA alquiler no socio
 -----------------------------------------------------------------------------------------------------
@@ -225,3 +225,53 @@ $$
 	language plpgsql;
 */
 --select sp_modificacion_alquiler('LE', 16509233, 'PISCINA 2', '2016-07-20', '13:00:00', null, null, true)
+
+-----------------------------------------------------------------------------------------------------
+--BAJA alquiler  socio
+-----------------------------------------------------------------------------------------------------
+create or replace function sp_baja_alquiler(tipo_busq integer, tipo_d varchar, numero integer, instal varchar, fecha_al date, hora_al time without time zone)
+	returns void as
+$$
+declare
+	num_soc integer; id_pers integer; id_inst smallint;
+begin
+	if tipo_busq=1 then
+		if (select numero_socio from socios where numero_socio=numero) is null then
+			raise exception 'El socio no existe';
+		elsif (select numero_socio from socios_activos where numero_socio=numero) is null then
+			raise exception 'El socio no esta activo';
+		else
+			num_soc:=numero;
+			id_pers = (select id_persona from socios where numero_socio=num_soc);
+		end if;
+	else
+		num_soc := (select id_persona from socios inner join personas using(id_persona) where dni=numero and id_tipo_doc=(select busca_id_documento(tipo_d)));
+		if num_soc is null then
+			raise exception 'El socio no existe';
+		elsif (select num_soc from socios_activos where numero_socio=num_soc) is null then
+			raise exception 'El socio no esta activo';
+		else
+			id_pers = (select id_persona from socios where numero_socio=num_soc);
+		end if;
+	end if;
+	
+	id_inst := (select id_instalacion from instalaciones where nombre_instalacion like '%'||instal||'%');
+	
+	if(select id_instalacion from socios_alquilan where numero_socio=num_soc and fecha=fecha_al and hora=hora_al and id_instalacion=id_inst) is null then
+		raise exception 'No hay registros del alquiler';
+	elsif  (extract(hour from hora_al)-extract(hour from current_time))<5 then
+		raise exception 'Solo se puede cancelar el turno 5 horas antes del mismo';
+	else
+		delete from socios_alquilan
+		where id_instalacion=id_inst and numero_socio=num_soc and fecha=fecha_al and hora=hora_al and id_persona=id_pers;
+	end if;
+		
+end;
+$$
+	language plpgsql;
+
+--select sp_baja_alquiler(2, 'LC',39567455, 'PISCINA 1', '2016-07-08', '08:00:00');
+-----------------------------------------------------------------------------------------------------
+--BAJA alquiler no socio
+-----------------------------------------------------------------------------------------------------
+-- no se podra dar de baja un alquiler de no socio, si no va pierde la senia
