@@ -14,5 +14,5 @@ end;
 $tg_controla_sueldo$
 	language plpgsql;
 
-create trigger tg_controla_sueldo before update of sueldo ON empleados for each row (when
-NEW.sueldo>OLD.sueldo) execute procedure sp_control_sueldos()
+create trigger tg_controla_sueldo before update of salario ON empleados for each row when
+(NEW.salario>OLD.salario) execute procedure sp_control_sueldos()
