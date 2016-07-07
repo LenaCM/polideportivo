@@ -1,8 +1,9 @@
 ﻿--ABM Insumos:
 
 --Alta
-create or replace function sp_alta_insumos(nombre_ text, stock_ integer)
-	returns void as $$
+create or replace function sp_alta_insumos(nombre_ varchar, stock_ integer, tipo integer)
+	returns void as 
+$$
 declare
 	id_ins integer;
 begin
@@ -19,65 +20,81 @@ begin
 	else
 		id_ins:= (select max(id_insumo) from insumos) + 1;
 	end if;
-	--control de existencia del proveedor
+	--control de existencia del insumo
 	if (select id_insumo from insumos where nombre like '%' || nombre_ || '%') is null then
 		INSERT INTO insumos(id_insumo, nombre, stock)
 			VALUES (id_ins, nombre_, stock_);
 	else
 		raise exception 'El Insumo ya existe';
 	end if;
+	if tipo=1 then
+		insert into insumos_administrativos values (id_ins);
+	else 
+		insert into insumos_no_administrativos values (id_ins);
+	end if;
 end;
 $$language plpgsql;
 
 
 --prueba para dar de alta:
-select sp_alta_insumos('Escobas', 3);
+select sp_alta_insumos('Detergente', 10, 2);
 
 -----------------------------------------------------------------------------------------------------------------
 
 --modificar 
 
-create or replace function sp_modificacion_insumos(idins integer, que integer, dato text)
+create or replace function sp_modificacion_insumos(nombre_ins varchar, nombre_mod varchar, stock_mod integer)
 	returns void as
 $$
+declare 
+	id_ins integer;
 begin
-	if dato is null then
-		raise exception 'Dato inválido';
-	end if;
-	if exists(select * from insumos where id_insumo=idins) then
-		if que=1 then
-			update insumos
-				set nombre=dato
-			where id_insumo=idins;
-		elsif que=2 then
-			update insumos
-				set stock=cast(dato as int4)
-			where id_insumo=idins;
-		end if;
-	else 
+	id_ins := (select id_insumo from insumos where nombre like '%'||nombre_ins||'%');
+	if id_ins is null then
 		raise exception 'El insumo no existe';
+	else
+		if nombre_mod is not null then
+			if nombre_mod='' then
+				raise exception 'Nombre invalido';
+			else
+				update insumos 
+				set nombre=nombre_mod
+				where id_insumo=id_ins;
+			end if;
+		end if;
+		if stock_mod is not null then
+			if stock_mod<0 then
+				raise exception 'El stock no puede ser negativo';
+			else
+				update insumos 
+				set stock=stock_mod
+				where id_insumo=id_ins;
+			end if;
+		end if;
 	end if;
 end;
 $$language plpgsql;
 
 --prueba
-select sp_modificacion_insumos(2, 2, '32');
+select sp_modificacion_insumos('Escobas', null, 32);
 
 -----------------------------------------------------------------------------------------------------------------
 --Baja
-create or replace function sp_baja_insumos(idins integer)
+create or replace function sp_baja_insumos(nombre_ins varchar)
 	returns void as
 $$
 declare
+	id_ins integer;
 begin
-	if (select id_insumo from insumos where id_insumo=idins) is null then
+	id_ins := (select id_insumo from insumos where nombre like '%'||nombre_ins||'%');
+	if id_ins is null then
 		raise exception 'El insumo no existe';
 	else
 		delete from insumos
-		where id_insumo=idins;
+		where id_insumo=id_ins;
 	end if;
 end;
 $$
 language plpgsql;
 
-select sp_baja_insumos(2)
+select sp_baja_insumos('Detergente');
