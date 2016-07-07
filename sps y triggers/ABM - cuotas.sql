@@ -122,6 +122,94 @@ $$
 -----------------------------------------------------------------------------------------------------
 --MODIFICACION cuotas
 -----------------------------------------------------------------------------------------------------
+create or replace function sp_modificacion_cuotas(tipo_busq integer, tipo_d text, numero integer, fecha_c date,monto numeric, pago boolean, descu numeric)
+	returns void as 
+$$
+declare 
+	docu integer; tipo_dc text; num_soc integer; familiares smallint;
+begin
+	if tipo_busq=1 then
+		if (select numero_socio from socios where numero_socio=numero) is null then
+			raise exception 'El socio no existe';
+		elsif (select numero_socio from socios_activos where numero_socio=numero) is null then
+			raise exception 'El socio no esta activo';
+		else
+			num_soc := numero;
+		end if;
+	elsif tipo_busq=2 then
+		num_soc := (select numero_socio from socios inner join personas using(id_persona) where dni=numero and id_tipo_doc=(select busca_id_documento(tipo_d)));
+		if  num_soc is null then
+			raise exception 'El socio no existe';
+		
+		elsif (select numero_socio from socios_activos where numero_socio=num_soc)is null then
+			raise exception 'El socio no esta activo';		
+		end if;
+	end if;	
+	
+	if fecha_c is not null then
+		
+		if (select pagada from cuotas where numero_socio=num_soc and fecha=fecha_c) is true then
+			raise exception 'La cuota ya ha sido pagada no puede ser modificada';
+		else
+			if monto is not null then
+				if monto<=0 then
+					raise exception 'Monto de la cuota invalido';
+				end if;
+				update cuotas
+				set precio=monto
+				where numero_socio=num_soc and fecha=fecha_c;
+			end if;
+			if descu is not null then
+				if descu<0 then
+					raise exception 'Monto de la cuota invalido';
+				end if;
+				familiares := (select count(numero_socio_fam) from familiar_socio where numero_socio=num_soc);
+				if familiares<3 then
+					descu := 0;
+					raise notice 'El socio no tiene los familiares asociados necesarios para aplicar descuento';
+				end if;
+				update cuotas
+				set descuento=descu
+				where numero_socio=num_soc and fecha=fecha_c;
+			end if;
+			if pago is not null then
+				update cuotas
+				set pagada=pago
+				where numero_socio=num_soc and fecha=fecha_c;
+			end if;
+		end if;
+	else
+		if monto is not null then
+			if monto<=0 then
+				raise exception 'Monto de la cuota invalido';
+			end if;
+			update cuotas
+			set precio=monto
+			where numero_socio=num_soc and pagada=false;
+		end if;
+		if descu is not null then
+			if descu<0 then
+				raise exception 'Monto de la cuota invalido';
+			end if;
+			familiares := (select count(numero_socio_fam) from familiar_socio where numero_socio=num_soc);
+			if familiares<3 then
+				descu := 0;
+				raise notice 'El socio no tiene los familiares asociados necesarios para aplicar descuento';
+			end if;
+			update cuotas
+			set descuento=descu
+			where numero_socio=num_soc and pagada=false;
+		end if;
+		if pago is not null then
+			update cuotas
+			set pagada=pago
+			where numero_socio=num_soc and pagada=false;
+		end if;
+	end if;
+end;
+$$
+	language plpgsql;
+--select sp_modificacion_cuotas(2,'LE',39574733,null, 300.00, true, null)
 -----------------------------------------------------------------------------------------------------
 --BAJA cuotas
 -----------------------------------------------------------------------------------------------------
