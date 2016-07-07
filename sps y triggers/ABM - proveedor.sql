@@ -37,7 +37,7 @@ $BODY$
  COST 100;
 
 --prueba
-select sp_alta_proveedor('CAPO', 'calle 1111', '1234567');
+select sp_alta_proveedor('EL CHANGUITO', 'calle 2345', '3676757');
 
 
 
@@ -45,46 +45,63 @@ select sp_alta_proveedor('CAPO', 'calle 1111', '1234567');
 
 --modificar
 
-CREATE OR REPLACE FUNCTION sp_modificacion_proveedor(idprov integer, que integer, dato text)
+CREATE OR REPLACE FUNCTION sp_modificacion_proveedor(nombre_prov varchar, nombre_mod varchar, telefono_mod varchar, direccion_mod varchar)
   RETURNS void AS
 $BODY$
+declare
+	idprov smallint;
 begin
-	if dato is null then
-		raise exception 'Dato inválido';
-	end if;
-	if exists(select * from proveedores where id_proveedor=idprov) then
-		if que=1 then
-			update proveedores
-				set nombre=dato
-			where id_proveedor=idprov;
-		elsif que=2 then
-			update proveedores
-				set direccion=dato
-			where id_proveedor=idprov;
-		elsif que=3 then
-			update proveedores
-				set telefono=dato
-			where id_proveedor=idprov;
+	idprov := (select id_proveedor from proveedores where nombre like '%'||nombre_prov||'%');
+	if idprov is not null then 
+		if nombre_mod is not null then
+			if nombre_mod='' then
+				raise exception 'Nombre invalido';
+			else
+				update proveedores
+				set nombre=nombre_mod
+				where id_proveedor=idprov;
+			end if;
 		end if;
-	else 
-		raise exception 'La proveedor no existe';
-	end if;
+		if telefono_mod is not null then
+			if telefono_mod='' then
+				raise exception 'Numero de telefono invalid0';
+			else
+				update proveedores
+				set telefono=telefono_mod
+				where id_proveedor=idprov;
+			end if;
+		end if;
+		if direccion_mod is not null then
+			if direccion_mod='' then
+				raise exception 'Direccion invalida';
+			else
+				update proveedores
+				set direccion=direccion_mod
+				where id_proveedor=idprov;
+			end if;
+		end if;
+	else
+		raise exception 'El proveedor no existe';
+	end if;	
 end;
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
 
 
---select sp_modificacion_proveedor(1, 2, 'direccion cambiada 1234')
+--select sp_modificacion_proveedor('CAPO','CAPOS', null, 'direccion cambiada 1234')
 
 -----------------------------------------------------------------------------------------------------------------
 --Baja
-CREATE OR REPLACE FUNCTION sp_baja_proveedor(idprov integer)
+CREATE OR REPLACE FUNCTION sp_baja_proveedor(nombre_prov varchar)
   RETURNS void AS
 $BODY$
 declare
+	idprov smallint;
 begin
-	if (select id_proveedor from proveedores where id_proveedor=idprov) is null then
+	idprov := (select id_proveedor from proveedores where nombre like '%'||nombre_prov||'%');
+	
+	if idprov is null then
 		raise exception 'El proveedor no existe';
 	else
 		delete from proveedores
@@ -97,4 +114,4 @@ $BODY$
 
   
 --prueba:
-select sp_baja_proveedor(2);
+select sp_baja_proveedor('CAPOS');

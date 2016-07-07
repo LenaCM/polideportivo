@@ -259,7 +259,7 @@ begin
 	
 	if(select id_instalacion from socios_alquilan where numero_socio=num_soc and fecha=fecha_al and hora=hora_al and id_instalacion=id_inst) is null then
 		raise exception 'No hay registros del alquiler';
-	elsif  (extract(hour from hora_al)-extract(hour from current_time))<5 then
+	elsif (extract(day from fecha_al))-(extract(day from current_date))=0 and (extract(hour from hora_al)-extract(hour from current_time))<5then
 		raise exception 'Solo se puede cancelar el turno 5 horas antes del mismo';
 	else
 		delete from socios_alquilan
@@ -270,7 +270,7 @@ end;
 $$
 	language plpgsql;
 
---select sp_baja_alquiler(2, 'LC',39567455, 'PISCINA 1', '2016-07-08', '08:00:00');
+--select sp_baja_alquiler(1, null,2, 'CANCHA DE FUTBOL 11', '2016-07-07', '12:00:00');
 -----------------------------------------------------------------------------------------------------
 --BAJA alquiler no socio
 -----------------------------------------------------------------------------------------------------
