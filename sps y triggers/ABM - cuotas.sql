@@ -19,7 +19,7 @@ begin
 	if tipo_busq=1 then
 		if (select numero_socio from socios where numero_socio=numero) is null then
 			raise exception 'El socio no existe';
-		elseif (select numero_socio from socios_activos where numero_socio=numero) is null then
+		elsif (select numero_socio from socios_activos where numero_socio=numero) is null then
 			raise exception 'El socio no esta activo';
 		else
 			fecha_ultima := (select fecha from cuotas where numero_socio=numero order by fecha desc limit 1);
@@ -47,7 +47,7 @@ begin
 		num_soc := (select id_persona from socios inner join personas using(id_persona) where dni=numero and id_tipo_doc=(select busca_id_documento(tipo_d)));
 		if num_soc is null then
 			raise exception 'El socio no existe';
-		elseif (select num_soc from socios_activos where numero_socio=num_soc) is null then
+		elsif (select num_soc from socios_activos where numero_socio=num_soc) is null then
 			raise exception 'El socio no esta activo';
 		else
 			fecha_ultima := (select fecha from cuotas where numero_socio=numero order by fecha desc limit 1);
