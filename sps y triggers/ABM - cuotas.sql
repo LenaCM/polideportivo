@@ -122,6 +122,7 @@ $$
 -----------------------------------------------------------------------------------------------------
 --MODIFICACION cuotas
 -----------------------------------------------------------------------------------------------------
+/*
 create or replace function sp_modificacion_cuotas(tipo_busq integer, tipo_d text, numero integer, fecha_c date,monto numeric, pago boolean, descu numeric)
 	returns void as 
 $$
@@ -209,7 +210,26 @@ begin
 end;
 $$
 	language plpgsql;
+	*/
 --select sp_modificacion_cuotas(2,'LE',39574733,null, 300.00, true, null)
+-----------------------------------------------------------------------------------------------------
+--TRIGGER PARA BAJA AUTOMATICA DE SOCIOS DEUDORES 
+-----------------------------------------------------------------------------------------------------
+/*
+create or replace function sp_baja_deudores()
+	returns trigger as
+$tg_baja_deudores$
+begin
+	if (select count(pagada) from cuotas where numero_socio=NEW.numero_socio and pagada=false)=12 and (NEW.numero_socio in (select numero_socio from socios_activos))  then
+		perform sp_baja_socio(1, null, NEW.numero_socio);
+	end if; 
+	return NEW;
+end;
+$tg_baja_deudores$
+	language plpgsql;
+
+create trigger tg_baja_deudores before insert on cuotas for each row execute procedure sp_baja_deudores();
+*/
 -----------------------------------------------------------------------------------------------------
 --BAJA cuotas
 -----------------------------------------------------------------------------------------------------
