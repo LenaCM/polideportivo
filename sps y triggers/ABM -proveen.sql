@@ -19,6 +19,10 @@ begin
 		raise exception 'El proveedor no existe';
 	end if;
 	insert into proveen values(idprov, id_ins);
+	exception
+		when unique_violation then
+			raise exception 'Ya se establecio el proveedor para el producto';
+			
 end;
 $$
 	language plpgsql;
@@ -51,3 +55,5 @@ begin
 end;
 $$
 	language plpgsql;
+
+--select sp_baja_proveen('PAPELERA DEL SUR', 'Resma de papel A4');
