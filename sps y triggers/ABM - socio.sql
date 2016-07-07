@@ -123,7 +123,7 @@ begin
 			perform sp_modificacion_persona(docu, tipo_dc, dni_mod, tipo_d_mod, nombre_mod , apellido_mod); 
 		end if;
 	elsif tipo_busq=2 then
-		if (select personas.id_persona from personas inner join socios using (id_persona) inner join socios_activos using(numero_socio) where dni=numero and id_tipo_doc=(select busca_id_documento('tipo_doc'))) is null then
+		if (select personas.id_persona from personas inner join socios using (id_persona) inner join socios_activos using(numero_socio) where dni=numero and id_tipo_doc=(select busca_id_documento(tipo_dc))) is null then
 			raise exception 'El socio no esta activo';
 		else
 			perform sp_modificacion_persona(numero, tipo_d, dni_mod, tipo_d_mod, nombre_mod , apellido_mod);
