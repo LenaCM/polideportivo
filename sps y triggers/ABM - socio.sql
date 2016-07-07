@@ -115,16 +115,22 @@ begin
 	if tipo_busq=1 then
 		if (select numero_socio from socios where numero_socio=numero) is null then
 			raise exception 'El socio no existe';
+		elseif (select numero_socio from socios_activos where numero_socio=numero) is null then
+			raise exception 'El socio no esta activo';
 		else
 			docu:=(select dni from personas p inner join socios s using(id_persona) where s.numero_socio=numero);
 			tipo_dc:=(select tipo_doc from tipos_doc t inner join personas p using(id_tipo_doc) where p.dni=docu);
 			perform sp_modificacion_persona(docu, tipo_dc, dni_mod, tipo_d_mod, nombre_mod , apellido_mod); 
 		end if;
 	elsif tipo_busq=2 then
-		perform sp_modificacion_persona(numero, tipo_d, dni_mod, tipo_d_mod, nombre_mod , apellido_mod);
+		if (select personas.id_persona from personas inner join socios using (id_persona) inner join socios_activos using(numero_socio) where dni=numero and id_tipo_doc=(select busca_id_documento('tipo_doc'))) is null then
+			raise exception 'El socio no esta activo';
+		else
+			perform sp_modificacion_persona(numero, tipo_d, dni_mod, tipo_d_mod, nombre_mod , apellido_mod);
+		end if;
 	end if;	
 end;
 $$
 	language plpgsql;
 */
---select sp_modificacion_socio(2,'LC', 39574733, null, null, 'Clarisa', null)
+--select sp_modificacion_socio(2,'LC', 7041358, null, null, 'Clarisa', null)
