@@ -47,7 +47,7 @@ create trigger tg_insertar_sactivos after insert on socios for each row execute 
 */
 
 
---select sp_alta_socio('Joan', 'Robinson', 7041358, 'LC')
+--select sp_alta_socio('Lola', 'Mento', 39560791, 'DNI')
 
 -----------------------------------------------------------------------------------------------------
 --BAJA SOCIO
