@@ -3,6 +3,7 @@
 	require('conexion.php');
 
 	$ID = $_GET['ID'];
+	$tipo_busq = $_GET['tipo_busq'];
 
 	$consulta = "SELECT * FROM socios INNER JOIN personas USING (id_persona) INNER JOIN tipos_doc USING (id_tipo_doc) WHERE id_persona = $ID";
 	$result = pg_query($connect,$consulta);
@@ -18,18 +19,29 @@
 		if (isset($_POST['name']) && !empty($_POST['name']) && 
 			isset($_POST['apellido']) && !empty($_POST['apellido']) &&
 			isset($_POST['num_doc']) && !empty($_POST['num_doc']) &&
-			isset($_POST['tipo_doc']) && !empty($_POST['tipo_doc']))
+			isset($_POST['tipo_doc']) && !empty($_POST['tipo_doc']) &&
+			isset($ID) && !empty($ID) && isset($tipo_busq) && !empty($tipo_busq))
 		{
 			$name2 = $_POST['name'];
 			$ape2 = $_POST['apellido'];
 			$doc2 = $_POST['num_doc'];
 			$tipo2 = $_POST['tipo_doc'];
 
-			pg_query($connect, "SELECT sp_modificacion_persona($doc,'$tipo',$doc2,'$tipo2','$name2','$ape2')");
-
-			header('refresh:1;url=socios.php');
-
-			echo "<p style='color:green';>MODIFICACION REALIZADA CON EXITO</p>";
+			if ($tipo_busq == 1) {
+				if(pg_query($connect, "SELECT sp_modificacion_socio($tipo_busq,NULL,$ID,$doc2,'$tipo2','$name2','$ape2')")){
+					header('refresh:1;url=socios.php');
+					echo "<p style='color:green';>MODIFICACION REALIZADA CON EXITO</p>";
+				} else {
+					echo "<br>El Socio No Esta Activo";
+				} 
+			} else {
+				if(pg_query($connect, "SELECT sp_modificacion_socio($tipo_busq,'$tipo',$doc2,$doc2,'$tipo2','$name2','$ape2')")){
+					header('refresh:1;url=socios.php');
+					echo "<p style='color:green';>MODIFICACION REALIZADA CON EXITO</p>";
+				} else {
+					echo "<br>El Socio No Esta Activo";
+				}
+			}
 		} else {
 			echo "Error";
 		}

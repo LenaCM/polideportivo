@@ -20,7 +20,20 @@
 	<link rel="stylesheet" href="css/tweet.css" media="all"  />
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" media="all" href="css/lessframework.css"/>
-	
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript">
+		function mostrar(id){
+			$("id").show();
+			if (id == "num_dni") {
+				$("#tipo_y_dni").show();
+				$("#num_soc").hide();
+			};
+			if (id == "num_soc") {
+				$("#tipo_y_dni").hide();
+				$("#num_soc").show();
+			};
+		}
+	</script>
 	
 	<!-- All JavaScript at the bottom, except this Modernizr build.
 	   Modernizr enables HTML5 elements & feature detects for optimal performance.
@@ -47,8 +60,10 @@
 					<li class="current-menu-item"><a href="empleados.php"><span>EMPLEADOS</span></a></li>
 					<li><a href="proveedores.php"><span>PROVEEDORES</span></a></li>
 					<li><a href="insumos.php"><span>INSUMOS</span></a></li>
-					<li><a href="flia_emp.php"><span>FLIA EMPLEADOS</span></a></li>
-					<li><a href="flia_soc.php"><span>FLIA SOCIOS</span></a></li>
+					<li><a href="flia_emp.php"><span>COMISION DIRECTIVA</span></a></li>
+					<!--<li><a href="flia_soc.php"><span>FLIA SOCIOS</span></a></li>-->
+					<li><a href="cuotas.php"><span>CUOTAS</span></a></li>
+					<li><a href="alquileres.php"><span>ALQUILERES</span></a></li>
 				</ul>
 				<div id="combo-holder"></div>
 			</nav>
@@ -78,7 +93,7 @@
 					<div class="toggle-container">
 						<!-- form -->
 				<!-- Modificado 28/06/2016 -->
-				<form id="contactForm" action="alta.php" method="post">
+				<form id="contactForm" action="alta_empleados.php" method="post">
 					<fieldset>				
 						<p>
 							<label for="name" >Nombre</label>
@@ -87,12 +102,12 @@
 						
 						<p>
 							<label for="apellido" >Apellido</label>
-							<input name="Apellido"  id="apellido" type="text" class="form-poshytip" title="Enter your sub name" />
+							<input name="apellido"  id="apellido" type="text" class="form-poshytip" title="Enter your sub name" />
 						</p>
 						
 						<p>
 							<label for="tipo_doc">Tipo de Documento</label>
-							<select name="Tipo_doc" id="tipo_doc" class="form-poshytip" title="Enter your type of document">
+							<select name="tipo_doc" id="tipo_doc" class="form-poshytip" title="Enter your type of document">
 								<option value="DNI" selected>DNI</option>
 								<option value="PAS">PASAPORTE</option>
 								<option value="LE">LIBRETA DE ENROLAMIENTO</option>
@@ -104,14 +119,29 @@
 							<label for="num_doc">Numero de Documento</label>
 							<input name="num_doc" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" />
 						</p>
-						
+
+						<p>
+							<label for="sueldo">Sueldo</label><br>
+							<input name="sueldo" id="sueldo" type="text" class="form-poshytip" title="Enter your document number" />
+						</p>
+						<p>
+							<label for="antiguedad">Antiguedad</label>
+							<input name="antiguedad" id="antiguedad" type="text" class="form-poshytip" title="Enter your document number" />
+						</p>
+							<label for="ho_ent">Hora de entrada</label>
+							<input name="ho_ent" id="ho_ent" type="time" class="form-poshytip" title="Enter your document number" />
+						</P><br>
+						<p>
+							<label for="ho_sal">Hora de salida</label>
+							<input name="ho_sal" id="ho_sal" type="time" class="form-poshytip" title="Enter your document number" />
+						</p>
 						<!-- send mail configuration -->
 						<input type="hidden" value="your@email.com" name="to" id="to" />
 						<input type="hidden" value="ENter the subject here" name="subject" id="subject" />
 						<input type="hidden" value="send-mail.php" name="sendMailUrl" id="sendMailUrl" />
 						<!-- ENDS send mail configuration -->
 						
-						<p><input type="submit" value="Enviar" name="submit" id="submit" /></p>
+						<p><input type="submit" value="ENVIAR" name="submit" id="submit" /></p>
 					</fieldset>
 					
 				</form>
@@ -121,60 +151,46 @@
 					<div class="toggle-trigger">
 						<img class="mas" src="img/bullets/plus.png">
 						<img class="menos" src="img/bullets/minus.png">
-						Modificar datos de un Empleado
+						Buscar y Modificar o Borrar un Empleado
 						<img class="mas" src="img/bullets/plus.png">
 						<img class="menos" src="img/bullets/minus.png">
 					</div>				
 					<div class="toggle-container">
-
+						<div id="tipo_y_dni">
+							<form id="contactForm" action="buscar_empleado_modificar.php" method="post">
+								<fieldset>
+									<p>
+										<label for="num_doc">Numero de Documento</label>
+										<input name="num_doc" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" />
+									</p>
+									<p>
+										<label for="tipo_doc">Tipo de Documento</label>
+										<select name="tipo_doc" id="tipo_doc" class="form-poshytip" title="Enter your type of document">
+											<option value="DNI" selected>DNI</option>
+											<option value="PAS">PASAPORTE</option>
+											<option value="LE">LIBRETA DE ENROLAMIENTO</option>
+											<option value="LC">LIBRETA CIVICA</option>
+										</select>
+									</p>
+									<p>
+										<input type="submit" value="Buscar" name="submit" id="submit">
+									</p>
+								</fieldset>
+							</form>
+						</div>
 						<?php
 
-							$consulta = "SELECT * from socios s inner join personas p using(id_persona)";
+							$consulta = "SELECT * FROM empleados INNER JOIN personas USING(id_persona) INNER JOIN tipos_doc USING(id_tipo_doc)";
 							$result = pg_query($connect, $consulta);
 
-							echo "<table><tr><td>Número</td><td>Nombres</td><td>Apellidos</td><td>Modificar</td></tr>";
+							echo "<table><tr><td>Nombres</td><td>Apellidos</td><td>Sueldo</td><td>Antiguedad</td><td>Horario Entrada</td><td>Horario Salida</td><td>Modificar</td><td>Eliminar</td></tr>";
 							while($row = pg_fetch_assoc($result)){
-								echo "<tr><td>".$row['numero_socio']."</td><td>".$row['nombre']."</td><td>".$row['apellido']."</td><td><a href=modificar.php?ID=".$row['numero_socio'].">Modificar</a></tr>";
+								echo "<tr><td>".$row['nombre']."</td><td>".$row['apellido']."</td><td>".$row['salario']."</td><td>".$row['antiguedad']."</td><td>".$row['hora_entrada']."</td><td>".$row['hora_salida']."</td><td><a href=modificar_empleado.php?ID=".$row['dni']."&tipo_doc=".$row['tipo_doc'].">MODIFICAR</a></td><td><a href=borrar_empleado_result.php?ID=".$row['dni']."&tipo=".$row['tipo_doc'].">ELIMINAR</a></td></tr>";
 							}
 							echo "</table>";
 
 						?>
 						
-					</div>
-					
-					<div class="toggle-trigger">
-						<img class="mas" src="img/bullets/plus.png">
-						<img class="menos" src="img/bullets/minus.png">
-						Dar de baja a un Empleado
-						<img class="mas" src="img/bullets/plus.png">
-						<img class="menos" src="img/bullets/minus.png">
-					</div>				
-					<div class="toggle-container">
-						<form id="contactForm" action="modificar_persona.php" method="post">
-							<fieldset>
-							</fieldset>
-						</form>
-					</div>
-					<div class="toggle-trigger">
-						<img class="mas" src="img/bullets/plus.png">
-						<img class="menos" src="img/bullets/minus.png">
-						Buscar un Empleado
-						<img class="mas" src="img/bullets/plus.png">
-						<img class="menos" src="img/bullets/minus.png">
-					</div>				
-					<div class="toggle-container">
-						<table class="hol">
-								<tr>
-									<th>Numero de Socio</th>
-									<th>Nombres</th>
-									<th>Apellidos</th>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>Malena</td>
-									<td>Corrales Moyano</td>
-								</tr>
-							</table>
 					</div>
 					<!-- ENDS Toggle opciones -->
 				</div>

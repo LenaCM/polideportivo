@@ -9,7 +9,7 @@
 
 	$consulta = "SELECT sp_alta_socio('$nom','$ape', $num_doc,'$tipo')";
 
-	echo $consulta;
+	/*echo $consulta;*/
 
 	if (!$result = pg_query($connect,$consulta)) {
 		echo "Error al dar el Alta";
@@ -17,9 +17,11 @@
 		echo "Datos ingresados correctamente<br>";
 	}
 
-	$id_pers = pg_query($connect, "SELECT id_persona FROM socios INNER JOIN personas USING (id_persona) INNER JOIN tipos_doc USING (id_tipo_doc) WHERE dni = $num_doc AND tipo_doc = '$tipo'");
-
-	echo $id_pers;
+	/*$id_pers = pg_query($connect, "SELECT id_persona FROM socios INNER JOIN personas USING (id_persona) INNER JOIN tipos_doc USING (id_tipo_doc) WHERE dni = $num_doc AND tipo_doc = '$tipo'");
+	while ($row= pg_fetch_assoc($id_pers)) {
+		$id_p = $id_pers['id_persona'];
+	}
+	echo $id_p;*/
 
 ?>
 
@@ -73,16 +75,16 @@
 
 		<div class="toggle-container">
 			<table><tr>
-				<td>Nombre</td>
-				<td>Apellido</td>
-				<td>Numero de Documento</td>
-				<td>Tipo de Documento</td>
-				<td>Numero de Socio</td>
-				<td>Fecha de Ingreso</td>
-				<td>Estado de Cuenta</td>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>Numero de Documento</th>
+				<th>Tipo de Documento</th>
+				<th>Numero de Socio</th>
+				<th>Fecha de Ingreso</th>
+				<th>Estado de Cuenta</th>
 			</tr>
 			<?php
-			$consulta2 = "SELECT * FROM socios INNER JOIN personas USING (id_persona) INNER JOIN tipos_doc USING (id_tipo_doc) WHERE id_persona = $id_pers";
+			$consulta2 = "SELECT * FROM socios INNER JOIN personas USING (id_persona) INNER JOIN tipos_doc USING (id_tipo_doc) WHERE dni = $num_doc AND tipo_doc='$tipo'";
 				$row = pg_query($connect, $consulta2);
 				while ($reg = pg_fetch_assoc($row)){
 					$id_soc = $reg['numero_socio'];

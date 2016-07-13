@@ -1,7 +1,3 @@
-<?php
-	require('conexion.php');
-
-?>
 <!doctype html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -11,10 +7,14 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 	<meta charset="utf-8">
+	
 	<title>Polideportivo</title>
 	<meta name="description" content="">
+	
 	<!-- Mobile viewport optimized: h5bp.com/viewport -->
 	<meta name="viewport" content="width=device-width">
+	
+	
 	<link rel="stylesheet" media="screen" href="css/superfish.css" /> 
 	<link rel="stylesheet" href="css/nivo-slider.css" media="all"  /> 
 	<link rel="stylesheet" href="css/tweet.css" media="all"  />
@@ -31,9 +31,22 @@
 	
 	<!-- WRAPPER -->
 	<div class="wrapper cf">
-	
 		<header class="cf">
-						
+			
+			<!-- social-bar -->
+			<div id="social-bar-holder">
+				<ul id="social-bar" class="cf">
+					
+					<li class="dribbble"><a href="http://www.dribbble.com/ansimuz"  title="Dribbble" ></a></li>
+					<li class="facebook"><a href="http://www.facebook.com/pages/Ansimuz/224538697564461"  title="Facebook" ></a></li>
+					<li class="forrst"><a href="http://forrst.me/ansimuz"  title="forrst" ></a></li>
+					<li class="googleplus"><a href="https://plus.google.com/109030791898417339180/posts"  title="googleplus" ></a></li>
+					<li class="twitter"><a href="https://twitter.com/ansimuz"  title="twitter" ></a></li>
+				</ul>
+			</div>
+			<div class="cf"></div>
+			<!-- ENDS social-bar -->
+			
 			<div id="logo" class="cf">
 				<a href="index.html" ><img src="img/logo.png" alt="" /></a>
 			</div>
@@ -41,16 +54,19 @@
 			<!-- nav -->
 			<nav class="cf">
 				<ul id="nav" class="sf-menu">
-					<!-- Nuevo menu para socios? -->
-					<li><a href="index.html"><span>INICIO</span></a></li>
-					<li><a href="socios.php"><span>SOCIOS</span></a></li> 
-					<li><a href="empleados.php"><span>EMPLEADOS</span></a></li>
-					<li class="current-menu-item"><a href="proveedores.php"><span>PROVEEDORES</span></a></li>
-					<li><a href="insumos.php"><span>INSUMOS</span></a></li>
-					<li><a href="flia_emp.php"><span>COMISION DIRECTIVA</span></a></li>
-					<!--<li><a href="flia_soc.php"><span>FLIA SOCIOS</span></a></li>-->
-					<li><a href="cuotas.php"><span>CUOTAS</span></a></li>
-					<li><a href="alquileres.php"><span>ALQUILERES</span></a></li>
+					<li><a href="index.html"><span>HOME</span></a></li>
+					<li  class="current-menu-item"><a href="page.html"><span>FEATURES</span></a>
+						<ul>
+							<li><a href="page.html">Columns</a></li>
+							<li><a href="page-typography.html">Typography</a></li>
+							<li><a href="page-elements.html">Elements</a></li>
+							<li><a href="page-sidebar.html">Sidebar Page</a></li>
+						</ul>
+					</li>
+					<li><a href="blog.html"><span>BLOG</span></a></li>
+					<li><a href="portfolio.html"><span>WORK</span></a></li>
+					<li><a href="contact.html"><span>CONTACT</span></a></li>
+					<li><a href="http://themeforest.net/item/halftone-wordpress-theme/2661175?ref=Ansimuz"><span>WORDPRESS VERSION</span></a></li>
 				</ul>
 				<div id="combo-holder"></div>
 			</nav>
@@ -58,103 +74,102 @@
 			
 		</header>
 		
+		
 		<!-- MAIN -->
 		<div role="main" id="main" class="cf">
 			
-			<!-- headline -->
-			<div class="headline">Panel Administracion de Proveedores</div>
-			<!-- ENDS headline -->
-			
-			<!-- Toggle opciones -->
-				<div class="page-content entry-content feature cf">
+			<!-- page-content -->
+			<div class="page-content">
 				
-					<h2 class="heading" style="text-align:center;">Opciones</h2>
+				<!-- entry-content -->	
+	        	<div class="entry-content cf">
+	        		
 
-					<div class="toggle-trigger">
-						<img class="mas" src="img/bullets/plus.png">
-						<img class="menos" src="img/bullets/minus.png">
-						Dar de alta un Nuevo Proveedor
-						<img class="mas" src="img/bullets/plus.png">
-						<img class="menos" src="img/bullets/minus.png">
-					</div>		
-					<div class="toggle-container">
-						<!-- form -->
-				<!-- Modificado 28/06/2016 -->
-				<form id="contactForm" action="alta_proveedores.php" method="post">
-					<fieldset>				
-						<p>
-							<label for="name">Nombre</label>
-							<input name="name"  id="name" type="text" class="form-poshytip" title="Enter your name" />
-						</p>
-						
-						<p>
-							<label for="dir">Direccion</label>
-							<input name="dir"  id="dir" type="text" class="form-poshytip" title="Enter your sub name" />
-						</p>
-						
-						<p>
-							<label for="tel">Telefono</label>
-							<input name="tel" id="tel" type="text" class="form-poshytip" title="Enter your document number" />
-						</p>
-						
-						<!-- send mail configuration -->
-						<input type="hidden" value="your@email.com" name="to" id="to" />
-						<input type="hidden" value="ENter the subject here" name="subject" id="subject" />
-						<input type="hidden" value="send-mail.php" name="sendMailUrl" id="sendMailUrl" />
-						<!-- ENDS send mail configuration -->
-						
-						<p><input type="submit" value="Enviar" name="submit" id="submit" /></p>
-					</fieldset>
+	        		<!-- Dropcaps -->
+					<h3 class="heading">Drop caps</h3>
+					<p class="dropcap">Aliquam enim ac eros eu erat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.Lacus enim ac eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, nt quis, accumsan porttitor, facilisis luctus, metus.Lacus eni quis,tincidunt quis, facilisis luctus.</p>	
+					<p class="dropcap dark">Aliquam enim ac eros eu erat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.Lacus enim ac eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, nt quis, accumsan porttitor, facilisis luctus, metus.Lacus eni quis,tincidunt quis, facilisis luctus.</p>
+					<!-- ENDS Dropcaps -->
 					
-				</form>
-				<!-- ENDS form -->
+					<div class="block-divider"></div>
+					
+					<!-- Infos -->
+					<h4 class="heading">Box Info</h4>
+					<p class="infobox-info">Important Info</p>
+					<p class="infobox-warning">Warning Info</p>
+					<p class="infobox-success">Success Info</p>
+					<p class="infobox-error">Error Info</p>
+					<!-- ENDS Infos -->
+					
+					<div class="block-divider"></div>
+					
+					<!-- Lists -->
+					<h4 class="heading">Bullet list</h4>
+					<div class="lists-check">
+						<ul>
+							<li>Lorem ipsum dolor amet</li>
+							<li>Lorem ipsum dolor amet</li>
+							<li>Lorem ipsum dolor amet</li>
+						</ul>
 					</div>
-										
-					<div class="toggle-trigger">
-						<img class="mas" src="img/bullets/plus.png">
-						<img class="menos" src="img/bullets/minus.png">
-						Buscar y Modificar o Borra un Proveedor
-						<img class="mas" src="img/bullets/plus.png">
-						<img class="menos" src="img/bullets/minus.png">
-					</div>				
-					<div class="toggle-container">
-
-						<form id="contactForm" action="buscar_proveedor_modificar.php" method="post">
-								<fieldset>
-									<p>
-										<label for="name">Nombre</label>
-										<input name="name"  id="name" type="text" class="form-poshytip" title="Enter your name" />
-									</p>
-									<p>
-										<input type="submit" value="Buscar" name="submit" id="submit">
-									</p>
-								</fieldset>
-							</form>
-
-						<?php
-
-							$consulta = "SELECT * from proveedores";
-							$result = pg_query($connect, $consulta);
-
-							echo "<table><tr><td>Nombre</td><td>Direccion</td><td>Telefono</td><td>Modificar</td><td>Eliminar</td></tr>";
-							while($row = pg_fetch_assoc($result)){
-								echo "<tr><td>".$row['nombre']."</td><td>".$row['direccion']."</td><td>".$row['telefono']."</td><td><a href=modificar_proveedor.php?nombre=".$row['nombre'].">Modificar</a></td><td><a href=borrar_proveedor.php?nombre=".$row['nombre'].">ELIMINAR</a></td></tr>";
-							}
-							echo "</table>";
-
-						?>
-						
+					
+					<div class="lists-arrow">
+						<ul>
+							<li>Lorem ipsum dolor amet</li>
+							<li>Lorem ipsum dolor amet</li>
+							<li>Lorem ipsum dolor amet</li>
+						</ul>
 					</div>
-					<!-- ENDS Toggle opciones -->
+					
+					<div class="lists-plus">
+						<ul>
+							<li>Lorem ipsum dolor amet</li>
+							<li>Lorem ipsum dolor amet</li>
+							<li>Lorem ipsum dolor amet</li>
+						</ul>
+					</div>
+					
+					<div class="lists-star">
+						<ul>
+							<li>Lorem ipsum dolor amet</li>
+							<li>Lorem ipsum dolor amet</li>
+							<li>Lorem ipsum dolor amet</li>
+						</ul>
+					</div>
+					
+					<div class="lists-heart">
+						<ul>
+							<li>Lorem ipsum dolor amet</li>
+							<li>Lorem ipsum dolor amet</li>
+							<li>Lorem ipsum dolor amet</li>
+						</ul>
+					</div>
+					<!-- ENDS  Lists -->
+					
+					<div class="block-divider"></div>
+					
+					<!-- Quotes -->
+					<h4 class="heading">Quotes</h4>
+					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.<span class="pullquote-right">THIS IS A PULL QUOTE RIGHT, LOREM IPSUM DOLOR AMET</span> Quisque sit amet est et sapien ullamcorper pharetra.  Ut felis. Praesent dapibus, neque id cursus faucibus,  Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci.</p>
+					
+					<p><span class="pullquote-left">THIS IS A PULL QUOTE RIGHT, LOREM IPSUM DOLOR AMET</span> Quisque sit amet est et sapien ullamcorper pharetra.  Ut felis. Praesent dapibus, neque id cursus faucibus,  Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim.</p>				
+					<!-- ENDS Quotes -->
+					
+					<div class="block-divider"></div>
+					
+					<!-- Highlight -->
+					<h4 class="heading">Highlighted text</h4>
+					<p><span class="highlight">Pellentesque habitant morbi tristique senectus</span> et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra.</p>	
+					
+															
 				</div>
-			
-			<!-- ENDS featured -->
-			
-		</div>
+				<!-- ENDS entry-content -->
 
+			</div><!-- ENDS page-content -->
+						
+		</div>
 		<!-- ENDS MAIN -->
 		
-
 		<footer>
 		
 			<!-- text message -->
@@ -254,9 +269,6 @@
 		
 	</div>
 	<!-- ENDS WRAPPER -->
-	
-	<!-- JavaScript at the bottom for fast page loading -->
-	
 	
 	<!-- scripts concatenated and minified via build script -->
 	<script src="js/jquery-1.7.1.min.js"></script>
