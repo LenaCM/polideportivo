@@ -117,12 +117,12 @@
 						
 						<p>
 							<label for="num_doc">Numero de Documento</label>
-							<input name="num_doc" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" />
+							<input name="num_doc"  maxlength="8" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" />
 						</p>
 
 						<p>
 							<label for="sueldo">Sueldo</label><br>
-							<input name="sueldo" id="sueldo" type="text" class="form-poshytip" title="Enter your document number" />
+							<input name="sueldo"   id="sueldo" type="number" min="0" max="100000" class="form-poshytip" title="Enter your document number" />
 						</p>
 						<p>
 							<label for="antiguedad">Antiguedad</label>

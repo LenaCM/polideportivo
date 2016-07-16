@@ -79,9 +79,9 @@
 
 			<?php
 				if (isset($_POST['name']) && !empty($_POST['name'])){
-					$nombre = $_POST['name'];
-					$consulta = "SELECT * FROM proveedores WHERE nombre = $nombre";
-					$row = pg_query($conncet,$consulta);
+					$nombre = strtoupper($_POST['name']);
+					$consulta = "SELECT * FROM proveedores WHERE nombre LIKE '%$nombre%'";
+					$row = pg_query($connect,$consulta);
 					if ($reg = pg_fetch_assoc($row)) {
 						$dir = $reg['direccion'];
 						$tel = $reg['telefono'];

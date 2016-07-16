@@ -4,7 +4,7 @@
 -----------------------------------------------------------------------------------------------------
 -----Una sola cuota para un socio en especifico
 /*
-create or replace function sp_alta_cuotas(tipo_busq integer, tipo_d text, numero integer, monto numeric, pago boolean, descu numeric)
+create or replace function sp_alta_cuotas(tipo_busq integer, tipo_d text, numero integer, fecha_cuo date, monto numeric, pago boolean, descu numeric)
 	returns void as 
 $$
 declare
@@ -78,7 +78,7 @@ $$
 	language plpgsql;
 */
 
---select sp_alta_cuotas(1, null, 5, 125, true, 20)
+--select sp_alta_cuotas(1, null, 5, 125, false, 20)
 -----cuotas para todos los socios que desde hace un mes no tienen un registro de cuota
 /*
 create or replace function sp_alta_cuotas(monto numeric, descu numeric)
@@ -215,7 +215,7 @@ $$
 -----------------------------------------------------------------------------------------------------
 --TRIGGER PARA BAJA AUTOMATICA DE SOCIOS DEUDORES 
 -----------------------------------------------------------------------------------------------------
-/*
+
 create or replace function sp_baja_deudores()
 	returns trigger as
 $tg_baja_deudores$
@@ -239,8 +239,8 @@ end;
 $tg_baja_deudores$
 	language plpgsql;
 
-create trigger tg_baja_deudores before insert on cuotas for each row execute procedure sp_baja_deudores();
-*/
+--create trigger tg_baja_deudores before insert on cuotas for each row execute procedure sp_baja_deudores();
+
 -----------------------------------------------------------------------------------------------------
 --BAJA cuotas
 -----------------------------------------------------------------------------------------------------

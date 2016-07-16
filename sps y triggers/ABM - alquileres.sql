@@ -97,7 +97,7 @@ end;
 $$
 language plpgsql;
 */
--- select sp_alta_alquiler('LE', 16509233, 'Demetria' , 'Fisher', 'CANCHA DE FUTBOL 5 1', '20/07/2016', '12:00:00', 532.99, 100.00, false);
+-- select sp_alta_alquiler('LC', 32511181, 'Basia' , 'Turner', 'CANCHA DE FUTBOL 5 1', '21/07/2016', '12:00:00', 532.99, 100.00, false);
 	
 -----------------------------------------------------------------------------------------------------
 --MODIFICACION alquiler socio
@@ -146,6 +146,7 @@ begin
 				update socios_alquilan 
 				set fecha=fecha_mod
 				where fecha=fecha_al and hora=hora_al and id_instalacion=id_inst;
+				fecha_al=(select fecha from no_socios_alquilan where hora=hora_al and id_instalacion=id_inst and id_persona=id_pers);
 			else
 				raise exception'El turno se encuentra ocupado';
 			end if;
@@ -169,7 +170,7 @@ end;
 $$
 	language plpgsql;
 */
---select sp_modificacion_alquiler(2, 'LC', 39567455,'PISCINA 1', '2016-07-08', '07:00:00', null, '08:00:00', false);
+--select sp_modificacion_alquiler(2, 'LC', 32511181,'PISCINA 1', '2016-07-21', '12:00:00', null, '08:00:00', false);
 
 
 -----------------------------------------------------------------------------------------------------
@@ -201,6 +202,7 @@ begin
 				update no_socios_alquilan 
 				set fecha=fecha_mod
 				where fecha=fecha_al and hora=hora_al and id_instalacion=id_inst;
+				fecha_al=(select fecha from no_socios_alquilan where hora=hora_al and id_instalacion=id_inst and id_persona=id_pers);
 			else
 				raise exception'El turno se encuentra ocupado';
 			end if;
@@ -224,7 +226,7 @@ end;
 $$
 	language plpgsql;
 */
---select sp_modificacion_alquiler('LE', 16509233, 'PISCINA 2', '2016-07-20', '13:00:00', null, null, true)
+--select sp_modificacion_alquiler('LC', 32511181, 'CANCHA DE FUTBOL 5 1', '2016-07-21', '12:00:00', '2016-07-23', '11:00:00', false)
 
 -----------------------------------------------------------------------------------------------------
 --BAJA alquiler  socio

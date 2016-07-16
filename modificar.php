@@ -5,7 +5,7 @@
 	$ID = $_GET['ID'];
 	$tipo_busq = $_GET['tipo_busq'];
 
-	$consulta = "SELECT * FROM socios INNER JOIN personas USING (id_persona) INNER JOIN tipos_doc USING (id_tipo_doc) WHERE id_persona = $ID";
+	$consulta = "SELECT * FROM socios INNER JOIN personas USING (id_persona) INNER JOIN tipos_doc USING (id_tipo_doc) WHERE numero_socio = $ID";
 	$result = pg_query($connect,$consulta);
 
 	while ($row=pg_fetch_assoc($result)){
@@ -120,7 +120,7 @@
 				</p><br>
 				<p>
 					<label for="num_doc">Numero de Documento</label>
-					<input name="num_doc" id="num_doc" type="text" class="form-poshytip" value="<?php echo $doc;?>" title="Enter your document number" />
+					<input name="num_doc" maxlength="8" id="num_doc" type="text" class="form-poshytip" value="<?php echo $doc;?>" title="Enter your document number" />
 				</p>
 				<input type="submit" value="Modificar" name="Modificar"/>
 			</form>

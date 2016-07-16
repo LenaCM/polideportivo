@@ -83,7 +83,7 @@
 				<form id="contactForm" action="alta_proveedores.php" method="post">
 					<fieldset>				
 						<p>
-							<label for="name">Nombre</label>
+							<label for="name">Nombre</label><br>
 							<input name="name"  id="name" type="text" class="form-poshytip" title="Enter your name" />
 						</p>
 						
@@ -122,7 +122,7 @@
 						<form id="contactForm" action="buscar_proveedor_modificar.php" method="post">
 								<fieldset>
 									<p>
-										<label for="name">Nombre</label>
+										<label for="name">Nombre</label><br>
 										<input name="name"  id="name" type="text" class="form-poshytip" title="Enter your name" />
 									</p>
 									<p>

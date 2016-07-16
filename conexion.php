@@ -1,13 +1,14 @@
-<?php 
+|<?php 
 	$host = "localhost";
 	$port = "5432";
-	$user = "Esteban";
+	$user = "postgres";
 	$password = "1234";
-	$dbname = "PolideportivoNuevo";
+	$dbname = "polideportivo";
 	$connect = pg_connect("host=$host port=$port user=$user password=$password dbname=$dbname");
-	if($connect){
-		echo "Conectado!<br>";
+	if(!$connect){
+		echo "No se pudo conectar <br>";
 	}
 
 	
+
 ?>

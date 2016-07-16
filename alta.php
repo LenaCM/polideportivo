@@ -1,7 +1,7 @@
 <?php 
 
 	require('conexion.php');
-
+	error_reporting(0);
 	$nom = $_POST['name'];
 	$ape = $_POST['Apellido'];
 	$num_doc = $_POST['num_doc'];
@@ -10,12 +10,6 @@
 	$consulta = "SELECT sp_alta_socio('$nom','$ape', $num_doc,'$tipo')";
 
 	/*echo $consulta;*/
-
-	if (!$result = pg_query($connect,$consulta)) {
-		echo "Error al dar el Alta";
-	} else {
-		echo "Datos ingresados correctamente<br>";
-	}
 
 	/*$id_pers = pg_query($connect, "SELECT id_persona FROM socios INNER JOIN personas USING (id_persona) INNER JOIN tipos_doc USING (id_tipo_doc) WHERE dni = $num_doc AND tipo_doc = '$tipo'");
 	while ($row= pg_fetch_assoc($id_pers)) {
@@ -84,6 +78,12 @@
 				<th>Estado de Cuenta</th>
 			</tr>
 			<?php
+
+				if (!$result = pg_query($connect,$consulta)) {
+					echo '<p class="infobox-error">'.pg_last_error($connect).'</p>';
+				} else {
+					echo '<p class="infobox-success">Datos ingresados correctamente</p>';
+				}
 			$consulta2 = "SELECT * FROM socios INNER JOIN personas USING (id_persona) INNER JOIN tipos_doc USING (id_tipo_doc) WHERE dni = $num_doc AND tipo_doc='$tipo'";
 				$row = pg_query($connect, $consulta2);
 				while ($reg = pg_fetch_assoc($row)){

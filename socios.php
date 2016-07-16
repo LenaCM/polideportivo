@@ -118,7 +118,7 @@
 						
 						<p>
 							<label for="num_doc">Numero de Documento</label>
-							<input name="num_doc" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" />
+							<input name="num_doc" id="num_doc" type="text" class="form-poshytip"  maxlength="8" title="Enter your document number" />
 						</p>
 						
 						<!-- send mail configuration -->
@@ -191,7 +191,7 @@
 						</div>
 						<?php
 
-							$consulta = "SELECT * from socios s inner join personas p using(id_persona)";
+							$consulta = "SELECT * from socios s inner join personas p using(id_persona) order by numero_socio desc";
 							$result = pg_query($connect, $consulta);
 
 							echo "<table><tr><th>Número de Socio</th><th>Nombres</th><th>Apellidos</th><th>DNI</th><th>MODIFICAR</th><th>ELIMINAR</th></tr>";
