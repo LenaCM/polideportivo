@@ -8,7 +8,7 @@
 	if(!$connect){
 		echo "No se pudo conectar <br>";
 	}
-
-	
+	//para que no muestre los warnings y eso
+	error_reporting(0);
 
 ?>

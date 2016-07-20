@@ -75,7 +75,6 @@
 }
 #searchsubmit,
 .wpcf7-submit,
-#contactForm input[type="submit"],
 #commentform input[type="submit"],
 #contactForm input[type="button"] {
   width: auto;
@@ -93,7 +92,6 @@
 }
 #searchsubmit:hover,
 .wpcf7-submit:hover,
-#contactForm input[type="submit"]:hover,
 #commentform input[type="submit"]:hover,
 #contactForm input[type="button"]:hover {
   -webkit-transform: translate(0, 2px);
@@ -155,3 +153,5 @@
 .respond-caption {
   font-size: 14px;
 }
+
+#contactForm input
