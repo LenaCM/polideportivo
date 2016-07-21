@@ -18,10 +18,18 @@
 			if (id == "num_dni") {
 				$("#tipo_y_dni").show();
 				$("#num_soc").hide();
+				$("#por_apellido").hide();
 			};
 			if (id == "num_soc") {
 				$("#tipo_y_dni").hide();
 				$("#num_soc").show();
+				$("#por_apellido").hide();
+
+			};
+			if (id == "apellido_n") {
+				$("#por_apellido").show();
+				$("#tipo_y_dni").hide();
+				$("#num_soc").hide();
 			};
 		}
 	</script>
@@ -125,12 +133,24 @@
 							Elija el tipo de Busqueda
 							<select name="status" id="status" class="form-poshytip" onChange="mostrar(this.value);">
 								<option disabled="disabled" selected>Elija una Opcion Aca</option>
+								<option value="apellido_n">Por Apellido</option>
 								<option value="num_dni">Por Numero y Tipo de DNI</option>
 								<option value="num_soc">Por Numero de Socio</option>
 							</select>
 						</p>
 					</fieldset>
 				</form>
+						<div id="por_apellido" style="display:none;">
+							<form id="contactForm" >
+								<fieldset>
+										<p>
+											<label for="apellido_n">Apellido</label>
+											<input name="apellido_n" id="apellido_n" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1"/>
+										</p>
+								</fieldset>
+							</form>
+						</div>
+
 						<div id="tipo_y_dni" style="display:none;">
 							<form id="contactForm" action="buscar_socio_modificar.php" method="post">
 								<fieldset>
@@ -171,9 +191,9 @@
 					$consulta = "SELECT * from socios s inner join personas p using(id_persona) order by numero_socio desc";
 					$result = pg_query($connect, $consulta);
 
-					echo "<table><tr><th>Número de Socio</th><th>Nombres</th><th>Apellidos</th><th>DNI</th><th>MODIFICAR</th><th>ELIMINAR</th></tr>";
+					echo '<table id="lista_soc"><tr class="nombre_columna"><th>Número de Socio</th><th>Nombres</th><th>Apellidos</th><th>DNI</th><th>MODIFICAR</th><th>ELIMINAR</th></tr>';
 					while($row = pg_fetch_assoc($result)){
-						echo '<tr>
+						echo '<tr class="fila_resultado">
 								<td>'.$row['numero_socio'].'</td>
 								<td>'.$row['nombre'].'</td>
 								<td>'.$row['apellido'].'</td>

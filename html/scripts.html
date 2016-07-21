@@ -15,4 +15,79 @@
 	<script src="js/css3-mediaqueries.js"></script>
 	<script src="js/tabs.js"></script>
 	<script  src="js/poshytip-1.1/src/jquery.poshytip.min.js"></script>
+	<script src="js/jquery-1.10.2.js"></script>
+	<script  src="js/jquery-ui.js"></script>
+	<script>
+		$(document).on("ready",function(){
+			
+
+				busqueda = $("#apellido_n").attr('data-busqueda');
+				if(busqueda==1){
+				   $( "#apellido_n" ).autocomplete({
+				      source: 'buscar_socio_apellido.php?busqueda=1',
+				      minLength: 2,
+				      select: function (event, ui) {
+				            $("#apellido_n").attr('data-num-socio',ui.item.numero_socio );
+				            $("#apellido_n").attr('data-apellido',ui.item.apellido );
+				            $("#apellido_n").attr('data-nombre',ui.item.nombre);
+				            $("#apellido_n").attr('data-dni',ui.item.dni );
+				           // $("#inputProducto").attr('data-id',ui.item.id );
+				           // $("#inputProducto").attr('data-stock',ui.item.stock );
+				        }
+
+	   				 });//fin buscador
+
+				   $( "body" ).on("click",".ui-menu-item",function(){
+						//alert($("#apellido_n").val());
+						var numero_socio=$("#apellido_n").attr("data-num-socio");
+						var apellido =$("#apellido_n").attr("data-apellido");
+						var nombre = $("#apellido_n").attr("data-nombre");
+						var dni=$("#apellido_n").attr("data-dni");
+					
+
+						$(".fila_resultado").remove();
+						$("#lista_soc").append('<tr class="fila_resultado"><td>'+numero_socio+'</td><td>'+nombre+'</td><td>'+apellido+'</td><td>'+dni+'</td><td><a class="link-button blue" href=modificar.php?ID='+numero_socio+'&tipo_busq=1>Modificar</a></td><td><a class="link-button red" href=borrar_socio_resul.php?ID='+numero_socio+'&tipo_busq=1>Eliminar</a></td></tr>');
+						
+						});
+		}
+		if(busqueda==2){
+			$( "#apellido_n" ).autocomplete({
+				      source: 'buscar_socio_apellido.php?busqueda=2',
+				      minLength: 2,
+				      select: function (event, ui) {
+				            $("#apellido_n").attr('data-apellido',ui.item.apellido );
+				            $("#apellido_n").attr('data-nombre',ui.item.nombre);
+				            $("#apellido_n").attr('data-dni',ui.item.dni );
+				            $("#apellido_n").attr('data-tipo-doc',ui.item.tipo_doc );
+				            $("#apellido_n").attr('data-salario',ui.item.salario );
+				            $("#apellido_n").attr('data-antiguedad',ui.item.antiguedad );
+				            $("#apellido_n").attr('data-hora-ent',ui.item.hora_entrada );
+				            $("#apellido_n").attr('data-hora-sal',ui.item.hora_salida );
+				           // $("#inputProducto").attr('data-id',ui.item.id );
+				           // $("#inputProducto").attr('data-stock',ui.item.stock );
+				        }
+
+	   				 });//fin buscador
+			 $( "body" ).on("click",".ui-menu-item",function(){
+						//alert($("#apellido_n").val());
+						var tipo_doc=$("#apellido_n").attr("data-tipo-doc");
+						var apellido =$("#apellido_n").attr("data-apellido");
+						var nombre = $("#apellido_n").attr("data-nombre");
+						var dni=$("#apellido_n").attr("data-dni");
+						var salario= $("#apellido_n").attr("data-salario");
+				        var antig= $("#apellido_n").attr("data-antiguedad");
+				        var hora_ent = $("#apellido_n").attr("data-hora-ent");
+				        var hora_sal = $("#apellido_n").attr("data-hora-sal");
+					
+
+						$(".fila_resultado").remove();
+
+						$("#lista_empl").append('<tr class="fila_resultado"><td>'+nombre+'</td><td>'+apellido+'</td><td>'+dni+'</td><td>'+tipo_doc+'</td><td>'+salario+'</td><td>'+antig+'</td><td>'+hora_ent+'</td><td>'+hora_sal+'</td><td><a class="link-button blue" href=modificar_empleado.php?ID='+dni+'&tipo_doc='+tipo_doc+'>Modificar</a></td><td><a  class="link-button red" href=borrar_empleado_result.php?ID='+dni+'&tipo='+tipo_doc+'>Eliminar</a></td></tr>');
+						
+						});
+
+		}
+							
+		});//fin jquery
+	</script>
 	<!-- end scripts -->

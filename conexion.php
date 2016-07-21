@@ -1,4 +1,4 @@
-|<?php 
+<?php 
 	$host = "localhost";
 	$port = "5432";
 	$user = "postgres";
@@ -6,7 +6,7 @@
 	$dbname = "polideportivo";
 	$connect = pg_connect("host=$host port=$port user=$user password=$password dbname=$dbname");
 	if(!$connect){
-		echo "No se pudo conectar <br>";
+		//echo "No se pudo conectar <br>";
 	}
 	//para que no muestre los warnings y eso
 	error_reporting(0);

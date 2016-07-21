@@ -120,7 +120,7 @@
 					} else {
 						echo "<tr><td colspan=8>No es Socio</td></tr>";
 					}
-				} else {
+				}else {
 					echo "Error, No ingreso ningun dato";
 				}
 			?>

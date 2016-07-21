@@ -1,7 +1,3 @@
-<?php
-	require('conexion.php');
-
-?>
 <!doctype html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -9,39 +5,27 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
-	<meta charset="utf-8">
-	<title>Polideportivo</title>
-	<meta name="description" content="">
-	<!-- Mobile viewport optimized: h5bp.com/viewport -->
-	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" media="screen" href="css/superfish.css" /> 
-	<link rel="stylesheet" href="css/nivo-slider.css" media="all"  /> 
-	<link rel="stylesheet" href="css/tweet.css" media="all"  />
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" media="all" href="css/lessframework.css"/>
-	<script type="text/javascript" src="js/jquery.js"></script>
+	<?php
+		require('conexion.php');
+		include('html/head.html');
+
+	?>
+
+</head>
+<body>
 	<script type="text/javascript">
 		function mostrar(id){
 			$("id").show();
 			if (id == "num_dni") {
 				$("#tipo_y_dni").show();
-				$("#num_soc").hide();
+				$("#por_apellido").hide();
 			};
-			if (id == "num_soc") {
+			if (id == "apellido_n") {
 				$("#tipo_y_dni").hide();
-				$("#num_soc").show();
+				$("#por_apellido").show();
 			};
 		}
 	</script>
-	
-	<!-- All JavaScript at the bottom, except this Modernizr build.
-	   Modernizr enables HTML5 elements & feature detects for optimal performance.
-	   Create your own custom Modernizr build: www.modernizr.com/download/ -->
-	<script src="js/modernizr-2.5.3.min.js"></script>
-</head>
-<body>
-	
 	<!-- WRAPPER -->
 	<div class="wrapper cf">
 	
@@ -156,7 +140,30 @@
 						<img class="menos" src="img/bullets/minus.png">
 					</div>				
 					<div class="toggle-container">
-						<div id="tipo_y_dni">
+						<form id="contactForm" action="empleados.php" method="post">
+							<fieldset>
+								<p>
+									Elija el tipo de Busqueda
+									<select name="status" id="status" class="form-poshytip" onChange="mostrar(this.value);">
+										<option disabled="disabled" selected>Elija una Opcion Aca</option>
+										<option value="apellido_n">Por Apellido</option>
+										<option value="num_dni">Por Numero y Tipo de DNI</option>
+										
+									</select>
+								</p>
+							</fieldset>
+						</form>
+						<div id="por_apellido" style="display:none;">
+							<form id="contactForm" >
+								<fieldset>
+										<p>
+											<label for="apellido_n">Apellido</label>
+											<input name="apellido_n" id="apellido_n" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="2" />
+										</p>
+								</fieldset>
+							</form>
+						</div>
+						<div id="tipo_y_dni" style="display:none;">
 							<form id="contactForm" action="buscar_empleado_modificar.php" method="post">
 								<fieldset>
 									<p>
@@ -180,12 +187,12 @@
 						</div>
 						<?php
 
-							$consulta = "SELECT * FROM empleados INNER JOIN personas USING(id_persona) INNER JOIN tipos_doc USING(id_tipo_doc)";
+							$consulta = "SELECT * FROM sp_busqueda_empleado(1,'')";
 							$result = pg_query($connect, $consulta);
 
-							echo "<table><tr><td>Nombres</td><td>Apellidos</td><td>Sueldo</td><td>Antiguedad</td><td>Horario Entrada</td><td>Horario Salida</td><td>Modificar</td><td>Eliminar</td></tr>";
+							echo '<table id="lista_empl"><tr class="nombre_columna"><td>Nombres</td><td>Apellidos</td><td>Numero de documento</td><td>Tipo Documento</td><td>Sueldo</td><td>Antiguedad</td><td>Horario Entrada</td><td>Horario Salida</td><td>Modificar</td><td>Eliminar</td></tr>';
 							while($row = pg_fetch_assoc($result)){
-								echo "<tr><td>".$row['nombre']."</td><td>".$row['apellido']."</td><td>".$row['salario']."</td><td>".$row['antiguedad']."</td><td>".$row['hora_entrada']."</td><td>".$row['hora_salida']."</td><td><a href=modificar_empleado.php?ID=".$row['dni']."&tipo_doc=".$row['tipo_doc'].">MODIFICAR</a></td><td><a href=borrar_empleado_result.php?ID=".$row['dni']."&tipo=".$row['tipo_doc'].">ELIMINAR</a></td></tr>";
+								echo '<tr class="fila_resultado"><td>'.$row['nombre'].'</td><td>'.$row['apellido'].'</td><td>'.$row['dni'].'</td><td>'.$row['tipo_doc'].'</td><td>'.$row['salario'].'</td><td>'.$row['antiguedad']."</td><td>".$row['hora_entrada'].'</td><td>'.$row['hora_salida'].'</td><td><a class="link-button blue" href=modificar_empleado.php?ID='.$row['dni']."&tipo_doc=".$row['tipo_doc'].'>Modificar</a></td><td><a  class="link-button red" href=borrar_empleado_result.php?ID='.$row['dni'].'&tipo='.$row['tipo_doc'].'>Eliminar</a></td></tr>';
 							}
 							echo "</table>";
 
@@ -302,24 +309,9 @@
 	</div>
 	<!-- ENDS WRAPPER -->
 	
-	<!-- JavaScript at the bottom for fast page loading -->
-	
-	
-	<!-- scripts concatenated and minified via build script -->
-	<script src="js/jquery-1.7.1.min.js"></script>
-	<script src="js/custom.js"></script>
-	
-	<!-- superfish -->
-	<script  src="js/superfish-1.4.8/js/hoverIntent.js"></script>
-	<script  src="js/superfish-1.4.8/js/superfish.js"></script>
-	<script  src="js/superfish-1.4.8/js/supersubs.js"></script>
-	<!-- ENDS superfish -->
-	
-	<script src="js/jquery.nivo.slider.js" ></script>
-	<script src="js/css3-mediaqueries.js"></script>
-	<script src="js/tabs.js"></script>
-	<script  src="js/poshytip-1.1/src/jquery.poshytip.min.js"></script>
-	<!-- end scripts -->
+	<?php 
+		include('html/scripts.html');
+	?>
 
 </body>
 </html>

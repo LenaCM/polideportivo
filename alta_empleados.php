@@ -10,8 +10,16 @@
 	$ant = $_POST['antiguedad'];
 	$entrada = $_POST['ho_ent'];
 	$salida = $_POST['ho_sal'];
+	/*
 	$consulta = "SELECT sp_alta_empleado('$nom','$ape', $num_doc,'$tipo',$sueldo,$ant,'$entrada','$salida')";
-	if (!$result = pg_query($connect,$consulta)) {
+	*/
+
+
+	$consulta = "select sp_alta_empleado('".$nom."','".$ape."', ".$num_doc.",'".$tipo."',".$sueldo.",".$ant.",'".$entrada."','".$salida."')";
+
+	$result = pg_query($connect,$consulta);
+	echo $num_doc;
+	if (!$result) {
 		echo "Error al dar el Alta";
 	} else {
 		echo "Datos ingresados correctamente<br>";
