@@ -43,8 +43,8 @@
 
 		<div class="toggle-container">
 			<?php
-				$nom = $_POST['name'];
-				$ape = $_POST['Apellido'];
+				$nom = strtoupper($_POST['name']);
+				$ape = strtoupper($_POST['Apellido']);
 				$num_doc = $_POST['num_doc'];
 				$tipo = $_POST['Tipo_doc'];
 				echo $tipo;

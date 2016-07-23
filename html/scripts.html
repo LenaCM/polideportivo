@@ -24,7 +24,7 @@
 				busqueda = $("#apellido_n").attr('data-busqueda');
 				if(busqueda==1){
 				   $( "#apellido_n" ).autocomplete({
-				      source: 'buscar_socio_apellido.php?busqueda=1',
+				      source: 'buscador.php?busqueda=1',
 				      minLength: 2,
 				      select: function (event, ui) {
 				            $("#apellido_n").attr('data-num-socio',ui.item.numero_socio );
@@ -58,7 +58,7 @@
 		}
 		if(busqueda==2){
 			$( "#apellido_n" ).autocomplete({
-				      source: 'buscar_socio_apellido.php?busqueda=2',
+				      source: 'buscador.php?busqueda=2',
 				      minLength: 2,
 				      select: function (event, ui) {
 				            $("#apellido_n").attr('data-apellido',ui.item.apellido );

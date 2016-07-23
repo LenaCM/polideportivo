@@ -109,7 +109,7 @@
 							</select>
 						</p>
 						<p>
-							<label for="num_doc">Numero de Documento</label>
+							<label for="num_doc">Número de Documento</label>
 							<input name="num_doc" id="num_doc" type="text" class="form-poshytip"  maxlength="8" title="Enter your document number" required/>
 						</p>
 						<p><input class="link-button green" type="submit" value="Enviar" name="submit" id="submit" /></p>
@@ -132,12 +132,12 @@
 				<form id="contactForm" action="socios.php" method="post">
 					<fieldset>
 						<p>
-							Elija el tipo de Busqueda
+							Tipo de Búsqueda
 							<select name="status" id="status" class="form-poshytip" onChange="mostrar(this.value);">
-								<option disabled="disabled" selected>Elija una Opcion Aca</option>
+								<option disabled="disabled" selected>Elija una Opción</option>
 								<option value="apellido_n">Por Apellido</option>
-								<option value="num_dni">Por Numero y Tipo de DNI</option>
-								<option value="num_soc">Por Numero de Socio</option>
+								<option value="num_dni">Por Número y Tipo de Documento</option>
+								<option value="num_soc">Por Número de Socio</option>
 							</select>
 						</p>
 					</fieldset>
@@ -146,8 +146,7 @@
 					<form id="contactForm" >
 						<fieldset>
 								<p>
-									<label for="apellido_n">Apellido</label>
-									<input name="apellido_n" id="apellido_n" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1"/>
+									<input name="apellido_n" id="apellido_n" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="Comience a escribir el apellido..."/>
 								</p>
 						</fieldset>
 					</form>
@@ -156,8 +155,8 @@
 					<form id="contactForm" action="buscar_socio_modificar.php" method="post">
 						<fieldset>
 								<p>
-									<label for="num_doc">Numero de Documento</label>
-									<input name="num_doc" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" />
+									<label for="num_doc">Número de Documento</label>
+									<input name="num_doc" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" maxlength="8" />
 								</p>
 								<p>
 									<label for="tipo_doc">Tipo de Documento</label>
@@ -178,7 +177,7 @@
 					<form id="contactForm" action="buscar_socio_modificar.php" method="post">
 						<fieldset>
 							<p>
-								<label for="num_soc">Numero de Socio</label>
+								<label for="num_soc">Número de Socio</label>
 								<input name="num_soc" id="num_soc" type="text" class="form-poshytip" title="Enter your document number" />
 							</p>
 							<p>

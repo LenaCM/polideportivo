@@ -4,7 +4,7 @@ include('conexion.php');
 
 if(isset($_GET['term'])){
 	//CREATE OR REPLACE FUNCTION sp_busqueda_socio(tipo_busq integer, dato text)
-	$valor = $_GET['term'];
+	$valor = strtoupper($_GET['term']);
 }
 $busqueda=$_GET['busqueda'];
 
