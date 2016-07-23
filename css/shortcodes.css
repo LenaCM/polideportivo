@@ -385,17 +385,22 @@ ul.tabs li.current a {
 /* Modificaciones 18/06/2016 */
 table {
   margin: 0 auto;
-  width: 90%;
+  max-width: 90%;
   text-align: center;
   background: #fff;
   font-size: 1em;
   
 }
 th, td{
-  padding: 1em;
+  padding: 0.6em;
   border: 2px dotted #444444;
 }
 
 th{
   font-weight: bold;
+}
+
+.paginador{
+  margin: 0 auto;
+  text-align: center;
 }

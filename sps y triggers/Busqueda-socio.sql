@@ -1,11 +1,9 @@
-﻿--LISTADOS:
+﻿-- Function: sp_busqueda_socio(integer, text)
 
-create type personas_socio as (dni integer, tipo_doc character varying(3),
-				nombre character varying(32), apellido character varying(32), numero_socio integer, fechaingreso date, estadocuenta character varying(10));
+-- DROP FUNCTION sp_busqueda_socio(integer, text);
 
-
-CREATE OR REPLACE FUNCTION sp_busqueda_socio(tipo_busq integer, dato text)
-RETURNS SETOF personas_socio AS 
+CREATE OR REPLACE FUNCTION sp_busqueda_socio(tipo_busq integer, dato text, dato2 text)
+  RETURNS SETOF personas_socio AS
 $BODY$
 DECLARE
 rec personas_socio%rowtype; 
@@ -17,7 +15,8 @@ BEGIN
 	if tipo_busq= 1 then
 		FOR rec IN SELECT dni , tipo_doc , nombre , apellido , numero_socio , fechaingreso , estadocuenta 
 			FROM socios 
-			inner join personas  using(id_persona)
+			inner join socios_activos using(numero_socio)
+			inner join personas  on (personas.id_persona=socios_activos.id_persona)
 			inner join tipos_doc using(id_tipo_doc)
 			where apellido like '%'|| dato ||'%'
 			ORDER BY apellido
@@ -53,7 +52,7 @@ BEGIN
 			FROM socios 
 			inner join personas  using(id_persona)
 			inner join tipos_doc using(id_tipo_doc)
-			where dni=cast(dato as integer)
+			where dni=cast(dato as integer) and tipo_doc like '%'||dato2||'%'
 		LOOP
 		RETURN NEXT rec;
 		END LOOP;
@@ -62,13 +61,4 @@ BEGIN
 	end if;
 END;
 $BODY$
-LANGUAGE plpgsql VOLATILE
-COST 100;
-
-/*pruebas
-SELECT sp_busqueda_socio(1, 'Saenz'); 
-SELECT sp_busqueda_socio(2, 'Juan'); 
-SELECT sp_busqueda_socio(3, 'tenis'); 
-SELECT sp_busqueda_socio(4, '12345678'); 
-SELECT sp_busqueda_socio(2, 'Ana'); 
-
+  LANGUAGE plpgsql;

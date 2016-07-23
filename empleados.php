@@ -28,7 +28,13 @@
 	</script>
 	<!-- WRAPPER -->
 	<div class="wrapper cf">
-	
+		<!-- ribbon -->
+			<div id="twitter-holder">
+				<div class="ribbon-left"></div>
+				<div class="ribbon"></div>
+				<div class="ribbon-right"></div>
+			</div>
+		<!-- ENDS ribbon -->
 		<header class="cf">
 						
 			<div id="logo" class="cf">
@@ -39,15 +45,12 @@
 			<nav class="cf">
 				<ul id="nav" class="sf-menu">
 					<!-- Nuevo menu para socios? -->
-					<li><a href="index.html"><span>INICIO</span></a></li>
+					<li><a href="directivos.php"><span>DIRECTIVOS</span></a></li>
 					<li><a href="socios.php"><span>SOCIOS</span></a></li> 
-					<li class="current-menu-item"><a href="empleados.php"><span>EMPLEADOS</span></a></li>
-					<li><a href="proveedores.php"><span>PROVEEDORES</span></a></li>
-					<li><a href="insumos.php"><span>INSUMOS</span></a></li>
-					<li><a href="flia_emp.php"><span>COMISION DIRECTIVA</span></a></li>
-					<!--<li><a href="flia_soc.php"><span>FLIA SOCIOS</span></a></li>-->
 					<li><a href="cuotas.php"><span>CUOTAS</span></a></li>
-					<li><a href="alquileres.php"><span>ALQUILERES</span></a></li>
+					<li><a href="alquileres.php"><span>ALQUILER</span></a></li>
+					<li class="current-menu-item"><a href="empleados.php"><span>EMPLEADOS</span></a></li>
+					<li><a href="mantenimiento.php"><span>MANTENIMIENTO</span></a></li>
 				</ul>
 				<div id="combo-holder"></div>
 			</nav>
@@ -119,11 +122,7 @@
 							<label for="ho_sal">Hora de salida</label>
 							<input name="ho_sal" id="ho_sal" type="time" class="form-poshytip" title="Enter your document number" />
 						</p>
-						<!-- send mail configuration -->
-						<input type="hidden" value="your@email.com" name="to" id="to" />
-						<input type="hidden" value="ENter the subject here" name="subject" id="subject" />
-						<input type="hidden" value="send-mail.php" name="sendMailUrl" id="sendMailUrl" />
-						<!-- ENDS send mail configuration -->
+						
 						
 						<p><input type="submit" value="ENVIAR" name="submit" id="submit" /></p>
 					</fieldset>
@@ -208,101 +207,14 @@
 
 		<!-- ENDS MAIN -->
 		
-
 		<footer>
-		
-			<!-- text message -->
+			<!-- ribbon -->
 			<div id="twitter-holder">
 				<div class="ribbon-left"></div>
-				<div class="ribbon">
-					<div id="tweets-bar" class="tweet">
-					
-					<ul class="tweet_list">
-						<li>
-						<div class="tweet_time">Today</div>
-						Enter an small text notification visible on all pages. <a href="http://twitter.com/ansimuz" >@ansimuz</a> </li>
-					</ul>
-					
-					</div>
-				</div>
+				<div class="ribbon"></div>
 				<div class="ribbon-right"></div>
 			</div>
-			<!-- ENDS text message -->
-			
-			
-			<!-- widgets -->
-			<ul  class="widget-cols cf">
-				<li class="first-col">
-					
-					<div class="widget-block">
-						<h4>RECENT POSTS</h4>
-						<div class="recent-post cf">
-							<a href="#" class="thumb"><img src="img/dummies/54x54.gif" alt="Post" /></a>
-							<div class="post-head">
-								<a href="#">Pellentesque habitant morbi senectus </a><span> March 12, 2011</span>
-							</div>
-						</div>
-						<div class="recent-post cf">
-							<a href="#" class="thumb"><img src="img/dummies/54x54b.gif" alt="Post" /></a>
-							<div class="post-head">
-								<a href="#">Pellentesque habitant morbi senectus</a><span> March 12, 2011</span>
-							</div>
-						</div>
-						<div class="recent-post cf">
-							<a href="#" class="thumb"><img src="img/dummies/54x54c.gif" alt="Post" /></a>
-							<div class="post-head">
-								<a href="#">Pellentesque habitant morbi senectus</a><span> March 12, 2011</span>
-							</div>
-						</div>
-					</div>
-				</li>
-				
-				<li class="second-col">
-					
-					<div class="widget-block">
-						<h4>ABOUT</h4>
-						<p>Vintage Template it's completely free this means you don't have to pay anything <a href="http://luiszuno.com/blog/license" >read license</a>.</p> 
-						
-						<p>Placeholder images by <a href="http://twistedfork.me/" >Dan Matutina</a></p>
-						<p>Visit <a href="http://templatecreme.com/" >Template Creme</a> and find the most beautiful free templates up to date.</p>
-					</div>
-					
-				</li>
-				
-				<li class="third-col">
-					
-					<div class="widget-block">
-						<h4>DUMMY TEXT</h4>
-						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. </p>
-		     		</div>
-		     		
-				</li>
-				
-				<li class="fourth-col">
-					
-					<div class="widget-block">
-						<h4>CATEGORIES</h4>
-						<ul>
-							<li class="cat-item"><a href="#" >Design</a></li>
-							<li class="cat-item"><a href="#" >Photo</a></li>
-							<li class="cat-item"><a href="#" >Art</a></li>
-							<li class="cat-item"><a href="#" >Game</a></li>
-							<li class="cat-item"><a href="#" >Film</a></li>
-							<li class="cat-item"><a href="#" >TV</a></li>
-						</ul>
-					</div>
-		     		
-				</li>	
-			</ul>
-			<!-- ENDS widgets -->
-			
-			<!-- bottom -->
-			<div id="bottom">
-				<div id="widget-trigger-holder"><a id="widget-trigger" href="#" title="View More" class="poshytip"></a></div>
-				<div id="content">HalfTone Theme by <a href="http://www.luiszuno.com" >luiszuno.com</a> </div>
-			</div>
-			<!-- ENDS bottom -->
-			
+		<!-- ENDS ribbon -->		
 		</footer>
 		
 		

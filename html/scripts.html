@@ -31,6 +31,9 @@
 				            $("#apellido_n").attr('data-apellido',ui.item.apellido );
 				            $("#apellido_n").attr('data-nombre',ui.item.nombre);
 				            $("#apellido_n").attr('data-dni',ui.item.dni );
+				            $("#apellido_n").attr('data-tipo-doc',ui.item.tipo_doc );
+				            $("#apellido_n").attr('data-fechaingre',ui.item.fechaingreso );
+				            $("#apellido_n").attr('data-est-cuenta',ui.item.estadocuenta );
 				           // $("#inputProducto").attr('data-id',ui.item.id );
 				           // $("#inputProducto").attr('data-stock',ui.item.stock );
 				        }
@@ -43,10 +46,13 @@
 						var apellido =$("#apellido_n").attr("data-apellido");
 						var nombre = $("#apellido_n").attr("data-nombre");
 						var dni=$("#apellido_n").attr("data-dni");
-					
+						var tipo_doc=$("#apellido_n").attr("data-tipo-doc");
+						var fechaing = $("#apellido_n").attr("data-fechaingre");
+						var estado = $("#apellido_n").attr("data-est-cuenta");
 
 						$(".fila_resultado").remove();
-						$("#lista_soc").append('<tr class="fila_resultado"><td>'+numero_socio+'</td><td>'+nombre+'</td><td>'+apellido+'</td><td>'+dni+'</td><td><a class="link-button blue" href=modificar.php?ID='+numero_socio+'&tipo_busq=1>Modificar</a></td><td><a class="link-button red" href=borrar_socio_resul.php?ID='+numero_socio+'&tipo_busq=1>Eliminar</a></td></tr>');
+						$(".paginador").remove();
+						$("#lista_soc").append('<tr class="fila_resultado"><td>'+numero_socio+'</td><td>'+nombre+'</td><td>'+apellido+'</td><td>'+dni+'</td><td>'+tipo_doc+'</td><td>'+fechaing+'</td><td>'+estado+'</td><td><a class="link-button blue" href=modificar.php?ID='+numero_socio+'&tipo_busq=1>Modificar</a></td><td><a class="link-button red" href=borrar_socio_resul.php?ID='+numero_socio+'&tipo_busq=1>Eliminar</a></td></tr>');
 						
 						});
 		}

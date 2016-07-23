@@ -10,14 +10,6 @@
 	require('conexion.php');
 	include('html/head.html');
 
-	$nom = $_POST['name'];
-	$ape = $_POST['Apellido'];
-	$num_doc = $_POST['num_doc'];
-	$tipo = $_POST['Tipo_doc'];
-
-	$consulta = "SELECT sp_alta_socio('$nom','$ape', $num_doc,'$tipo')";
-
-
 ?>
 <body>
 	<div class="wrapper cf">
@@ -37,13 +29,12 @@
 			<nav class="cf">
 				<ul id="nav" class="sf-menu">
 					<!-- Nuevo menu para socios? -->
-					<li><a href="index.html"><span>INICIO</span></a></li>
+					<li><a href="directivos.php"><span>DIRECTIVOS</span></a></li>
 					<li class="current-menu-item"><a href="socios.php"><span>SOCIOS</span></a></li> 
+					<li><a href="cuotas.php"><span>CUOTAS</span></a></li>
+					<li><a href="alquileres.php"><span>ALQUILER</span></a></li>
 					<li><a href="empleados.php"><span>EMPLEADOS</span></a></li>
-					<li><a href="proveedores.php"><span>PROVEEDORES</span></a></li>
-					<li><a href="insumos.php"><span>INSUMOS</span></a></li>
-					<li><a href="flia_emp.php"><span>FLIA EMPLEADOS</span></a></li>
-					<li><a href="flia_soc.php"><span>FLIA SOCIOS</span></a></li>
+					<li><a href="mantenimiento.php"><span>MANTENIMIENTO</span></a></li>
 				</ul>
 				<div id="combo-holder"></div>
 			</nav>
@@ -51,31 +42,52 @@
 		</header>
 
 		<div class="toggle-container">
-			<table><tr>
-				<th>Nombre</th>
-				<th>Apellido</th>
-				<th>Numero de Documento</th>
-				<th>Tipo de Documento</th>
-				<th>Numero de Socio</th>
-				<th>Fecha de Ingreso</th>
-				<th>Estado de Cuenta</th>
-			</tr>
 			<?php
+				$nom = $_POST['name'];
+				$ape = $_POST['Apellido'];
+				$num_doc = $_POST['num_doc'];
+				$tipo = $_POST['Tipo_doc'];
+				echo $tipo;
+				if(isset($nom) and isset($ape) and isset($num_doc) and isset($tipo)){
+					
+					$consulta = "SELECT sp_alta_socio('$nom','$ape', $num_doc,'$tipo')";
+					if (!$result = pg_query($connect,$consulta)) {
+						echo '<p class="infobox-error">'.pg_last_error($connect).'</p>';
+					} else {
+						echo '<p class="infobox-success">Datos ingresados correctamente</p>';
+						$consulta2 = "select * from sp_busqueda_socio(4, '$num_doc', '$tipo')";
+						$result = pg_query($connect, $consulta2);
+						echo '<table id="lista_soc"><tr class="nombre_columna"><th>Numero de Socio</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Numero de Documento</th>
+							<th>Tipo de Documento</th>
+							<th>Fecha de Ingreso</th>
+							<th>Estado de Cuenta</th>
+							<th>MODIFICAR</th>
+							<th>ELIMINAR</th></tr>';
+						while($row = pg_fetch_assoc($result)){
+							echo '<tr class="fila_resultado">
+									<td>'.$row['numero_socio'].'</td>
+									<td>'.$row['nombre'].'</td>
+									<td>'.$row['apellido'].'</td>
+									<td>'.$row['dni'].'</td>
+									<td>'.$row['tipo_doc'].'</td>
+									<td>'.$row['fechaingreso'].'</td>
+									<td>'.$row['estadocuenta' ].'</td>
+									<td><a class="link-button blue" href=modificar.php?ID='.$row['numero_socio'].'&tipo_busq=1>Modificar</a></td>
+									<td><a class="link-button red" href=borrar_socio_resul.php?ID='.$row['numero_socio'].'&tipo_busq=1>Eliminar</a></td></tr>';
 
-				if (!$result = pg_query($connect,$consulta)) {
-					echo '<p class="infobox-error">'.pg_last_error($connect).'</p>';
-				} else {
-					echo '<p class="infobox-success">Datos ingresados correctamente</p>';
+						}
+						echo "</table><br>";
+					}
+					
+				}else{
+					echo '<p class="infobox-warning">No se han ingresado todos los datos requeridos</p><br>';
 				}
-			$consulta2 = "SELECT * FROM socios INNER JOIN personas USING (id_persona) INNER JOIN tipos_doc USING (id_tipo_doc) WHERE dni = $num_doc AND tipo_doc='$tipo'";
-				$row = pg_query($connect, $consulta2);
-				while ($reg = pg_fetch_assoc($row)){
-					$id_soc = $reg['numero_socio'];
-					$fecha_alta = $reg['fechaingreso'];
-					$estado = $reg['estadocuenta'];
-				}
-				echo "<tr><td>$nom</td><td>$ape</td><td>$num_doc</td><td>$tipo</td><td>$id_soc</td><td>$fecha_alta</td><td>$estado</td></tr>";
 			?>
+			<a href="socios.php" class="link-button">Volver</a>
+			<br><br>
 
 			</table>
 		</div>

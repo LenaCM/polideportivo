@@ -55,12 +55,12 @@
 			<nav class="cf">
 				<ul id="nav" class="sf-menu">
 					<!-- Nuevo menu para socios? -->
-					<li><a href="flia_emp.php"><span>DIRECTIVOS</span></a></li>
+					<li><a href="directivos.php"><span>DIRECTIVOS</span></a></li>
 					<li class="current-menu-item"><a href="socios.php"><span>SOCIOS</span></a></li> 
 					<li><a href="cuotas.php"><span>CUOTAS</span></a></li>
 					<li><a href="alquileres.php"><span>ALQUILER</span></a></li>
 					<li><a href="empleados.php"><span>EMPLEADOS</span></a></li>
-					<li><a href="matenimiento.php"><span>MANTENIMIENTO</span></a></li>
+					<li><a href="mantenimiento.php"><span>MANTENIMIENTO</span></a></li>
 				</ul>
 				<div id="combo-holder"></div>
 			</nav>
@@ -80,6 +80,7 @@
 				
 			<h2 class="heading" style="text-align:center;">Opciones</h2>
 
+			<!-- Alta nuevo socio -->
 			<div class="toggle-trigger">
 				<img class="mas" src="img/bullets/plus.png">
 				<img class="menos" src="img/bullets/minus.png">
@@ -88,22 +89,20 @@
 				<img class="menos" src="img/bullets/minus.png">
 			</div>		
 			<div class="toggle-container">
-				<!-- form -->
-				<!-- Modificado 28/06/2016 -->
 				<form id="contactForm" action="alta.php" method="post">
 					<fieldset>				
 						<p>
 							<label for="name" >Nombre</label>
-							<input name="name"  id="name" type="text" class="form-poshytip" title="Ingrese su nombre" placeholder="Por Ej: Mariel" />
+							<input name="name"  id="name" type="text" class="form-poshytip" title="Ingrese su nombre" placeholder="Por Ej: Mariel" required/>
 						</p>
 						<p>
 							<label for="apellido" >Apellido</label>
-							<input name="Apellido"  id="apellido" type="text" class="form-poshytip" title="Ingrese su Apellido" placeholder="Por Ej: Fernandez" />
+							<input name="Apellido"  id="apellido" type="text" class="form-poshytip" title="Ingrese su Apellido" placeholder="Por Ej: Fernandez" required/>
 						</p>
 						<p>
 							<label for="tipo_doc">Tipo de Documento</label>
-							<select name="Tipo_doc" id="tipo_doc" class="form-poshytip" title="Enter your type of document">
-								<option value="DNI" selected>DNI</option>
+							<select name="Tipo_doc" id="tipo_doc" class="form-poshytip" title="Elija una opción">
+								<option value="DNI">DNI</option>
 								<option value="PAS">PASAPORTE</option>
 								<option value="LE">LIBRETA DE ENROLAMIENTO</option>
 								<option value="LC">LIBRETA CIVICA</option>
@@ -111,18 +110,21 @@
 						</p>
 						<p>
 							<label for="num_doc">Numero de Documento</label>
-							<input name="num_doc" id="num_doc" type="text" class="form-poshytip"  maxlength="8" title="Enter your document number" />
+							<input name="num_doc" id="num_doc" type="text" class="form-poshytip"  maxlength="8" title="Enter your document number" required/>
 						</p>
 						<p><input class="link-button green" type="submit" value="Enviar" name="submit" id="submit" /></p>
 					</fieldset>
 					
 				</form>
-				<!-- ENDS form -->
-			</div>						
+				
+			</div>	
+			<!-- Fin Alta nuevo socio -->
+
+			<!-- Modificacion o eliminacion de socios -->					
 			<div class="toggle-trigger">
 				<img class="mas" src="img/bullets/plus.png">
 				<img class="menos" src="img/bullets/minus.png">
-				Buscar y Modificar o Dar de Baja a un Socio
+				 Modificar o Dar de Baja a un Socio
 				<img class="mas" src="img/bullets/plus.png">
 				<img class="menos" src="img/bullets/minus.png">
 			</div>				
@@ -140,82 +142,120 @@
 						</p>
 					</fieldset>
 				</form>
-						<div id="por_apellido" style="display:none;">
-							<form id="contactForm" >
-								<fieldset>
-										<p>
-											<label for="apellido_n">Apellido</label>
-											<input name="apellido_n" id="apellido_n" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1"/>
-										</p>
-								</fieldset>
-							</form>
-						</div>
-
-						<div id="tipo_y_dni" style="display:none;">
-							<form id="contactForm" action="buscar_socio_modificar.php" method="post">
-								<fieldset>
-										<p>
-											<label for="num_doc">Numero de Documento</label>
-											<input name="num_doc" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" />
-										</p>
-										<p>
-											<label for="tipo_doc">Tipo de Documento</label>
-											<select name="Tipo_doc" id="tipo_doc" class="form-poshytip" title="Enter your type of document">
-												<option value="DNI" selected>DNI</option>
-												<option value="PAS">PASAPORTE</option>
-												<option value="LE">LIBRETA DE ENROLAMIENTO</option>
-												<option value="LC">LIBRETA CIVICA</option>
-											</select>
-										</p>
-										<p>
-											<input type="submit" value="Buscar" name="submit" id="submit">
-										</p>
-								</fieldset>
-							</form>
-						</div>
-						<div id="num_soc" style="display:none;">
-							<form id="contactForm" action="buscar_socio_modificar.php" method="post">
-								<fieldset>
-									<p>
-										<label for="num_soc">Numero de Socio</label>
-										<input name="num_soc" id="num_soc" type="text" class="form-poshytip" title="Enter your document number" />
-									</p>
-									<p>
-										<input type="submit" value="Buscar" name="buscar" id="buscar">
-									</p>
-								</fieldset>
-							</form>
-						</div>
+				<div id="por_apellido" style="display:none;">
+					<form id="contactForm" >
+						<fieldset>
+								<p>
+									<label for="apellido_n">Apellido</label>
+									<input name="apellido_n" id="apellido_n" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1"/>
+								</p>
+						</fieldset>
+					</form>
+				</div>
+				<div id="tipo_y_dni" style="display:none;">
+					<form id="contactForm" action="buscar_socio_modificar.php" method="post">
+						<fieldset>
+								<p>
+									<label for="num_doc">Numero de Documento</label>
+									<input name="num_doc" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" />
+								</p>
+								<p>
+									<label for="tipo_doc">Tipo de Documento</label>
+									<select name="Tipo_doc" id="tipo_doc" class="form-poshytip" title="Enter your type of document">
+										<option value="DNI" selected>DNI</option>
+										<option value="PAS">PASAPORTE</option>
+										<option value="LE">LIBRETA DE ENROLAMIENTO</option>
+										<option value="LC">LIBRETA CIVICA</option>
+									</select>
+								</p>
+								<p>
+									<input type="submit" value="Buscar" name="submit" id="submit">
+								</p>
+						</fieldset>
+					</form>
+				</div>
+				<div id="num_soc" style="display:none;">
+					<form id="contactForm" action="buscar_socio_modificar.php" method="post">
+						<fieldset>
+							<p>
+								<label for="num_soc">Numero de Socio</label>
+								<input name="num_soc" id="num_soc" type="text" class="form-poshytip" title="Enter your document number" />
+							</p>
+							<p>
+								<input type="submit" value="Buscar" name="buscar" id="buscar">
+							</p>
+						</fieldset>
+					</form>
+				</div>
+			<!-- tabla con resultados de socios activos -->
 				<?php
 
-					$consulta = "SELECT * from socios s inner join personas p using(id_persona) order by numero_socio desc";
+					$consulta = "select * from sp_busqueda_socio(1,'',null) order by numero_socio desc";
 					$result = pg_query($connect, $consulta);
 
-					echo '<table id="lista_soc"><tr class="nombre_columna"><th>Número de Socio</th><th>Nombres</th><th>Apellidos</th><th>DNI</th><th>MODIFICAR</th><th>ELIMINAR</th></tr>';
-					while($row = pg_fetch_assoc($result)){
-						echo '<tr class="fila_resultado">
-								<td>'.$row['numero_socio'].'</td>
-								<td>'.$row['nombre'].'</td>
-								<td>'.$row['apellido'].'</td>
-								<td>'.$row['dni'].'</td>
-								<td><a class="link-button blue" href=modificar.php?ID='.$row['numero_socio'].'&tipo_busq=1>Modificar</a></td>
-								<td><a class="link-button red" href=borrar_socio_resul.php?ID='.$row['numero_socio'].'&tipo_busq=1>Eliminar</a></td></tr>';
+						$tamano_pagina = 10;
+						$pagina = $_GET["pagina"];
+						if(!$pagina){
+							$inicio = 0;
+							$pagina = 1;
+						}else{
+							$inicio = ($pagina - 1) * $tamano_pagina ;
+						}
+
+						$numero_total_registros = pg_num_rows($result);
+						$total_paginas = ceil($numero_total_registros / $tamano_pagina);
+						$consulta2 = "select * from sp_busqueda_socio(1,'',null) order by numero_socio desc limit ".$tamano_pagina." offset ".$inicio;
+						$result2 = pg_query($connect, $consulta2);
+					
+					echo '<table id="lista_soc"><tr class="nombre_columna"><th>Numero de Socio</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Numero de Documento</th>
+							<th>Tipo de Documento</th>
+							<th>Fecha de Ingreso</th>
+							<th>Estado de Cuenta</th>
+							<th>MODIFICAR</th>
+							<th>ELIMINAR</th></tr>';
+						while($row = pg_fetch_assoc($result2)){
+							echo '<tr class="fila_resultado">
+									<td>'.$row['numero_socio'].'</td>
+									<td>'.$row['nombre'].'</td>
+									<td>'.$row['apellido'].'</td>
+									<td>'.$row['dni'].'</td>
+									<td>'.$row['tipo_doc'].'</td>
+									<td>'.$row['fechaingreso'].'</td>
+									<td>'.$row['estadocuenta' ].'</td>
+									<td><a class="link-button blue" href=modificar.php?ID='.$row['numero_socio'].'&tipo_busq=1>Modificar</a></td>
+									<td><a class="link-button red" href=borrar_socio_resul.php?ID='.$row['numero_socio'].'&tipo_busq=1>Eliminar</a></td></tr>';
+
+						}
+					echo '</table><br><div class="paginador" >';
+					if($total_paginas > 1){
+						if($pagina != 1){
+								echo '<a class="link-button" href="socios.php?pagina='.($pagina-1).'"> <<< </a> ';
+							}
+						for($i=1; $i<=$total_paginas;$i++){
+
+							if($pagina == $i){
+								echo '<a class="link-button red">'.$pagina . '</a> ';
+							}else{
+								echo '<a class="link-button" href="socios.php?pagina=' . $i . '">' . $i . '</a> '; 
+							}
+						}
+						if($pagina != $total_paginas){
+							echo ' <a class="link-button" href="socios.php?pagina='.($pagina+1).'"> >>> </a> ';
+						}
 					}
-					echo "</table>";
+					echo "</div><br><br>";
 				?>
-						
+				<!-- FIN tabla con resultados de socios activos -->		
 			</div>
 					
 					<!-- ENDS Toggle opciones -->
+			<!-- FIN modificacion o eliminacion de socios -->
 		</div>
-			
-			<!-- ENDS featured -->
-			
-	
-
 		<!-- ENDS MAIN -->
-		
-
+		<!-- footer -->
 		<footer>
 			<!-- ribbon -->
 			<div id="twitter-holder">
@@ -225,8 +265,7 @@
 			</div>
 		<!-- ENDS ribbon -->		
 		</footer>
-		
-		
+		<!-- END footer -->
 	</div>
 	<!-- ENDS WRAPPER -->
 	

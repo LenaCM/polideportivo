@@ -55,8 +55,4 @@ BEGIN
 	end if;
 END;
 $BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100
-  ROWS 1000;
-ALTER FUNCTION sp_busqueda_socio(integer, text)
-  OWNER TO postgres;
+  LANGUAGE plpgsql;

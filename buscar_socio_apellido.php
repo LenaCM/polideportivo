@@ -10,7 +10,7 @@ $busqueda=$_GET['busqueda'];
 
 
 if($busqueda==1){
-	$query = "select * from sp_busqueda_socio(1, '$valor')";
+	$query = "select * from sp_busqueda_socio(1, '$valor',null)";
 			$consulta = pg_query($connect,$query);
 
 			while($row = pg_fetch_array($consulta)){
@@ -20,6 +20,9 @@ if($busqueda==1){
 				$array['apellido'] = $row['apellido'];
 				$array['nombre'] = $row['nombre'];
 				$array['dni'] = $row['dni'];
+				$array['tipo_doc'] = $row['tipo_doc'];
+				$array['fechaingreso'] = $row['fechaingreso'];
+				$array['estadocuenta'] = $row['estadocuenta'];
 				$arreglo_completo[] = $array;
 			}
 
