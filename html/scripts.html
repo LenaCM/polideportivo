@@ -23,6 +23,9 @@
 
 				busqueda = $("#apellido_n").attr('data-busqueda');
 				if(busqueda==1){
+					var numero_socio;
+					var apellido;
+					var nombre;
 				   $( "#apellido_n" ).autocomplete({
 				      source: 'buscador.php?busqueda=1',
 				      minLength: 2,
@@ -34,27 +37,72 @@
 				            $("#apellido_n").attr('data-tipo-doc',ui.item.tipo_doc );
 				            $("#apellido_n").attr('data-fechaingre',ui.item.fechaingreso );
 				            $("#apellido_n").attr('data-est-cuenta',ui.item.estadocuenta );
-				           // $("#inputProducto").attr('data-id',ui.item.id );
-				           // $("#inputProducto").attr('data-stock',ui.item.stock );
+				            
 				        }
 
-	   				 });//fin buscador
+	   				 });//fin buscador para modificacion y eliminacion
 
-				   $( "body" ).on("click",".ui-menu-item",function(){
+				   $( "#apellido_n" ).on("blur keydown", function(){
 						//alert($("#apellido_n").val());
-						var numero_socio=$("#apellido_n").attr("data-num-socio");
-						var apellido =$("#apellido_n").attr("data-apellido");
-						var nombre = $("#apellido_n").attr("data-nombre");
-						var dni=$("#apellido_n").attr("data-dni");
-						var tipo_doc=$("#apellido_n").attr("data-tipo-doc");
-						var fechaing = $("#apellido_n").attr("data-fechaingre");
-						var estado = $("#apellido_n").attr("data-est-cuenta");
+						//con esto se que se dio enter o se quito el foco
+						if(event.which == 13 || event.type == "blur") {
+							var numero_socio=$("#apellido_n").attr("data-num-socio");
+							var apellido =$("#apellido_n").attr("data-apellido");
+							var nombre = $("#apellido_n").attr("data-nombre");
+							var dni=$("#apellido_n").attr("data-dni");
+							var tipo_doc=$("#apellido_n").attr("data-tipo-doc");
+							var fechaing = $("#apellido_n").attr("data-fechaingre");
+							var estado = $("#apellido_n").attr("data-est-cuenta");
 
-						$(".fila_resultado").remove();
-						$(".paginador").remove();
-						$("#lista_soc").append('<tr class="fila_resultado"><td>'+numero_socio+'</td><td>'+nombre+'</td><td>'+apellido+'</td><td>'+dni+'</td><td>'+tipo_doc+'</td><td>'+fechaing+'</td><td>'+estado+'</td><td><a class="link-button blue" href=modificar.php?ID='+numero_socio+'&tipo_busq=1>Modificar</a></td><td><a class="link-button red" href=borrar_socio_resul.php?ID='+numero_socio+'&tipo_busq=1>Eliminar</a></td></tr>');
+							$("#lista_soc .fila_resultado").remove();
+							$(".paginador").remove();
+							$("#lista_soc").append('<tr class="fila_resultado"><td>'+numero_socio+'</td><td>'+nombre+'</td><td>'+apellido+'</td><td>'+dni+'</td><td>'+tipo_doc+'</td><td>'+fechaing+'</td><td>'+estado+'</td><td><a class="link-button blue" href=modificar.php?ID='+numero_socio+'&tipo_busq=1>Modificar</a></td><td><a class="link-button red" href=borrar_socio_resul.php?ID='+numero_socio+'&tipo_busq=1>Eliminar</a></td></tr>');
+						}
 						
 						});
+				   
+				    $( "#apellido_n_dis" ).autocomplete({
+				      source: 'buscador.php?busqueda=1',
+				      minLength: 2,
+				      select: function (event, ui) {
+				            $("#apellido_n_dis").attr('data-num-socio',ui.item.numero_socio );
+				            $("#apellido_n_dis").attr('data-apellido',ui.item.apellido );
+				            $("#apellido_n_dis").attr('data-nombre',ui.item.nombre);
+				            $("#apellido_n_dis").attr('data-dni',ui.item.dni );
+				            $("#apellido_n_dis").attr('data-tipo-doc',ui.item.tipo_doc );
+				            $("#apellido_n_dis").attr('data-fechaingre',ui.item.fechaingreso );
+				            $("#apellido_n_dis").attr('data-est-cuenta',ui.item.estadocuenta );
+				        }//fin buscador para disciplinas
+
+	   				 });
+
+					disciplinas='<select id="disciplinas" title="Elija una opcion"><option></option><option value="1">ACROBACIA</option><option value="2">AEROBIC</option><option value="3">AIKIDO</option><option value="4">AJEDREZ</option><option value="5">ARTES MARCIALES</option><option value="6">ATLETISMO</option><option value="7">BASQUETBOL</option><option value="8">BOXEO</option><option value="9">BEISBOL</option><option value="10">ESGRIMA</option><option value="12">GIMNASIA</option><option value="11">FÚTBOL</option><option value="13">HOCKEY</option><option value="14">NATACIÓN</option><option value="15">RUGBY</option><option value="16">SOFTBOL</option><option value="17">TENIS</option><option value="18">VOLEIBOL</option></select>';
+
+				      $( "#apellido_n_dis" ).on("blur keydown", function(){
+						//alert($("#apellido_n").val());
+						//con esto se que se dio enter o se quito el foco
+						numero_socio=$("#apellido_n_dis").attr("data-num-socio");
+						apellido =$("#apellido_n_dis").attr("data-apellido");
+						nombre = $("#apellido_n_dis").attr("data-nombre");
+						if(event.which == 13 || event.type == "blur") {
+							
+
+							$("#alta_disciplina").show();
+							$("#alta_disciplina .fila_resultado").remove();
+							$("#alta_disciplina").append('<tr class="fila_resultado"><td>'+numero_socio+'</td><td>'+nombre+'</td><td>'+apellido+'</td><td>'+disciplinas+'</td><td class="boton_agr"><a class="link-button green" href=agregar_disciplina.php?num_soc='+numero_socio+'>Agregar</a></td></tr>');
+							
+						}
+							
+						});
+				    	$("#alta_disciplina").change("disciplinas", function(){
+								id_dis=document.getElementById("disciplinas").value;
+								nom_dis=$("#disciplinas option:selected").text();
+				      			$("#alta_disciplina .fila_resultado .boton_agr").remove();
+				      			$("#alta_disciplina .fila_resultado").append('<td class="boton_agr"><a class="link-button green" href=agregar_disciplina.php?num_soc='+numero_socio+'&disciplina='+id_dis+'&nombre='+nom_dis+'>Agregar</a></td></tr>');
+				      		});
+				     
+
+				    
 		}
 		if(busqueda==2){
 			$( "#apellido_n" ).autocomplete({

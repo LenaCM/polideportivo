@@ -47,7 +47,6 @@
 				$ape = strtoupper($_POST['Apellido']);
 				$num_doc = $_POST['num_doc'];
 				$tipo = $_POST['Tipo_doc'];
-				echo $tipo;
 				if(isset($nom) and isset($ape) and isset($num_doc) and isset($tipo)){
 					
 					$consulta = "SELECT sp_alta_socio('$nom','$ape', $num_doc,'$tipo')";

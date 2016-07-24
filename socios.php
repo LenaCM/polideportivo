@@ -11,7 +11,7 @@
 
 	?>
 <body>
-	<!-- script seleccionar tipo de busqueda -->
+	<!-- script seleccionar tipo de busqueda en modificacion o eliminacion de socios-->
 	<script type="text/javascript">
 		function mostrar(id){
 			$("id").show();
@@ -78,7 +78,7 @@
 			<!-- Toggle opciones -->
 			<div class="page-content entry-content feature cf">
 				
-			<h2 class="heading" style="text-align:center;">Opciones</h2>
+			<h2 class="heading" style="text-align:center;">Alta - Baja - Modificacion</h2>
 
 			<!-- Alta nuevo socio -->
 			<div class="toggle-trigger">
@@ -128,7 +128,7 @@
 				<img class="mas" src="img/bullets/plus.png">
 				<img class="menos" src="img/bullets/minus.png">
 			</div>				
-			<div class="toggle-container">
+			<div class="toggle-container" >
 				<form id="contactForm" action="socios.php" method="post">
 					<fieldset>
 						<p>
@@ -249,11 +249,75 @@
 				?>
 				<!-- FIN tabla con resultados de socios activos -->		
 			</div>
-					
-					<!-- ENDS Toggle opciones -->
 			<!-- FIN modificacion o eliminacion de socios -->
 		</div>
-		<!-- ENDS MAIN -->
+		<!-- FIN seccion 
+		<div role="main" id="main" class="cf">
+		<!-- Disciplinas que practican los socios -->	
+			
+			<div class="page-content entry-content feature cf">	
+			<h2 class="heading" style="text-align:center;">Practica de Disciplinas</h2>
+				<!--cargar una nueva disclina para un socio -->
+				<div class="toggle-trigger">
+					<img class="mas" src="img/bullets/plus.png">
+					<img class="menos" src="img/bullets/minus.png">
+						Registrar práctica de disciplina de un socio
+					<img class="mas" src="img/bullets/plus.png">
+					<img class="menos" src="img/bullets/minus.png">
+				</div>
+				<div class="toggle-container">
+					<div id="por_apellido_dis">
+						<form id="contactForm" >
+							<fieldset>
+									<p>Buscar socio
+										<input name="apellido_n_dis" id="apellido_n_dis" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="Comience a escribir el apellido..."/>
+									</p>
+							</fieldset>
+						</form>
+					</div>
+					<?php
+
+						$consulta = "select * from sp_busqueda_socio(1,'',null) order by numero_socio desc";
+						$result = pg_query($connect, $consulta);
+
+							$tamano_pagina = 10;
+							$pagina = $_GET["pagina"];
+							if(!$pagina){
+								$inicio = 0;
+								$pagina = 1;
+							}else{
+								$inicio = ($pagina - 1) * $tamano_pagina ;
+							}
+
+							$numero_total_registros = pg_num_rows($result);
+							$total_paginas = ceil($numero_total_registros / $tamano_pagina);
+							$consulta2 = "select * from sp_busqueda_socio(1,'',null) order by numero_socio desc limit ".$tamano_pagina." offset ".$inicio;
+							$result2 = pg_query($connect, $consulta2);
+						echo '<table id="alta_disciplina" style="display:none"><tr class="nombre_columna">
+								<th>Numero de Socio</th>
+								<th>Nombre</th>
+								<th>Apellido</th>
+								<th>Elija disclipina</th>
+								<th>Agregar</th></tr>';
+
+						echo '</table><br>';
+					?>
+				</div>
+				
+				
+				<!--FIN de cargar una nueva disclina para un socio -->
+				<div class="toggle-trigger">
+					<img class="mas" src="img/bullets/plus.png">
+					<img class="menos" src="img/bullets/minus.png">
+						Modificar o eliminar práctica de disciplina de un socio
+					<img class="mas" src="img/bullets/plus.png">
+					<img class="menos" src="img/bullets/minus.png">
+				</div>
+				<div class="toggle-container">
+
+				</div>
+			<!-- FIN Disciplinas que practican los socios -->
+		</div>
 		<!-- footer -->
 		<footer>
 			<!-- ribbon -->

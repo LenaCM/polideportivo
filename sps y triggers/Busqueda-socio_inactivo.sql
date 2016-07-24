@@ -1,6 +1,6 @@
-﻿-- Function: sp_busqueda_socio(integer, text, text)
+﻿-- Function: sp_busqueda_socio_inactivo(integer, text, text)
 
--- DROP FUNCTION sp_busqueda_socio(integer, text, text);
+-- DROP FUNCTION sp_busqueda_socio_inactivo(integer, text, text);
 
 CREATE OR REPLACE FUNCTION sp_busqueda_socio_inactivo(tipo_busq integer, dato text, dato2 text)
   RETURNS SETOF personas_socio AS
@@ -43,10 +43,10 @@ BEGIN
 		end if;
 	
 	elsif tipo_busq=3 then
-		FOR rec IN SELECT p.dni, td.tipo_doc, p.nombre, p.apellido, s.numero_socio, s.fechaingreso, s.estadocuenta
+		FOR rec IN SELECT p.dni, td.tipo_doc, p.nombre, p.apellido, s.numero_socio, s.fechaingreso, s.estadocuenta, d.nombre
 			FROM socios s
 			inner join socios_inactivos using(numero_socio)
-			inner join personas p  on (personas.id_persona=socios_inactivos.id_persona)
+			inner join personas p  on (p.id_persona=socios_inactivos.id_persona)
 			inner join tipos_doc td using(id_tipo_doc)
 			inner join practican pr using (numero_socio)
 			inner join disciplinas d using (id_disciplina)
@@ -92,6 +92,5 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100
   ROWS 1000;
-ALTER FUNCTION sp_busqueda_socio(integer, text, text)
+ALTER FUNCTION sp_busqueda_socio_inactivo(integer, text, text)
   OWNER TO postgres;
-select * from sp_busqueda_socio_inactivo(5,'5',null)
