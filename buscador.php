@@ -48,5 +48,25 @@ if($busqueda==2){
 
 			echo json_encode($arreglo_completo);
 }
+if($busqueda==3){
+	$query = "select * from sp_busqueda_socio(6, '$valor',null)";
+			$consulta = pg_query($connect,$query);
 
+			while($row = pg_fetch_array($consulta)){
+				//$array['id'] = 456;
+				$array['value'] = $row['apellido']." ".$row['nombre']." ".$row['tipo_doc']." ".$row['dni']." ".$row['disciplina'];
+				$array['numero_socio'] = $row['numero_socio'];
+				$array['apellido'] = $row['apellido'];
+				$array['nombre'] = $row['nombre'];
+				$array['dni'] = $row['dni'];
+				$array['tipo_doc'] = $row['tipo_doc'];
+				$array['fechaingreso'] = $row['fechaingreso'];
+				$array['estadocuenta'] = $row['estadocuenta'];
+				$array['disciplina']=$row['disciplina'];
+				$array['id_disciplina']=$row['id_disciplina'];
+				$arreglo_completo[] = $array;
+			}
+
+			echo json_encode($arreglo_completo);
+}
 ?>

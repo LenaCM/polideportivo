@@ -43,16 +43,15 @@
 
 		<div class="toggle-container">
 			<?php
-				$id_dis = $_GET['disciplina'];
+				$id_dis = $_GET['id'];
 				$num_soc = $_GET['num_soc'];
-
 				if(isset($id_dis) and isset($num_soc)){
 					
-					$consulta = "SELECT sp_alta_practican($num_soc, $id_dis)";
+					$consulta = "SELECT sp_baja_practican($num_soc, $id_dis)";
 					if (!$result = pg_query($connect,$consulta)) {
 						echo '<p class="infobox-error">'.pg_last_error($connect).'</p><br>';
 					} else {
-						echo '<p class="infobox-success">Datos ingresados correctamente</p><br>';
+						echo '<p class="infobox-success">Eliminado con éxito</p><br>';
 					}
 					
 				}else{

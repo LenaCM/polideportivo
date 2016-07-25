@@ -43,7 +43,7 @@ BEGIN
 		end if;
 	
 	elsif tipo_busq=3 then
-		FOR rec IN SELECT p.dni, td.tipo_doc, p.nombre, p.apellido, s.numero_socio, s.fechaingreso, s.estadocuenta, d.nombre
+		FOR rec IN SELECT p.dni, td.tipo_doc, p.nombre, p.apellido, s.numero_socio, s.fechaingreso, s.estadocuenta, d.nombre, d.id_disciplina
 			FROM socios s
 			inner join socios_activos using(numero_socio)
 			inner join personas p  on (p.id_persona=socios_activos.id_persona)
@@ -78,6 +78,22 @@ BEGIN
 			inner join personas  on (personas.id_persona=socios_activos.id_persona)
 			inner join tipos_doc using(id_tipo_doc)
 			where numero_socio=cast(dato as integer)
+		LOOP
+		RETURN NEXT rec;
+		END LOOP;
+		if rec is null then
+			raise exception 'Verificar datos o El socio que busca no existe o esta inactivo';
+		end if;
+	elsif tipo_busq=6 then
+		FOR rec IN SELECT p.dni, td.tipo_doc, p.nombre, p.apellido, s.numero_socio, s.fechaingreso, s.estadocuenta, d.nombre, d.id_disciplina
+			FROM socios s
+			inner join socios_activos using(numero_socio)
+			inner join personas p  on (p.id_persona=socios_activos.id_persona)
+			inner join tipos_doc td using(id_tipo_doc)
+			inner join practican pr using (numero_socio)
+			inner join disciplinas d using (id_disciplina)
+			where p.apellido like '%'|| dato ||'%'
+			
 		LOOP
 		RETURN NEXT rec;
 		END LOOP;
