@@ -15,10 +15,10 @@ begin
 		raise exception 'Dato inválido';
 	end if;
 	if(tipo_busq=1) then
-		if (select numero_socio from socios_activos where numero_socio=cast(dato as integer)) is null then
+		if (select numero_socio from socios_activos where numero_socio=numero) is null then
 			raise exception 'El socio no existe o no está activo';
 		else
-			if (select numero_socio from familiar_socio where numero_socio=cast(dato as integer))is null then
+			if (select numero_socio from familiar_socio where numero_socio=numero)is null then
 				raise exception 'El socio no tiene familiares que sean socios';
 			else
 				for rec in select 
@@ -89,4 +89,4 @@ end;
 $$
 	language plpgsql;
 
-select * from sp_mostrar_familiares()
+select * from sp_mostrar_familiares(2,'')
