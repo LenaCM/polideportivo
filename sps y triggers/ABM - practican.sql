@@ -12,8 +12,8 @@ begin
 	if (select numero_socio from socios where numero_socio=numerosocio) is null then
 		raise exception 'El socio no existe';
 	elsif (select id_disciplina from practican where numero_socio=numerosocio and id_disciplina=disciplina)is null then
-		INSERT INTO practican(numero_socio, id_disciplina, id_persona)
-			VALUES (numerosocio, disciplina, idpersona);
+		INSERT INTO practican(numero_socio, id_disciplina, id_persona, fecha_adicion)
+			VALUES (numerosocio, disciplina, idpersona,default);
 	else
 		raise exception 'El socio ya practica esta disciplina';
 	end if;

@@ -14,7 +14,7 @@ if($busqueda==1){
 			$consulta = pg_query($connect,$query);
 
 			while($row = pg_fetch_array($consulta)){
-				//$array['id'] = 456;
+				
 				$array['value'] = $row['apellido']." ".$row['nombre']." ".$row['tipo_doc']." ".$row['dni'];
 				$array['numero_socio'] = $row['numero_socio'];
 				$array['apellido'] = $row['apellido'];
@@ -64,6 +64,24 @@ if($busqueda==3){
 				$array['estadocuenta'] = $row['estadocuenta'];
 				$array['disciplina']=$row['disciplina'];
 				$array['id_disciplina']=$row['id_disciplina'];
+				$arreglo_completo[] = $array;
+			}
+
+			echo json_encode($arreglo_completo);
+}
+if($busqueda==4){
+	$query = "select * from sp_mostrar_familiares(2,'$valor')";
+	$consulta = pg_query($connect,$query);
+	while($row = pg_fetch_array($consulta)){
+				
+				$array['value'] = $row['apellido_socio'].", ".$row['nombre_socio']." es familiar de ".$row['apellido_socio_familiar'].", ".$row['nombre_socio_familiar'];
+				$array['apellido_socio'] = $row['apellido_socio'];
+				$array['nombre_socio'] = $row['nombre_socio'];
+				$array['apellido_socio_familiar'] = $row['apellido_socio_familiar'];
+				$array['nombre_socio_familiar'] = $row['nombre_socio_familiar'];
+				$array['numero_socio'] = $row['numero_socio'];
+				$array['numero_socio_familiar'] = $row['numero_socio_familiar'];
+			
 				$arreglo_completo[] = $array;
 			}
 

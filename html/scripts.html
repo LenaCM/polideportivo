@@ -21,11 +21,14 @@
 		$(document).on("ready",function(){
 			
 			var busqueda;
+			var numero_socio;
+			var numero_socio1;
+			var numero_socio2;
+			var apellido;
+			var nombre;
 			$(".busqueda").on("focus",function(){
 				busqueda = $(this).attr('data-busqueda');
-				var numero_socio;
-				var apellido;
-				var nombre;
+				
 				if(busqueda==1){
 				   $( "#apellido_n" ).autocomplete({
 				      source: 'buscador.php?busqueda=1',
@@ -47,9 +50,9 @@
 						//alert($("#apellido_n").val());
 						//con esto se que se dio enter o se quito el foco
 						if(event.which == 13 || event.type == "blur") {
-							var numero_socio=$("#apellido_n").attr("data-num-socio");
-							var apellido =$("#apellido_n").attr("data-apellido");
-							var nombre = $("#apellido_n").attr("data-nombre");
+							 numero_socio=$("#apellido_n").attr("data-num-socio");
+							 apellido =$("#apellido_n").attr("data-apellido");
+							 nombre = $("#apellido_n").attr("data-nombre");
 							var dni=$("#apellido_n").attr("data-dni");
 							var tipo_doc=$("#apellido_n").attr("data-tipo-doc");
 							var fechaing = $("#apellido_n").attr("data-fechaingre");
@@ -68,7 +71,7 @@
 				      select: function (event, ui) {
 				            $("#apellido_n_dis").attr('data-num-socio',ui.item.numero_socio );
 				            $("#apellido_n_dis").attr('data-apellido',ui.item.apellido );
-				         
+				            $("#apellido_n_dis").attr('data-nombre',ui.item.nombre);
 				        }//fin buscador para disciplinas
 
 	   				 });
@@ -80,9 +83,8 @@
 						//con esto se que se dio enter o se quito el foco
 						numero_socio=$("#apellido_n_dis").attr("data-num-socio");
 						apellido =$("#apellido_n_dis").attr("data-apellido");
+						nombre = $("#apellido_n_dis").attr("data-nombre");
 						if(event.which == 13 || event.type == "blur") {
-							
-
 							$("#alta_disciplina").show();
 							$("#alta_disciplina .fila_resultado").remove();
 							$("#alta_disciplina").append('<tr class="fila_resultado"><td>'+numero_socio+'</td><td>'+nombre+'</td><td>'+apellido+'</td><td>'+disciplinas+'</td><td class="boton_agr"><a class="link-button green" href=agregar_disciplina.php?num_soc='+numero_socio+'>Agregar</a></td></tr>');
@@ -96,6 +98,49 @@
 				      			$("#alta_disciplina .fila_resultado").append('<td class="boton_agr"><a class="link-button green" href=agregar_disciplina.php?num_soc='+numero_socio+'&disciplina='+id_dis+'>Agregar</a></td></tr>');
 				    });
 				    
+				    $( "#apellido_n_socio" ).autocomplete({
+				      source: 'buscador.php?busqueda=1',
+				      minLength: 2,
+				      select: function (event, ui) {
+				            $("#apellido_n_socio").attr('data-num-socio',ui.item.numero_socio );            
+				        }
+
+	   				 });
+				    $( "#apellido_n_socio_familiar" ).autocomplete({
+				      source: 'buscador.php?busqueda=1',
+				      minLength: 2,
+				      select: function (event, ui) {
+				            $("#apellido_n_socio_familiar").attr('data-num-socio',ui.item.numero_socio );
+				        }
+	   				 });
+
+				    $("#apellido_n_socio_familiar").on("keydown blur",function(){
+						if(event.which == 13 || event.type == "blur"){
+							numero_socio1 = $("#apellido_n_socio").attr('data-num-socio');
+							numero_socio2 = $("#apellido_n_socio_familiar").attr('data-num-socio');
+							$("#reg_parentezco").attr('href', 'alta_familiar_socio.php?num_soc1='+numero_socio1+'&num_soc2='+numero_socio2+'&tipo_busq=1');
+						}
+						
+					});
+					/////
+					$( "#apellido_buscar_familiares_socio" ).autocomplete({
+				      source: 'buscador.php?busqueda=1',
+				      minLength: 2,
+				      select: function (event, ui) {
+				            $("#apellido_buscar_familiares_socio").attr('data-num-socio',ui.item.numero_socio );
+				            $("#apellido_buscar_familiares_socio").attr('data-num-socio-familiar',ui.item.numero_socio );
+			
+				        }
+	   				 });
+					$("#apellido_buscar_familiares_socio").on("keydown blur",function(){
+						if(event.which == 13 || event.type == "blur"){
+							numero_socio1 = $("#apellido_buscar_familiares_socio").attr('data-num-socio');
+							
+										
+						}
+						
+					});
+					
 				}
 				if(busqueda==2){
 					$( "#apellido_n" ).autocomplete({
@@ -135,9 +180,9 @@
 
 				}
 				if(busqueda==3){
-					 //eliminar disciplinas
-					 var disciplina;
-					 var id;
+					//eliminar disciplinas
+					var disciplina;
+					var id;
 				    $( "#apellido_n_eli_dis" ).autocomplete({
 					    source: 'buscador.php?busqueda=3',
 					    minLength: 2,
@@ -150,7 +195,7 @@
 					    }//fin buscador para disciplinas
 		   			});
 
-				      $( "#apellido_n_eli_dis" ).on("blur keydown", function(){
+				    $( "#apellido_n_eli_dis" ).on("blur keydown", function(){
 						//alert($("#apellido_n").val());
 						//con esto se que se dio enter o se quito el foco
 						numero_socio=$("#apellido_n_eli_dis").attr("data-num-socio");
@@ -165,7 +210,32 @@
 							
 							
 						}
-						});
+					});
+				}
+				if(busqueda==4){
+					$( "#apellido_n_eliminar_socio_familiar" ).autocomplete({
+					    source: 'buscador.php?busqueda=4',
+					    minLength: 2,
+					    select: function (event, ui) {
+					        $("#apellido_n_eliminar_socio_familiar").attr('data-num-socio',ui.item.numero_socio );
+					        $("#apellido_n_eliminar_socio_familiar").attr('data-num-socio-familiar',ui.item.numero_socio_familiar);
+					    }
+		   			});
+		   			 $("#apellido_n_eliminar_socio_familiar").on("keydown blur",function(){
+						if(event.which == 13 || event.type == "blur"){
+							numero_socio1 = $("#apellido_n_eliminar_socio_familiar").attr('data-num-socio');
+							numero_socio2 = $("#apellido_n_eliminar_socio_familiar").attr('data-num-socio-familiar');
+							$("#eli_parentezco").attr('href', 'eliminar_familiar_socio.php?num_soc1='+numero_socio1+'&num_soc2='+numero_socio2+'&tipo_busq=1');
+						}
+						
+					});
+		   			
+		   			$("#buscar_parentezco").on("click",function(){ 
+		   				
+						$("#busqueda_familiares_socios").show();
+						alert(numero_socio1, numero_socio2);
+						
+					});
 				}
 			});
 				

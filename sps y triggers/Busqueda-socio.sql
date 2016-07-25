@@ -93,6 +93,7 @@ BEGIN
 			inner join practican pr using (numero_socio)
 			inner join disciplinas d using (id_disciplina)
 			where p.apellido like '%'|| dato ||'%'
+			order by pr.fecha_adicion desc
 			
 		LOOP
 		RETURN NEXT rec;

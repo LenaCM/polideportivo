@@ -183,7 +183,8 @@ pre {
   color: #fff;
 }
 .link-button,
-#contactForm input[type="submit"] {
+#contactForm input[type="submit"],
+#contactForm input[type="button"]{
   display: inline-block;
   background-color: #e37655;
   border: 1px solid #ffa887;
@@ -219,13 +220,15 @@ pre {
   background: #9cc469;
 }
 .link-button.blue,
-#contactForm input[type="submit"] {
+#contactForm input[type="submit"],
+#contactForm input[type="button"].blue {
   background: #53a4ae;
   border: 1px solid #85d6e0;
   border-bottom: 1px solid #3f909a;
 }
 .link-button.blue:hover,
-#contactForm input[type="submit"]:hover{
+#contactForm input[type="submit"]:hover,
+#contactForm input[type="button"].blue:hover{
   background: #69bac4;
 }
 /* ACCORDION -------------------------------------------------*/
