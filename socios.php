@@ -438,7 +438,7 @@
 									}
 
 									echo '</table><br><div class="paginador" >';
-									if(!$row){
+									if(pg_num_rows($result3)==0){
 											echo 'No hay resultados';
 										}
 									if($total_paginas > 1){
@@ -509,16 +509,10 @@
 								<td>Número Socio Familiar</td>
 								<td>Nombre Familiar</td>
 								<td>Apellido Familiar</td>
-								<td>Eliminar</td>
 							</tr>
-						</table>
+						</table><br>
 					</div>
-						<?php 
-					$consulta = "select * from sp_mostrar_familiares(1, '19')";
-					$result = pg_query($connect, $consulta);
-					$row = pg_fetch_assoc($result);
-					echo $row['apellido_socio'];
-				?>
+					
 				</div>
 
 			<!-- FIN de buscar familiares de un socio que sean socios -->

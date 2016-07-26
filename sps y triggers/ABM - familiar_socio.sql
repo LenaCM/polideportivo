@@ -104,30 +104,30 @@ begin
 			raise exception 'No tiene familiares';
 		
 		else
-			id_pers1 := (select id_persona from socios where numero_socio=numero1);
+			id_pers1 := (select id_persona from socios_activos where numero_socio=numero1);
 			
 			if tipo_busq2=1 then
-				if (select numero_socio from socios where numero_socio=numero2) is null then
+				if (select numero_socio from socios_activos where numero_socio=numero2) is null then
 					raise exception 'El socio no existe o no esta activo';
 				elsif (select numero_socio from familiar_socio where numero_socio_fam=numero2  and numero_socio=numero1) is null then
 					raise exception 'No es familiar de este socio';
 				else
-					id_pers2 := (select id_persona from socios where numero_socio=numero2);
+					id_pers2 := (select id_persona from socios_activos where numero_socio=numero2);
 
-					delete from familiar_socio where numero_socio=numero1;
-					delete from familiar_socio where numero_socio=numero2;
+					delete from familiar_socio where numero_socio=numero1 and numero_socio_fam=numero2;
+					delete from familiar_socio where numero_socio=numero2 and numero_socio_fam=numero1;
 					
 				end if;
 			else
 				num_soc2 := (select numero_socio from socios inner join personas using(id_persona)where dni=numero2 and id_tipo_doc=(select busca_id_documento(tipo_d2)));
-				if (select numero_socio from socios where numero_socio=num_soc2) is null then
+				if (select numero_socio from socios_activos where numero_socio=num_soc2) is null then
 					raise exception 'El socio no existe o no esta activo';
 				elsif (select numero_socio from familiar_socio where numero_socio_fam=num_soc2  and numero_socio=numero1) is null then
 					raise exception 'No es familiar de este socio';
 				else	
 					id_pers2 := (select id_persona from socios where numero_socio=num_soc2);
-					delete from familiar_socio where numero_socio=numero1;
-					delete from familiar_socio where numero_socio=num_soc2;
+					delete from familiar_socio where numero_socio=numero1 and numero_socio_fam=num_soc2;
+					delete from familiar_socio where numero_socio=num_soc2 and numero_socio_fam=numero1;
 				end if;
 			end if;
 		end if;
@@ -141,25 +141,25 @@ begin
 			id_pers1 := (select id_persona from socios where numero_socio=num_soc1);
 			
 			if tipo_busq2=1 then
-				if (select numero_socio from socios where numero_socio=numero2) is null then
+				if (select numero_socio from socios_activos where numero_socio=numero2) is null then
 					raise exception 'El socio no existe o no esta activo';
 				elsif (select numero_socio from familiar_socio where numero_socio_fam=numero2  and numero_socio=num_soc1) is null then
 					raise exception 'No es familiar de este socio';
 				else
 					id_pers2 := (select id_persona from socios where numero_socio=numero2);
-					delete from familiar_socio where numero_socio=num_soc1;
-					delete from familiar_socio where numero_socio=numero2;
+					delete from familiar_socio where numero_socio=num_soc1 and numero_socio_fam=numero2;
+					delete from familiar_socio where numero_socio=numero2 and numero_socio_fam=num_soc1;
 				end if;
 			else
-				num_soc2 := (select numero_socio from socios inner join personas using(id_persona)where dni=numero2 and id_tipo_doc=(select busca_id_documento(tipo_d2)));
+				num_soc2 := (select numero_socio from socios_activos inner join personas using(id_persona)where dni=numero2 and id_tipo_doc=(select busca_id_documento(tipo_d2)));
 				if (select numero_socio from socios where numero_socio=num_soc2) is null then
 					raise exception 'El socio no existe o no esta activo';
 				elsif (select numero_socio from familiar_socio where numero_socio_fam=num_soc2 and numero_socio=num_soc1) is null then
 					raise exception 'No es familiar de este socio';
 				else	
 					id_pers2 := (select id_persona from socios where numero_socio=num_soc2);
-					delete from familiar_socio where numero_socio=num_soc1;
-					delete from familiar_socio where numero_socio=num_soc2;
+					delete from familiar_socio where numero_socio=num_soc1 and numero_socio_fam=num_soc2;
+					delete from familiar_socio where numero_socio=num_soc2 and numero_socio_fam=num_soc1;
 				end if;
 			end if;
 		end if;

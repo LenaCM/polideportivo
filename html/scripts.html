@@ -26,6 +26,10 @@
 			var numero_socio2;
 			var apellido;
 			var nombre;
+			var apellido1;
+			var apellido2;
+			var nombre1;
+			var nombre2;
 			$(".busqueda").on("focus",function(){
 				busqueda = $(this).attr('data-busqueda');
 				
@@ -135,7 +139,6 @@
 					$("#apellido_buscar_familiares_socio").on("keydown blur",function(){
 						if(event.which == 13 || event.type == "blur"){
 							numero_socio1 = $("#apellido_buscar_familiares_socio").attr('data-num-socio');
-							
 										
 						}
 						
@@ -230,10 +233,22 @@
 						
 					});
 		   			
+
+
 		   			$("#buscar_parentezco").on("click",function(){ 
-		   				
+		   				$.ajax({
+		   					url: 'buscador.php?term='+numero_socio1+'&busqueda=5',
+		   					dataType: 'text',
+		   					success: function(data){
+		   						var json =$.parseJSON(data);
+		   						for( i=0; i<json.length;i++){
+		   							$("#busqueda_familiares_socios").append('<tr class="fila resultado"><td>'+json[i].numero_socio+'</td><td>'+json[i].nombre_socio+'</td><td>'+json[i].apellido_socio+'</td><td>'+json[i].numero_socio_familiar+'</td><td>'+json[i].nombre_socio_familiar+'</td><td>'+json[i].apellido_socio_familiar+'</td></tr>');
+		   						}
+		   					}
+		   				});
+		   			
 						$("#busqueda_familiares_socios").show();
-						alert(numero_socio1, numero_socio2);
+						
 						
 					});
 				}
