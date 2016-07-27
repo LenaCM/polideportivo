@@ -21,6 +21,7 @@
 		$(document).on("ready",function(){
 			
 			var busqueda;
+			var dni;
 			var numero_socio;
 			var numero_socio1;
 			var numero_socio2;
@@ -30,6 +31,8 @@
 			var apellido2;
 			var nombre1;
 			var nombre2;
+			var disciplina;
+			var dato;
 			$(".busqueda").on("focus",function(){
 				busqueda = $(this).attr('data-busqueda');
 				
@@ -57,7 +60,7 @@
 							 numero_socio=$("#apellido_n").attr("data-num-socio");
 							 apellido =$("#apellido_n").attr("data-apellido");
 							 nombre = $("#apellido_n").attr("data-nombre");
-							var dni=$("#apellido_n").attr("data-dni");
+							 dni=$("#apellido_n").attr("data-dni");
 							var tipo_doc=$("#apellido_n").attr("data-tipo-doc");
 							var fechaing = $("#apellido_n").attr("data-fechaingre");
 							var estado = $("#apellido_n").attr("data-est-cuenta");
@@ -143,9 +146,104 @@
 						}
 						
 					});
+					$( "#busqueda_nombre" ).autocomplete({
+				      source: 'buscador.php?busqueda=6',
+				      minLength: 2,
+				      select: function (event, ui) {
+				      	$("#busqueda_nombre").attr('data-num-socio',ui.item.numero_socio );
+					
+				        }
+	   				 });
+					$("#busqueda_nombre").on("keydown blur",function(){
+						if(event.which == 13 || event.type == "blur"){
+							//dato = $("#busqueda_disciplina").attr('data-disciplina');
+							dato = $("#busqueda_nombre").val();
+							tipo = 2;		
+						}
+						
+					});
+					$( "#busqueda_apellido" ).autocomplete({
+				      source: 'buscador.php?busqueda=7',
+				      minLength: 2,
+				      select: function (event, ui) {
+				      	$("#busqueda_apellido").attr('data-num-socio',ui.item.numero_socio );
+					
+				        }
+	   				 });
+					$("#busqueda_apellido").on("keydown blur",function(){
+						if(event.which == 13 || event.type == "blur"){
+							//dato = $("#busqueda_disciplina").attr('data-disciplina');
+							dato = $("#busqueda_apellido").val();
+							tipo = 1;		
+						}
+						
+					});
+					$( "#busqueda_documento" ).autocomplete({
+				      source: 'buscador.php?busqueda=8',
+				      minLength: 2,
+				      select: function (event, ui) {
+				      	$("#busqueda_documento").attr('data-num-doc',ui.item.dni );
+					
+				        }
+	   				 });
+					$("#busqueda_documento").on("keydown blur",function(){
+						if(event.which == 13 || event.type == "blur"){
+							//dato = $("#busqueda_documento").attr('data-num-doc');
+							dato = $("#busqueda_documento").val();
+							tipo = 4;			
+						}
+						
+					});
+					$( "#busqueda_disciplina" ).autocomplete({
+				      source: 'buscador.php?busqueda=9',
+				      minLength: 2,
+				      select: function (event, ui) {
+				      	$("#busqueda_disciplina").attr('data-disciplina',ui.item.disciplina );
+					
+				        }
+	   				 });
+					$("#busqueda_disciplina").on("keydown blur",function(){
+						if(event.which == 13 || event.type == "blur"){
+							//dato = $("#busqueda_disciplina").attr('data-disciplina');
+							dato = $("#busqueda_disciplina").val();
+							tipo = 3;		
+						}
+						
+					});
+					$("#dife_busquedas").on("click",function(){ 
+		   				$.ajax({
+		   					url: 'buscador.php?term='+dato+'&busqueda=10&tipo='+tipo,
+		   					dataType: 'text',
+		   					success: function(data){
+
+		   						var json =$.parseJSON(data);
+		   						
+		   						if(data=="null"){
+		   							$("#resultado_bus").css("display", "none");
+		   							$("#mensaje_sin_datos").show();
+		   						}else{
+
+		   							$("#resultado_bus").show();
+			   						$("td","#resultado_bus").remove();
+
+			   						for( i=0; i<json.length;i++){
+			   							$("#resultado_bus").append('<tr class="fila resultado"><td>'+json[i].numero_socio+'</td><td>'+json[i].nombre+'</td><td>'+json[i].apellido+'</td><td>'+json[i].dni+'</td><td>'+json[i].tipo_doc+'</td><td>'+json[i].fechaingreso+'</td><td>'+json[i].estadocuenta+'</td></tr>');
+			   						}
+			   						$("#mensaje_sin_datos").css("display", "none");
+
+		   						}
+		   						
+		   					}
+		   				});
+		   			
+						
+						
+						
+					});
 					
 				}
 				if(busqueda==2){
+					
 					$( "#apellido_n" ).autocomplete({
 						      source: 'buscador.php?busqueda=2',
 						      minLength: 2,
@@ -163,8 +261,9 @@
 								}
 
 	   				});//fin buscador
-					$( "body" ).on("click",".ui-menu-item",function(){
+					$( "#apellido_n" ).on("keydown blur", function(){
 								//alert($("#apellido_n").val());
+							if(event.which==13 || event.type=="blur"){
 								var tipo_doc=$("#apellido_n").attr("data-tipo-doc");
 								var apellido =$("#apellido_n").attr("data-apellido");
 								var nombre = $("#apellido_n").attr("data-nombre");
@@ -178,7 +277,13 @@
 								$(".fila_resultado").remove();
 
 								$("#lista_empl").append('<tr class="fila_resultado"><td>'+nombre+'</td><td>'+apellido+'</td><td>'+dni+'</td><td>'+tipo_doc+'</td><td>'+salario+'</td><td>'+antig+'</td><td>'+hora_ent+'</td><td>'+hora_sal+'</td><td><a class="link-button blue" href=modificar_empleado.php?ID='+dni+'&tipo_doc='+tipo_doc+'>Modificar</a></td><td><a  class="link-button red" href=borrar_empleado_result.php?ID='+dni+'&tipo='+tipo_doc+'>Eliminar</a></td></tr>');
+							}
 								
+					});
+
+					$("#modificar").click("submit", function(e){
+						
+						$("form", "#modificar").hide();
 					});
 
 				}
@@ -224,7 +329,7 @@
 					        $("#apellido_n_eliminar_socio_familiar").attr('data-num-socio-familiar',ui.item.numero_socio_familiar);
 					    }
 		   			});
-		   			 $("#apellido_n_eliminar_socio_familiar").on("keydown blur",function(){
+		   			$("#apellido_n_eliminar_socio_familiar").on("keydown blur",function(){
 						if(event.which == 13 || event.type == "blur"){
 							numero_socio1 = $("#apellido_n_eliminar_socio_familiar").attr('data-num-socio');
 							numero_socio2 = $("#apellido_n_eliminar_socio_familiar").attr('data-num-socio-familiar');

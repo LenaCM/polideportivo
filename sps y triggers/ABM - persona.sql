@@ -76,17 +76,12 @@ $$
 begin
 	if exists(select * from personas where dni=doc and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%')) then
 		
-		if nombre_mod is not null then
+		if (nombre_mod is not null) and (apellido_mod is not null) then
 			update personas
-				set nombre=nombre_mod
+			set nombre=nombre_mod, apellido=apellido_mod
 			where dni=doc and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
 		end if;
 		
-		if apellido_mod is not null then
-			update personas
-				set apellido=apellido_mod
-			where dni=doc and id_tipo_doc=(select id_tipo_doc from tipos_doc where tipo_doc like '%'||tipo_d||'%');
-		end if;
 		
 		if dni_mod is not null then
 			if dni_mod<1000000 then

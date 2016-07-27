@@ -74,34 +74,25 @@ begin
 			if salario_mod<=0 then
 				raise exception 'Monto inválido para salario';
 			end if;
-			update empleados 
-			set salario=salario_mod
-			where id_persona=id_pers;
 		end if;
 		if antiguedad_mod is not null then
 			if antiguedad_mod<0 then
 				raise exception 'Valor inválido para la antiguedad';
 			end if;
-			update empleados 
-			set antiguedad=antiguedad_mod
-			where id_persona=id_pers;
 		end if;
 		if hora_entrada_mod is not null then
 			if hora_entrada_mod>=(select hora_salida from empleados inner join personas using(id_persona) where id_persona=id_pers) then
 				raise exception 'El horario de entrada no puede ser despues que el de salida';
 			end if;
-			update empleados 
-			set hora_entrada=hora_entrada_mod
-			where id_persona=id_pers;
 		end if;
 		if hora_salida_mod is not null then
 			if hora_salida_mod<=(select hora_entrada from empleados inner join personas using(id_persona) where id_persona=id_pers) then
 				raise exception 'El horario de salida no puede ser antes que el de entrada';
 			end if;
-			update empleados 
-			set hora_salida=hora_salida_mod
-			where id_persona=id_pers;
 		end if;
+		update empleados
+		set salario=salario_mod, set antiguedad=antiguedad_mod, set hora_entrada=hora_entrada_mod, set hora_salida=hora_salida_mod
+		where id_persona=id_pers;
 	else
 		raise exception 'El emplead@ no existe';
 	end if;
@@ -110,4 +101,4 @@ end;
 $$
 	language plpgsql;
 */
--- select sp_modificar_empleado(33333333, 'LE', null, null, null, null, 9567.99, 11, '09:00:00', '14:00:00')
+-- select sp_modificar_empleado(33333333, 'DNI', null, null, null, null, 9567.99, 11, '09:00:00', '14:00:00')

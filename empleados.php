@@ -62,7 +62,7 @@
 		<div role="main" id="main" class="cf">
 			
 			<!-- headline -->
-			<div class="headline">Panel Administracion de Empleados</div>
+				<div class="headline">Panel Administracion de Empleados</div>
 			<!-- ENDS headline -->
 			
 			<!-- Toggle opciones -->
@@ -157,7 +157,7 @@
 								<fieldset>
 										<p>
 											<label for="apellido_n">Apellido</label>
-											<input name="apellido_n" id="apellido_n" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="2" />
+											<input name="apellido_n" id="apellido_n" type="text" class="form-poshytip busqueda" title="Enter your document number" data-busqueda="2" />
 										</p>
 								</fieldset>
 							</form>
@@ -191,9 +191,9 @@
 
 							echo '<table id="lista_empl"><tr class="nombre_columna"><td>Nombres</td><td>Apellidos</td><td>Numero de documento</td><td>Tipo Documento</td><td>Sueldo</td><td>Antiguedad</td><td>Horario Entrada</td><td>Horario Salida</td><td>Modificar</td><td>Eliminar</td></tr>';
 							while($row = pg_fetch_assoc($result)){
-								echo '<tr class="fila_resultado"><td>'.$row['nombre'].'</td><td>'.$row['apellido'].'</td><td>'.$row['dni'].'</td><td>'.$row['tipo_doc'].'</td><td>'.$row['salario'].'</td><td>'.$row['antiguedad']."</td><td>".$row['hora_entrada'].'</td><td>'.$row['hora_salida'].'</td><td><a class="link-button blue" href=modificar_empleado.php?ID='.$row['dni']."&tipo_doc=".$row['tipo_doc'].'>Modificar</a></td><td><a  class="link-button red" href=borrar_empleado_result.php?ID='.$row['dni'].'&tipo='.$row['tipo_doc'].'>Eliminar</a></td></tr>';
+								echo '<tr class="fila_resultado"><td>'.$row['nombre'].'</td><td>'.$row['apellido'].'</td><td>'.$row['dni'].'</td><td>'.$row['tipo_doc'].'</td><td>'.$row['salario'].'</td><td>'.$row['antiguedad']."</td><td>".$row['hora_entrada'].'</td><td>'.$row['hora_salida'].'</td><td><a class="link-button blue" href=modificar_empleado.php?ID='.$row['id_persona'].'>Modificar</a></td><td><a  class="link-button red" href=borrar_empleado.php?ID='.$row['dni'].'&tipo='.$row['tipo_doc'].'>Eliminar</a></td></tr>';
 							}
-							echo "</table>";
+							echo "</table><br>";
 
 						?>
 						

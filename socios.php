@@ -31,7 +31,37 @@
 				$("#tipo_y_dni").hide();
 				$("#num_soc").hide();
 			};
+			if (id == "dni_bus") {
+				$("#por_dni_bus").show();
+				$("#por_nombre_bus").hide();
+				$("#por_apellido_bus").hide();
+				$("#por_disciplina_bus").hide();
+			};
+			if (id == "nombre_bus") {
+				$("#por_dni_bus").hide();
+				$("#por_nombre_bus").show();
+				$("#por_apellido_bus").hide();
+				$("#por_disciplina_bus").hide();
+
+			};
+			if (id == "apellido_bus") {
+				$("#por_apellido_bus").show();
+				$("#por_dni_bus").hide();
+				$("#por_nombre_bus").hide();
+				$("#por_disciplina_bus").hide();
+			};
+			if (id == "disciplina_bus") {
+				$("#por_disciplina_bus").show();
+				$("#por_apellido_bus").hide();
+				$("#por_dni_bus").hide();
+				$("#por_nombre_bus").hide();
+			};
 		}
+		$(document).ready(function(){
+		    $("#dife_busquedas").click(function(event){
+		        event.preventDefault();
+		    });
+		});
 	</script>
 	<!-- FIN script seleccionar tipo de busqueda -->
 
@@ -514,9 +544,88 @@
 					</div>
 					
 				</div>
-
+		</div>
 			<!-- FIN de buscar familiares de un socio que sean socios -->
+		<!--busqueda de socios-->
+			<div class="page-content entry-content feature cf">
+			<h2 class="heading" style="text-align:center;">Busqueda de socios</h2>
+				<div class="toggle-trigger">
+					<img class="mas" src="img/bullets/plus.png">
+					<img class="menos" src="img/bullets/minus.png">
+					 Búsqueda por diferentes criterios
+					<img class="mas" src="img/bullets/plus.png">
+					<img class="menos" src="img/bullets/minus.png">
+				</div>
+				<div class="toggle-container" >
+					<form id="contactForm" action="socios.php" method="post">
+								<fieldset>
+									<p>
+										Tipo de Búsqueda
+										<select name="status" id="status" class="form-poshytip" onChange="mostrar(this.value);">
+											<option disabled="disabled" selected>Elija una Opción</option>
+											<option value="nombre_bus">Por Nombre</option>
+											<option value="apellido_bus">Por Apellido</option>
+											<option value="dni_bus">Por Número de Documento</option>
+											<option value="disciplina_bus">Por Disciplina</option>
+											
+										</select>
+									</p>
+								</fieldset>
+							</form>
+							<div id="por_apellido_bus" style="display:none;">
+								<form id="contactForm" >
+									<fieldset>
+											<p>
+												<input class="busqueda" name="busqueda_apellido" id="busqueda_apellido" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="Comience a escribir el apellido..."/>
+											</p>
+									</fieldset>
+								</form>
+							</div>
+							<div id="por_dni_bus" style="display:none;">
+								<form id="contactForm" >
+									<fieldset>
+											<p>
+												<input class="busqueda" name="busqueda_documento" id="busqueda_documento" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="Comience a escribir el número de documento..."/>
+											</p>
+									</fieldset>
+								</form>
+							</div>
+							<div id="por_nombre_bus" style="display:none;">
+								<form id="contactForm" >
+									<fieldset>
+											<p>
+												<input class="busqueda" name="busqueda_nombre" id="busqueda_nombre" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="Comience a escribir el nombre..."/>
+											</p>
+									</fieldset>
+								</form>
+							</div>
+							<div id="por_disciplina_bus" style="display:none;">
+								<form id="contactForm" >
+									<fieldset>
+											<p>
+												<input class="busqueda" name="busqueda_disciplina" id="busqueda_disciplina" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="Comience a escribir la disciplina..." value=""/>
+											</p>
+									</fieldset>
+								</form>
+							</div>
+							<a class="link-button blue" id="dife_busquedas" href="" data-busqueda="1">Buscar</a><br>
+							<br><table id="resultado_bus" style="display:none">
+								<tr>
+									<th>Número Socio</th>
+									<th>Nombre</th>
+									<th>Apellido</th>
+									<th>Numero de Documento</th>
+									<th>Tipo de Documento</th>
+									<th>Fecha de Ingreso</th>
+									<th>Estado de Cuenta</th>
+								</tr>
+								<tr class="fila_resultado"><td>hjh</td></tr>
+							</table>
+							<p class="infobox-warning" id="mensaje_sin_datos" style="display:none">No se encontraron datos</p><br>
+				</div>
 
+			</div>
+		<!--busqueda de socios-->
 	</div>
 		<!-- footer -->
 		<footer>
