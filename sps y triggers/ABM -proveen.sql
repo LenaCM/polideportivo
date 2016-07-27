@@ -8,8 +8,8 @@ $$
 declare 
 	idprov smallint; id_ins smallint;
 begin
-	idprov := (select id_proveedor from proveedores where nombre like '%'||nombre_prov||'%');
-	id_ins := (select id_insumo from insumos where nombre like '%'||nombre_insumo||'%');
+	idprov := (select id_proveedor from proveedores where nombre like '%'||nombre_prov||'%' limit 1);
+	id_ins := (select id_insumo from insumos where nombre like '%'||nombre_insumo||'%' limit 1);
 	if id_ins is null then
 		raise exception 'El insumo no existe';
 	elsif (select id_insumos_ad from insumos_administrativos where id_insumos_ad=id_ins) is null then
@@ -26,6 +26,8 @@ begin
 end;
 $$
 	language plpgsql;
+
+	select id_proveedor from proveedores where nombre like '%AMD%' limit 1
 	
 --select sp_alta_proveen('PAPELERA DEL SUR', 'Resma de papel A4');
 -----------------------------------------------------------------------------------------------------

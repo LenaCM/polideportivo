@@ -2,7 +2,7 @@
 ------------------------------------------------------------------
 --ALTA comision directiva
 ------------------------------------------------------------------
-/*
+
 create or replace function alta_comision_directiva(tipo_busq integer, tipo_d varchar, numero integer, puesto_co varchar)
 	returns void as
 $$
@@ -12,7 +12,7 @@ begin
 	if tipo_busq=1 then
 		if (select numero_socio from socios where numero_socio=numero) is null then
 			raise exception 'El socio no existe';
-		elseif (select numero_socio from socios_activos where numero_socio=numero) is null then
+		elsif (select numero_socio from socios_activos where numero_socio=numero) is null then
 			raise exception 'El socio no esta activo';
 		else
 			num_soc := numero;
@@ -117,3 +117,36 @@ $$
 	language plpgsql;
 
 --select sp_baja_comision_directiva(2, 'LE', 43759710)
+
+create type directivos as(
+	  id_persona integer ,
+	  dni integer ,
+	  id_tipo_doc smallint ,
+	  tipo_doc character(3),
+	  nombre character varying(32) ,
+	  apellido character varying(32) ,
+	  numero_socio integer ,
+	  puesto character varying(15)
+)
+
+create or replace function mostrar_directivos() returns setof directivos as $$
+declare
+rec directivos%ROWTYPE;
+begin
+	for rec in select 
+	  id_persona  ,
+	  dni ,
+	  id_tipo_doc  ,
+	  tipo_doc ,
+	  nombre ,
+	  apellido,
+	  numero_socio ,
+	  puesto 
+	 from personas inner join comision_directiva using(id_persona) inner join tipos_doc using(id_tipo_doc) loop
+		return next rec;
+	end loop;
+	
+end;
+$$ language plpgsql;
+
+select * from mostrar_directivos()

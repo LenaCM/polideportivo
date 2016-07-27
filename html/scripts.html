@@ -79,6 +79,43 @@
 						}
 						
 						});
+
+				   //busqueda proveedores
+				     $( "#buscar_prov" ).autocomplete({
+				      source: 'buscador.php?busqueda=12',
+				      minLength: 2,
+				      select: function (event, ui) {
+				            $("#num-baja-proveedor").attr('value',ui.item.nombre );
+				        }//fin buscador para disciplinas
+
+	   				 });
+	   				  $( "#buscar_provs" ).autocomplete({
+				      source: 'buscador.php?busqueda=12',
+				      minLength: 2,
+				      select: function (event, ui) {
+				            $("#proveedor").attr('value',ui.item.nombre );
+				        }//fin buscador para disciplinas
+
+	   				 });
+	   				
+				      //busqueda insumos
+				   $( "#buscar-insumo" ).autocomplete({
+				      source: 'buscador.php?busqueda=13',
+				      minLength: 2,
+				      select: function (event, ui) {
+				            $("#baja-insumo").attr('value',ui.item.nombre );
+				        }//fin buscador para disciplinas
+
+	   				 });
+				    $( "#buscar-insumos" ).autocomplete({
+				      source: 'buscador.php?busqueda=13',
+				      minLength: 2,
+				      select: function (event, ui) {
+				            $("#insumo").attr('value',ui.item.nombre );
+				        }//fin buscador para disciplinas
+
+	   				 });
+
 				   //alta disciplina
 				    $( "#apellido_n_dis" ).autocomplete({
 				      source: 'buscador.php?busqueda=1',

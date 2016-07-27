@@ -49,146 +49,193 @@
 		<div role="main" id="main" class="cf">
 			
 			<!-- headline -->
-			<div class="headline">Panel Administracion de Socios</div>
+			<div class="headline">Panel Administracion de Mantenimiento</div>
 			<!-- ENDS headline -->
 			
 			<!-- Toggle opciones -->
 			<div class="page-content entry-content feature cf">
 				
-			<h2 class="heading" style="text-align:center;">Opciones</h2>
+			<h2 class="heading" style="text-align:center;">Proveedores</h2>
 
 			<div class="toggle-trigger">
 				<img class="mas" src="img/bullets/plus.png">
 				<img class="menos" src="img/bullets/minus.png">
-				Dar de alta un nuevo socio
+				Dar de alta un nuevo proveedor
 				<img class="mas" src="img/bullets/plus.png">
 				<img class="menos" src="img/bullets/minus.png">
 			</div>		
 			<div class="toggle-container">
-				<!-- form -->
-				<!-- Modificado 28/06/2016 -->
-				<form id="contactForm" action="alta.php" method="post">
-					<fieldset>				
-						<p>
-							<label for="name" >Nombre</label>
-							<input name="name"  id="name" type="text" class="form-poshytip" title="Ingrese su nombre" placeholder="Por Ej: Mariel" />
-						</p>
-						<p>
-							<label for="apellido" >Apellido</label>
-							<input name="Apellido"  id="apellido" type="text" class="form-poshytip" title="Ingrese su Apellido" placeholder="Por Ej: Fernandez" />
-						</p>
-						<p>
-							<label for="tipo_doc">Tipo de Documento</label>
-							<select name="Tipo_doc" id="tipo_doc" class="form-poshytip" title="Enter your type of document">
-								<option value="DNI" selected>DNI</option>
-								<option value="PAS">PASAPORTE</option>
-								<option value="LE">LIBRETA DE ENROLAMIENTO</option>
-								<option value="LC">LIBRETA CIVICA</option>
-							</select>
-						</p>
-						<p>
-							<label for="num_doc">Numero de Documento</label>
-							<input name="num_doc" id="num_doc" type="text" class="form-poshytip"  maxlength="8" title="Enter your document number" />
-						</p>
-						<p><input class="link-button green" type="submit" value="Enviar" name="submit" id="submit" /></p>
-					</fieldset>
-					
-				</form>
-				<!-- ENDS form -->
-			</div>						
+							<form id="contactForm" action="alta_proveedores.php" method="post">
+								<fieldset>				
+									<p>
+										<label for="name" >Nombre</label>
+										<input name="name"  id="name" type="text" class="form-poshytip" title="Ingrese su nombre" placeholder="Por Ej: Norte Insumos" required/>
+									</p>
+									<p>
+										<label for="apellido" >Dirección</label>
+										<input name="direccion"  id="apellido" type="text" class="form-poshytip" title="Ingrese su Apellido" required/>
+									</p>
+									<p>
+										<label for="apellido" >Telefono</label>
+										<input name="telefono"  id="apellido" type="text" class="form-poshytip" title="Ingrese su Apellido"  required/>
+									</p>
+									<p><input class="link-button green" type="submit" value="Enviar" name="submit" id="submit" /></p>
+								</fieldset>
+								
+							</form>
+							
+			</div>
+
+
 			<div class="toggle-trigger">
 				<img class="mas" src="img/bullets/plus.png">
 				<img class="menos" src="img/bullets/minus.png">
-				Buscar y Modificar o Dar de Baja a un Socio
+				Buscar y Dar de Baja a un proveedor
 				<img class="mas" src="img/bullets/plus.png">
 				<img class="menos" src="img/bullets/minus.png">
 			</div>				
 			<div class="toggle-container">
-				<form id="contactForm" action="socios.php" method="post">
-					<fieldset>
-						<p>
-							Elija el tipo de Busqueda
-							<select name="status" id="status" class="form-poshytip" onChange="mostrar(this.value);">
-								<option disabled="disabled" selected>Elija una Opcion Aca</option>
-								<option value="apellido_n">Por Apellido</option>
-								<option value="num_dni">Por Numero y Tipo de DNI</option>
-								<option value="num_soc">Por Numero de Socio</option>
-							</select>
-						</p>
-					</fieldset>
-				</form>
-						<div id="por_apellido" style="display:none;">
-							<form id="contactForm" >
-								<fieldset>
-										<p>
-											<label for="apellido_n">Apellido</label>
-											<input name="apellido_n" id="apellido_n" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1"/>
-										</p>
-								</fieldset>
-							</form>
-						</div>
-
-						<div id="tipo_y_dni" style="display:none;">
-							<form id="contactForm" action="buscar_socio_modificar.php" method="post">
-								<fieldset>
-										<p>
-											<label for="num_doc">Numero de Documento</label>
-											<input name="num_doc" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" />
-										</p>
-										<p>
-											<label for="tipo_doc">Tipo de Documento</label>
-											<select name="Tipo_doc" id="tipo_doc" class="form-poshytip" title="Enter your type of document">
-												<option value="DNI" selected>DNI</option>
-												<option value="PAS">PASAPORTE</option>
-												<option value="LE">LIBRETA DE ENROLAMIENTO</option>
-												<option value="LC">LIBRETA CIVICA</option>
-											</select>
-										</p>
-										<p>
-											<input type="submit" value="Buscar" name="submit" id="submit">
-										</p>
-								</fieldset>
-							</form>
-						</div>
-						<div id="num_soc" style="display:none;">
-							<form id="contactForm" action="buscar_socio_modificar.php" method="post">
-								<fieldset>
-									<p>
-										<label for="num_soc">Numero de Socio</label>
-										<input name="num_soc" id="num_soc" type="text" class="form-poshytip" title="Enter your document number" />
-									</p>
-									<p>
-										<input type="submit" value="Buscar" name="buscar" id="buscar">
-									</p>
-								</fieldset>
-							</form>
-						</div>
-				<?php
-
-					$consulta = "SELECT * from socios s inner join personas p using(id_persona) order by numero_socio desc";
-					$result = pg_query($connect, $consulta);
-
-					echo '<table id="lista_soc"><tr class="nombre_columna"><th>Número de Socio</th><th>Nombres</th><th>Apellidos</th><th>DNI</th><th>MODIFICAR</th><th>ELIMINAR</th></tr>';
-					while($row = pg_fetch_assoc($result)){
-						echo '<tr class="fila_resultado">
-								<td>'.$row['numero_socio'].'</td>
-								<td>'.$row['nombre'].'</td>
-								<td>'.$row['apellido'].'</td>
-								<td>'.$row['dni'].'</td>
-								<td><a class="link-button blue" href=modificar.php?ID='.$row['numero_socio'].'&tipo_busq=1>Modificar</a></td>
-								<td><a class="link-button red" href=borrar_socio_resul.php?ID='.$row['numero_socio'].'&tipo_busq=1>Eliminar</a></td></tr>';
-					}
-					echo "</table>";
-				?>
-						
+			<div id="por_apellido">
+								<form id="contactForm" action="baja_proveedores.php" method="post">
+									<fieldset>
+											<p>
+												<input class="busqueda" name="buscar_prov" id="buscar_prov" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder=""/>
+											</p>
+									</fieldset>
+									 <input type="hidden" id="num-baja-proveedor" name="nombre" value="">
+									<input type="submit" value="Eliminar">
+								</form>	
 			</div>
-					
+			</div>
+
+			
+
 					<!-- ENDS Toggle opciones -->
 		</div>
 			
 			<!-- ENDS featured -->
+		
 			
-	
+			
+			<!-- Toggle opciones -->
+			<div class="page-content entry-content feature cf">
+				
+			<h2 class="heading" style="text-align:center;">Insumos</h2>
+
+			<div class="toggle-trigger">
+				<img class="mas" src="img/bullets/plus.png">
+				<img class="menos" src="img/bullets/minus.png">
+				Dar de alta un nuevo insumo
+				<img class="mas" src="img/bullets/plus.png">
+				<img class="menos" src="img/bullets/minus.png">
+			</div>		
+			<div class="toggle-container">
+							<form id="contactForm" action="alta_insumos.php" method="post">
+								<fieldset>				
+									<p>
+										<label for="name" >Nombre</label>
+										<input name="name"  id="name" type="text" class="form-poshytip" title="Ingrese su nombre" placeholder="Por Ej: Toallas" required/>
+									</p>
+									<p>
+										<label for="" >Stock</label><br>
+										<input name="stock"  id="apellido" type="number" min="1" max="100" class="form-poshytip" required/>
+									</p>
+									<p>
+										<label for="" >Tipo insumo</label>
+										<select name="tipo_insumo">
+											<option value="1">Insumo Administrativo</option>
+											<option value="2">Insumo No Administrativo</option>
+										</select>
+									</p>
+									<p><input class="link-button green" type="submit" value="Enviar" name="submit" id="submit" /></p>
+								</fieldset>
+								
+							</form>
+							
+			</div>
+
+
+			<div class="toggle-trigger">
+				<img class="mas" src="img/bullets/plus.png">
+				<img class="menos" src="img/bullets/minus.png">
+				Buscar y de Baja a un insumo
+				<img class="mas" src="img/bullets/plus.png">
+				<img class="menos" src="img/bullets/minus.png">
+			</div>				
+			<div class="toggle-container">
+			<div id="por_apellido">
+								<form id="contactForm" action="baja_insumos.php" method="post">
+									<fieldset>
+											<p>
+												<input class="busqueda" name="buscar_insumo" id="buscar-insumo" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder=""/>
+											</p>
+									</fieldset>
+									 <input type="hidden" id="baja-insumo" name="nombre" value="">
+									<input type="submit" value="Eliminar">
+								</form>	
+			</div>
+			</div>
+						
+			<div class="toggle-trigger">
+				<img class="mas" src="img/bullets/plus.png">
+				<img class="menos" src="img/bullets/minus.png">
+				Proveedores de insumos administrativos
+				<img class="mas" src="img/bullets/plus.png">
+				<img class="menos" src="img/bullets/minus.png">
+			</div>
+			<div class="toggle-container" id="relacionar">
+				<form id="contactForm" action="alta_proveedores_insumos.php" method="post">
+								<fieldset>				
+									<p>
+										<label for="buscar_provs" >Nombre proveedor</label>
+										<input class="busqueda" name="buscar_provs" id="buscar_provs" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="" required="">
+									</p>
+									<p>
+										<label for="buscar_provs" >Nombre insumo</label>
+										<input class="busqueda" name="buscar_insumos" id="buscar-insumos" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="" required>
+											</p>
+									<p><input class="link-button green" type="submit" value="Cargar"  id="submit" /></p>
+								</fieldset>
+								
+								<input type="hidden" id="proveedor" name="proveedor">
+								<input type="hidden" name="insumo" id="insumo">
+							</form>
+			</div>
+
+			<!-- SGSDG-->
+			<div class="toggle-trigger">
+				<img class="mas" src="img/bullets/plus.png">
+				<img class="menos" src="img/bullets/minus.png">
+				Insumos que usan las instalaciones
+				<img class="mas" src="img/bullets/plus.png">
+				<img class="menos" src="img/bullets/minus.png">
+			</div>
+			<div class="toggle-container" id="relacionar">
+				<form id="contactForm" action="alta_proveedores_insumos.php" method="post">
+								<fieldset>				
+									<p>
+										<label for="buscar_provs" >Instalaciones</label>
+										<select required>
+											<option>Seleccionar</option>
+											<?php
+												$query = "select * from instalaciones"
+											  ?>
+										</select>
+									</p>
+									<p>
+										<label for="buscar_provs" >Nombre insumo</label>
+										<input class="busqueda" name="buscar_insumos" id="buscar-insumos" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="" required>
+											</p>
+									<p><input class="link-button green" type="submit" value="Cargar"  id="submit" /></p>
+								</fieldset>
+								
+								<input type="hidden" id="proveedor" name="proveedor">
+								<input type="hidden" name="insumo" id="insumo">
+							</form>
+			</div>
+					<!-- ENDS Toggle opciones -->
+				
+		</div>
 
 		<!-- ENDS MAIN -->
 		

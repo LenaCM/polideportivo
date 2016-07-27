@@ -45,13 +45,13 @@
 			<?php
 			
 
-				if(isset($_POST['name']) and isset($_POST['direccion']) and isset($_POST['telefono'])){
+				if(isset($_POST['name']) and isset($_POST['stock']) and isset($_POST['tipo_insumo'])){
 					
 					$nombre = strtoupper($_POST['name']);
-					$direccion = strtoupper($_POST['direccion']);
-					$telefono = ($_POST['telefono']);
+					$stock = strtoupper($_POST['stock']);
+					$tipo_insumo = ($_POST['tipo_insumo']);
 
-					$consulta = "SELECT sp_alta_proveedor('$nombre','$direccion','$telefono')";
+					$consulta = "SELECT sp_alta_insumos('$nombre', $stock, $tipo_insumo)";
 					if (!$result = pg_query($connect,$consulta)) {
 						echo '<p class="infobox-error">'.pg_last_error($connect).'</p><br>';
 					} else {
