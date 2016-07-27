@@ -17,14 +17,13 @@ declare
 	rec lista_empleados%rowtype;
 begin
 	for rec in select p.dni, t.tipo_doc, p.apellido, p.nombre, e.salario, 
-			(select apellido from personas where id_persona=f.id_persona_empl),
-			(select nombre from personas where id_persona=f.id_persona_empl),
-			(select count(parentezco) from familiares where id_persona=e.id_persona and (parentezco like '%HIJO%' or parentezco like '%HIJA%'))
+			(select apellido from personas inner join familiares f using(id_persona) where id_persona_empl=e.id_persona and parentezco like '%CÓNYUGE%'),
+			(select nombre from personas inner join familiares f using(id_persona)where id_persona_empl=e.id_persona and parentezco like '%CÓNYUGE%'),
+			(select count(parentezco) from familiares where id_persona_empl=e.id_persona and (parentezco like '%HIJO%' or parentezco like '%HIJA%'))
 		from empleados e 
-		inner join familiares f using(id_persona)
 		inner join personas p using(id_persona)
 		inner join tipos_doc t using(id_tipo_doc)
-		where parentezco like '%CONYUGUE%' order by p.apellido
+		order by p.apellido
 	loop
 		return next rec;
 	end loop;
@@ -34,3 +33,8 @@ $$
 	language plpgsql;
 
 select * from sp_listado_empleados();
+
+
+
+
+		
