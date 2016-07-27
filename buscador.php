@@ -227,4 +227,19 @@ if($busqueda==13){
 
 			echo json_encode($arreglo_completo);
 }
+if($busqueda==14){
+	$query = "select * from sp_listado_alquiler('$valor') where numero_socio not in (0)";
+			$consulta = pg_query($connect,$query);
+
+			while($row = pg_fetch_array($consulta)){
+				
+				$array['value'] = $row['apellido'].", ".$row['nombre']." alquiler de ".$row['nombre_instalacion']." el dia ".$row['fecha']." a las ".$row['hora']." horas " ;
+				$array['numero_socio'] = $row['numero_socio'];
+				$array['nombre_instalacion'] = $row['nombre_instalacion'];
+				$array['fecha'] = $row['fecha'];
+				$array['hora'] = $row['hora'];
+				$arreglo_completo[] = $array;
+			}
+			echo json_encode($arreglo_completo);
+}
 ?>

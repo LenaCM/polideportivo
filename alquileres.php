@@ -128,6 +128,18 @@
 						<img class="menos" src="img/bullets/minus.png">
 					</div>	
 					<div class="toggle-container">
+						<div id="">
+								<form id="contactForm" >
+									<fieldset>
+											<p> Socio
+												<input class="busqueda" name="eliminar_alquiler" id="eliminar_alquiler" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="Comience a escribir el apellido..."/>
+											</p>
+
+									</fieldset>
+
+								</form>
+								<table id="listado_al_socio" style="display:none"><tr class="nombre_columna"><th>Fecha</th><th>Hora</th><th>Apellidos</th><th>Nombres</th><th>Número de Socio</th><th>Instalación</th><th>Costo</th><th>Pagado</th></tr></table>
+						</div>
 					</div>
 				</div>
 				<!--opciones para no socios -->
@@ -204,7 +216,7 @@
 							</fieldset>
 							</form>
 					</div>
-					</div>
+				</div>
 				<!--fin opciones para no socios-->
 				<!-- listado de alquileres-->
 				<div class="page-content entry-content feature cf">

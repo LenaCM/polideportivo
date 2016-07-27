@@ -61,7 +61,7 @@
 					echo '<p class="infobox-warning">No se cuenta con todos los datos requeridos</p><br>';
 				}
 			?>
-			<a href="directivos.php" class="link-button">Volver</a>
+			<a href="mantenimiento.php" class="link-button">Volver</a>
 			<br><br>
 
 			</table>
@@ -75,4 +75,4 @@
 		<!-- ENDS ribbon -->
 	</div>
 </body>
-</html>alta_instalaciones_insumos.php
+</html>
