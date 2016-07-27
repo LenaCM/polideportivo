@@ -180,4 +180,25 @@ if($busqueda==10){
 
 			echo json_encode($arreglo_completo);
 }
+if($busqueda==11){
+	$query = "select * from sp_mostrar_familiares_empleados('$valor')";
+			$consulta = pg_query($connect,$query);
+
+			while($row = pg_fetch_array($consulta)){
+				
+				$array['value'] = $row['apellido_empleado'].", ".$row['nombre_empleado']." ".$row['tipo_doc_empleado']." ".$row['dni_empleado']." - ".$row['parentezco']." : ".$row['nombre_familiar'].", ".$row['apellido_familiar']." ".$row['tipo_doc_familiar']." ".$row['dni_familiar'];
+				$array['apellido_empleado'] = $row['apellido_empleado'];
+				$array['nombre_empleado'] = $row['nombre_empleado'];
+				$array['dni_empleado'] = $row['dni_empleado'];
+				$array['tipo_doc_empleado'] = $row['tipo_doc_empleado'];
+				$array['apellido_familiar'] = $row['apellido_familiar'];
+				$array['nombre_familiar'] = $row['nombre_familiar'];
+				$array['dni_familiar'] = $row['dni_familiar'];
+				$array['tipo_doc_familiar'] = $row['tipo_doc_familiar'];
+				$array['parentezco'] = $row['parentezco'];
+				$arreglo_completo[] = $array;
+			}
+
+			echo json_encode($arreglo_completo);
+}
 ?>

@@ -22,6 +22,7 @@
 			
 			var busqueda;
 			var dni;
+			var dni2;
 			var numero_socio;
 			var numero_socio1;
 			var numero_socio2;
@@ -33,6 +34,9 @@
 			var nombre2;
 			var disciplina;
 			var dato;
+			var tipo_doc;
+			var tipo_doc2;
+			var parentezco;
 			$(".busqueda").on("focus",function(){
 				busqueda = $(this).attr('data-busqueda');
 				
@@ -61,7 +65,7 @@
 							 apellido =$("#apellido_n").attr("data-apellido");
 							 nombre = $("#apellido_n").attr("data-nombre");
 							 dni=$("#apellido_n").attr("data-dni");
-							var tipo_doc=$("#apellido_n").attr("data-tipo-doc");
+							tipo_doc=$("#apellido_n").attr("data-tipo-doc");
 							var fechaing = $("#apellido_n").attr("data-fechaingre");
 							var estado = $("#apellido_n").attr("data-est-cuenta");
 
@@ -294,6 +298,31 @@
 							if(event.which==13 || event.type=="blur"){
 								$("#dni_empl").attr( 'value', $("#apellido_n").attr('data-dni'));
 								$("#tipo_dni_empl").attr('value', $("#apellido_n").attr('data-tipo-doc'));
+							}
+								
+					});
+					$( "#apellido_empleado_mod_el" ).autocomplete({
+						      source: 'buscador.php?busqueda=11',
+						      minLength: 2,
+						      select: function (event, ui) {
+						            apellido1 = ui.item.apellido_empleado;
+						            apellido2 = ui.item.apellido_familiar;
+						            nombre1 = ui.item.nombre_empleado;
+						            nombre2 = ui.item.nombre_familiar;
+						            dni = ui.item.dni_empleado;
+						            dni2 = ui.item.dni_familiar;
+						            tipo_doc = ui.item.tipo_doc_empleado;
+						            tipo_doc2 = ui.item.tipo_doc_familiar;
+						            parentezco = ui.item.parentezco;
+								}
+
+	   				});//fin buscador
+	   				$( "#apellido_empleado_mod_el" ).on("keydown blur", function(){
+								//alert($("#apellido_n").val());
+							if(event.which==13 || event.type=="blur"){
+								
+								$(".fila_resultado").remove();
+								$("#lista_fam").append('<tr class="fila_resultado"><td>'+apellido1+'</td><td>'+nombre1+'</td><td>'+dni+'</td><td>'+tipo_doc+'</td><td>'+apellido2+'</td><td>'+nombre2+'</td><td>'+dni2+'</td><td>'+tipo_doc2+'</td><td>'+parentezco+'</td><td><a class="link-button blue" href=modificar.php?ID=&tipo_busq=1>Modificar</a></td><td><a class="link-button red" href=eliminar_familiar.php?dni='+dni2+'&tipo='+tipo_doc2+'>Eliminar</a></td></tr>');
 							}
 								
 					});
