@@ -117,6 +117,14 @@
 				        }//fin buscador para disciplinas
 
 	   				 });
+				    $( "#buscar_insumos" ).autocomplete({
+				      source: 'buscador.php?busqueda=13',
+				      minLength: 2,
+				      select: function (event, ui) {
+				            $("#insumos").attr('value',ui.item.nombre );
+				        }//fin buscador para disciplinas
+
+	   				 });
 
 				   //alta disciplina
 				    $( "#apellido_n_dis" ).autocomplete({

@@ -211,26 +211,29 @@
 				<img class="menos" src="img/bullets/minus.png">
 			</div>
 			<div class="toggle-container" id="relacionar">
-				<form id="contactForm" action="alta_proveedores_insumos.php" method="post">
+				<form id="contactForm" action="alta_instalaciones_insumos.php" method="post">
 								<fieldset>				
 									<p>
 										<label for="buscar_provs" >Instalaciones</label>
-										<select required>
+										<select name="instalaciones" required>
 											<option>Seleccionar</option>
 											<?php
-												$query = "select * from instalaciones"
+												$consulta = "select * from instalaciones";
+												$result = pg_query($connect,$consulta);
+												while($row=pg_fetch_array($result)){
+													echo "<option value=".$row['nombre_instalacion'].">".$row['nombre_instalacion']."</option>";
+												}
 											  ?>
 										</select>
 									</p>
 									<p>
 										<label for="buscar_provs" >Nombre insumo</label>
-										<input class="busqueda" name="buscar_insumos" id="buscar-insumos" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="" required>
+										<input class="busqueda" id="buscar_insumos" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="" required>
 											</p>
 									<p><input class="link-button green" type="submit" value="Cargar"  id="submit" /></p>
 								</fieldset>
 								
-								<input type="hidden" id="proveedor" name="proveedor">
-								<input type="hidden" name="insumo" id="insumo">
+								<input type="hidden" name="insumo" id="insumos">
 							</form>
 			</div>
 					<!-- ENDS Toggle opciones -->
