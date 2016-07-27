@@ -30,11 +30,11 @@
 				<ul id="nav" class="sf-menu">
 					<!-- Nuevo menu para socios? -->
 					<li><a href="directivos.php"><span>DIRECTIVOS</span></a></li>
-					<li class="current-menu-item"><a href="socios.php"><span>SOCIOS</span></a></li> 
+					<li ><a href="socios.php"><span>SOCIOS</span></a></li> 
 					<li><a href="cuotas.php"><span>CUOTAS</span></a></li>
 					<li><a href="alquileres.php"><span>ALQUILER</span></a></li>
 					<li><a href="empleados.php"><span>EMPLEADOS</span></a></li>
-					<li><a href="mantenimiento.php"><span>MANTENIMIENTO</span></a></li>
+					<li><a class="current-menu-item" href="mantenimiento.php"><span>MANTENIMIENTO</span></a></li>
 				</ul>
 				<div id="combo-holder"></div>
 			</nav>
@@ -45,13 +45,12 @@
 			<?php
 			
 
-				if(isset($_POST['name']) and isset($_POST['direccion']) and isset($_POST['telefono'])){
+				if(isset($_POST['proveedor']) and isset($_POST['insumo'])){
 					
-					$nombre = strtoupper($_POST['name']);
-					$direccion = strtoupper($_POST['direccion']);
-					$telefono = ($_POST['telefono']);
-
-					$consulta = "SELECT sp_alta_proveedor('$nombre','$direccion','$telefono')";
+					$proveedor = $_POST['proveedor'];
+					$insumo = $_POST['insumo'];
+					
+					$consulta = "SELECT sp_alta_proveen('$proveedor', '$insumo')";
 					if (!$result = pg_query($connect,$consulta)) {
 						echo '<p class="infobox-error">'.pg_last_error($connect).'</p><br>';
 					} else {
@@ -60,6 +59,8 @@
 					
 				}else{
 					echo '<p class="infobox-warning">No se cuenta con todos los datos requeridos</p><br>';
+					echo "prov ".$_POST['proveedor']."<br>";
+					echo "insu ".$_POST['insumo'];
 				}
 			?>
 			<a href="mantenimiento.php" class="link-button">Volver</a>

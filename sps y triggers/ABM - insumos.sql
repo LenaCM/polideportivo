@@ -98,3 +98,26 @@ $$
 language plpgsql;
 
 select sp_baja_insumos('Detergente');
+
+CREATE type insumos_ as
+(
+  id_insumo smallint ,
+  nombre character varying(30) ,
+  stock smallint
+)
+
+create or replace function buscar_insumos(nombre_ text) returns setof insumos_ as $$
+declare
+rec record;
+begin
+	for rec in select * from insumos where nombre like '%' || nombre_ || '%' loop
+		return next rec;
+	end loop;
+end;
+$$ language plpgsql;
+
+select * from buscar_insumos('co')
+
+
+
+

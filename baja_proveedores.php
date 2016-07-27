@@ -45,17 +45,15 @@
 			<?php
 			
 
-				if(isset($_POST['name']) and isset($_POST['direccion']) and isset($_POST['telefono'])){
+				if(isset($_POST['nombre'])){
 					
-					$nombre = strtoupper($_POST['name']);
-					$direccion = strtoupper($_POST['direccion']);
-					$telefono = ($_POST['telefono']);
-
-					$consulta = "SELECT sp_alta_proveedor('$nombre','$direccion','$telefono')";
+					$nombre = $_POST['nombre'];
+					
+					$consulta = "SELECT sp_baja_proveedor('$nombre')";
 					if (!$result = pg_query($connect,$consulta)) {
 						echo '<p class="infobox-error">'.pg_last_error($connect).'</p><br>';
 					} else {
-						echo '<p class="infobox-success">Datos ingresados correctamente</p><br>';
+						echo '<p class="infobox-success">Se elimino el proveedor correctamente</p><br>';
 					}
 					
 				}else{

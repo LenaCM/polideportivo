@@ -69,12 +69,53 @@
 							var fechaing = $("#apellido_n").attr("data-fechaingre");
 							var estado = $("#apellido_n").attr("data-est-cuenta");
 
+							//para directivo
+							$("#num-alta-directivo").attr("value",numero_socio);
+							//
+
 							$("#lista_soc .fila_resultado").remove();
 							$(".paginador").remove();
 							$("#lista_soc").append('<tr class="fila_resultado"><td>'+numero_socio+'</td><td>'+nombre+'</td><td>'+apellido+'</td><td>'+dni+'</td><td>'+tipo_doc+'</td><td>'+fechaing+'</td><td>'+estado+'</td><td><a class="link-button blue" href=modificar.php?ID='+numero_socio+'&tipo_busq=1>Modificar</a></td><td><a class="link-button red" href=borrar_socio_resul.php?ID='+numero_socio+'&tipo_busq=1>Eliminar</a></td></tr>');
 						}
 						
 						});
+
+				   //busqueda proveedores
+				     $( "#buscar_prov" ).autocomplete({
+				      source: 'buscador.php?busqueda=12',
+				      minLength: 2,
+				      select: function (event, ui) {
+				            $("#num-baja-proveedor").attr('value',ui.item.nombre );
+				        }//fin buscador para disciplinas
+
+	   				 });
+	   				  $( "#buscar_provs" ).autocomplete({
+				      source: 'buscador.php?busqueda=12',
+				      minLength: 2,
+				      select: function (event, ui) {
+				            $("#proveedor").attr('value',ui.item.nombre );
+				        }//fin buscador para disciplinas
+
+	   				 });
+	   				
+				      //busqueda insumos
+				   $( "#buscar-insumo" ).autocomplete({
+				      source: 'buscador.php?busqueda=13',
+				      minLength: 2,
+				      select: function (event, ui) {
+				            $("#baja-insumo").attr('value',ui.item.nombre );
+				        }//fin buscador para disciplinas
+
+	   				 });
+				    $( "#buscar-insumos" ).autocomplete({
+				      source: 'buscador.php?busqueda=13',
+				      minLength: 2,
+				      select: function (event, ui) {
+				            $("#insumo").attr('value',ui.item.nombre );
+				        }//fin buscador para disciplinas
+
+	   				 });
+
 				   //alta disciplina
 				    $( "#apellido_n_dis" ).autocomplete({
 				      source: 'buscador.php?busqueda=1',
@@ -83,6 +124,10 @@
 				            $("#apellido_n_dis").attr('data-num-socio',ui.item.numero_socio );
 				            $("#apellido_n_dis").attr('data-apellido',ui.item.apellido );
 				            $("#apellido_n_dis").attr('data-nombre',ui.item.nombre);
+
+				            //para directivo
+							$("#num-baja-directivo").attr("value",ui.item.numero_socio);
+							//
 				        }//fin buscador para disciplinas
 
 	   				 });

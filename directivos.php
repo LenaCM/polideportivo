@@ -49,7 +49,7 @@
 		<div role="main" id="main" class="cf">
 			
 			<!-- headline -->
-			<div class="headline">Panel Administracion de Socios</div>
+			<div class="headline">Panel Administracion de Directivos</div>
 			<!-- ENDS headline -->
 			
 			<!-- Toggle opciones -->
@@ -60,129 +60,94 @@
 			<div class="toggle-trigger">
 				<img class="mas" src="img/bullets/plus.png">
 				<img class="menos" src="img/bullets/minus.png">
-				Dar de alta un nuevo socio
+				Dar de alta un nuevo directivo
 				<img class="mas" src="img/bullets/plus.png">
 				<img class="menos" src="img/bullets/minus.png">
 			</div>		
-			<div class="toggle-container">
+			<div class="toggle-container" >
 				<!-- form -->
 				<!-- Modificado 28/06/2016 -->
-				<form id="contactForm" action="alta.php" method="post">
-					<fieldset>				
-						<p>
-							<label for="name" >Nombre</label>
-							<input name="name"  id="name" type="text" class="form-poshytip" title="Ingrese su nombre" placeholder="Por Ej: Mariel" />
-						</p>
-						<p>
-							<label for="apellido" >Apellido</label>
-							<input name="Apellido"  id="apellido" type="text" class="form-poshytip" title="Ingrese su Apellido" placeholder="Por Ej: Fernandez" />
-						</p>
-						<p>
-							<label for="tipo_doc">Tipo de Documento</label>
-							<select name="Tipo_doc" id="tipo_doc" class="form-poshytip" title="Enter your type of document">
-								<option value="DNI" selected>DNI</option>
-								<option value="PAS">PASAPORTE</option>
-								<option value="LE">LIBRETA DE ENROLAMIENTO</option>
-								<option value="LC">LIBRETA CIVICA</option>
-							</select>
-						</p>
-						<p>
-							<label for="num_doc">Numero de Documento</label>
-							<input name="num_doc" id="num_doc" type="text" class="form-poshytip"  maxlength="8" title="Enter your document number" />
-						</p>
-						<p><input class="link-button green" type="submit" value="Enviar" name="submit" id="submit" /></p>
-					</fieldset>
+				<div id="por_apellido">
+								<form id="contactForm" action="alta_directivos.php" method="post">
+									<fieldset>
+											<p>
+												<input class="busqueda" name="apellido_n" id="apellido_n" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="Comience a escribir el apellido..."/>
+											</p>
+									</fieldset>
+									 <input type="hidden" id="num-alta-directivo" name="num_socio" value="">
+									<select name="puesto-directivo">
+										<option disabled selected>Seleccionar puesto</option>
+										<option value="DIRECTOR">Director</option>
+										<option value="SUBDIRECTOR">Subdirector</option>
+										<option value="TESORERO">Tesorero</option>
+										<option value="CONTADOR">Contador</option>
+									</select>
+
+									<input type="submit" name="Cargar">
+								</form>
+					</div>
 					
-				</form>
 				<!-- ENDS form -->
 			</div>						
 			<div class="toggle-trigger">
 				<img class="mas" src="img/bullets/plus.png">
 				<img class="menos" src="img/bullets/minus.png">
-				Buscar y Modificar o Dar de Baja a un Socio
+				Buscar y Dar de Baja a un directivo
 				<img class="mas" src="img/bullets/plus.png">
 				<img class="menos" src="img/bullets/minus.png">
 			</div>				
 			<div class="toggle-container">
-				<form id="contactForm" action="socios.php" method="post">
-					<fieldset>
-						<p>
-							Elija el tipo de Busqueda
-							<select name="status" id="status" class="form-poshytip" onChange="mostrar(this.value);">
-								<option disabled="disabled" selected>Elija una Opcion Aca</option>
-								<option value="apellido_n">Por Apellido</option>
-								<option value="num_dni">Por Numero y Tipo de DNI</option>
-								<option value="num_soc">Por Numero de Socio</option>
-							</select>
-						</p>
-					</fieldset>
-				</form>
-						<div id="por_apellido" style="display:none;">
-							<form id="contactForm" >
-								<fieldset>
-										<p>
-											<label for="apellido_n">Apellido</label>
-											<input name="apellido_n" id="apellido_n" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1"/>
-										</p>
-								</fieldset>
-							</form>
-						</div>
-
-						<div id="tipo_y_dni" style="display:none;">
-							<form id="contactForm" action="buscar_socio_modificar.php" method="post">
-								<fieldset>
-										<p>
-											<label for="num_doc">Numero de Documento</label>
-											<input name="num_doc" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" />
-										</p>
-										<p>
-											<label for="tipo_doc">Tipo de Documento</label>
-											<select name="Tipo_doc" id="tipo_doc" class="form-poshytip" title="Enter your type of document">
-												<option value="DNI" selected>DNI</option>
-												<option value="PAS">PASAPORTE</option>
-												<option value="LE">LIBRETA DE ENROLAMIENTO</option>
-												<option value="LC">LIBRETA CIVICA</option>
-											</select>
-										</p>
-										<p>
-											<input type="submit" value="Buscar" name="submit" id="submit">
-										</p>
-								</fieldset>
-							</form>
-						</div>
-						<div id="num_soc" style="display:none;">
-							<form id="contactForm" action="buscar_socio_modificar.php" method="post">
-								<fieldset>
-									<p>
-										<label for="num_soc">Numero de Socio</label>
-										<input name="num_soc" id="num_soc" type="text" class="form-poshytip" title="Enter your document number" />
-									</p>
-									<p>
-										<input type="submit" value="Buscar" name="buscar" id="buscar">
-									</p>
-								</fieldset>
-							</form>
-						</div>
-				<?php
-
-					$consulta = "SELECT * from socios s inner join personas p using(id_persona) order by numero_socio desc";
-					$result = pg_query($connect, $consulta);
-
-					echo '<table id="lista_soc"><tr class="nombre_columna"><th>Número de Socio</th><th>Nombres</th><th>Apellidos</th><th>DNI</th><th>MODIFICAR</th><th>ELIMINAR</th></tr>';
-					while($row = pg_fetch_assoc($result)){
-						echo '<tr class="fila_resultado">
-								<td>'.$row['numero_socio'].'</td>
-								<td>'.$row['nombre'].'</td>
-								<td>'.$row['apellido'].'</td>
-								<td>'.$row['dni'].'</td>
-								<td><a class="link-button blue" href=modificar.php?ID='.$row['numero_socio'].'&tipo_busq=1>Modificar</a></td>
-								<td><a class="link-button red" href=borrar_socio_resul.php?ID='.$row['numero_socio'].'&tipo_busq=1>Eliminar</a></td></tr>';
-					}
-					echo "</table>";
-				?>
-						
-			</div>
+			<div id="por_apellido">
+								<form id="contactForm" action="baja_directivos.php" method="post">
+									<fieldset>
+											<p>
+												<input class="busqueda" name="apellido_n" id="apellido_n_dis" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="Comience a escribir el apellido..."/>
+											</p>
+									</fieldset>
+									 <input type="hidden" id="num-baja-directivo" name="num_socio" value="">
+									<input type="submit" value="Eliminar">
+								</form>
+					</div>
 					
+			</div>
+			
+			<div class="toggle-trigger">
+				<img class="mas" src="img/bullets/plus.png">
+				<img class="menos" src="img/bullets/minus.png">
+				Directivos
+				<img class="mas" src="img/bullets/plus.png">
+				<img class="menos" src="img/bullets/minus.png">
+			</div>		
+			<div class="toggle-container" >
+				<!-- form -->
+				<!-- Modificado 28/06/2016 -->
+				<table>
+					<tr>
+						<td>Número de socio</td>
+						<td>Nombre</td>
+						<td>Apellido</td>
+						<td>Tipo Documento</td>
+						<td>Número de documento</td>
+						<td>Puesto</td>
+					</tr>
+					<?php 
+						$consulta = "select * from mostrar_directivos()";
+						$result = pg_query($connect, $consulta);
+
+						while($row = pg_fetch_array($result)){
+							echo "<tr>";
+							echo "<td>".$row['numero_socio']."</td>";
+							echo "<td>".$row['nombre']."</td>";
+							echo "<td>".$row['apellido']."</td>";
+							echo "<td>".$row['tipo_doc']."</td>";
+							echo "<td>".$row['dni']."</td>";
+							echo "<td>".$row['puesto']."</td>";
+							echo "</tr>";
+						}
+					?>
+				</table>
+				<!-- ENDS form -->
+			</div>
 					<!-- ENDS Toggle opciones -->
 		</div>
 			

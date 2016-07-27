@@ -45,13 +45,12 @@
 			<?php
 			
 
-				if(isset($_POST['name']) and isset($_POST['direccion']) and isset($_POST['telefono'])){
+				if(isset($_POST['num_socio']) and isset($_POST['puesto-directivo'])){
 					
-					$nombre = strtoupper($_POST['name']);
-					$direccion = strtoupper($_POST['direccion']);
-					$telefono = ($_POST['telefono']);
+					$num_socio = $_POST['num_socio'];
+					$puesto = $_POST['puesto-directivo'];
 
-					$consulta = "SELECT sp_alta_proveedor('$nombre','$direccion','$telefono')";
+					$consulta = "SELECT alta_comision_directiva(1,'null',$num_socio,'$puesto')";
 					if (!$result = pg_query($connect,$consulta)) {
 						echo '<p class="infobox-error">'.pg_last_error($connect).'</p><br>';
 					} else {
@@ -62,7 +61,7 @@
 					echo '<p class="infobox-warning">No se cuenta con todos los datos requeridos</p><br>';
 				}
 			?>
-			<a href="mantenimiento.php" class="link-button">Volver</a>
+			<a href="directivos.php" class="link-button">Volver</a>
 			<br><br>
 
 			</table>

@@ -115,3 +115,22 @@ $BODY$
   
 --prueba:
 select sp_baja_proveedor('CAPOS');
+
+create type proveedores_ as(
+  id_proveedor smallint ,
+  nombre character varying(32),
+  direccion character varying(42),
+  telefono character varying(15)
+);
+
+create or replace function buscar_proveedor(nombre_ text) returns setof proveedores_ as $$
+declare
+rec record;
+begin
+	for rec in select * from proveedores where nombre like '%' || nombre_ || '%' loop
+		return next rec;
+	end loop;
+end;
+$$ language plpgsql;
+
+select * FROM buscar_proveedor('ANG')
