@@ -243,7 +243,7 @@
 									<p>
 										<label for="rel_parentezco">Parentezco</label>
 										<select name="rel_parentezco" id="rel_parentezco" class="form-poshytip" title="Elija una opción">
-											<option value="CÓNYUGE">CÓNYUGE</option>
+											<option value="CONYUGUE">CONYUGUE</option>
 											<option value="HIJO">HIJO</option>
 											<option value="HIJA">HIJA</option>
 										</select>
@@ -261,146 +261,80 @@
 						<img class="menos" src="img/bullets/minus.png">
 					</div>
 					<div class="toggle-container">
-						<div id="por_apellido" >
-							<form id="contactForm" >
-								<fieldset>
-										<p>	Empleado
-											<input name="apellido_empleado_mod_el" id="apellido_empleado_mod_el" type="text" class="form-poshytip busqueda" title="Enter your document number" data-busqueda="2" placeholder="Comience a escribir el apellido..."/>
-										</p>
-								</fieldset>
-							</form>
-						</div>
-						<?php
-							$consulta = "SELECT * FROM sp_mostrar_familiares_empleados()";
-								$result = pg_query($connect, $consulta);
+					<?php
+						$consulta = "SELECT * FROM sp_mostrar_familiares_empleados()";
+							$result = pg_query($connect, $consulta);
 
-								//pag
-								if(pg_num_rows($result)>0){
-									$tamano_pagina = 10;
-									$pagina = $_GET["pagina_f"];
-									if(!$pagina){
-										$inicio = 0;
-										$pagina = 1;
-									}else{
-										$inicio = ($pagina - 1) * $tamano_pagina ;
-									}
+							//pag
+							if(pg_num_rows($result)>0){
+								$tamano_pagina = 10;
+								$pagina = $_GET["pagina_f"];
+								if(!$pagina){
+									$inicio = 0;
+									$pagina = 1;
+								}else{
+									$inicio = ($pagina - 1) * $tamano_pagina ;
+								}
 
-									$numero_total_registros = pg_num_rows($result);
-									$total_paginas = ceil($numero_total_registros / $tamano_pagina);
-									$consulta2 = "SELECT * FROM sp_mostrar_familiares_empleados() limit ".$tamano_pagina." offset ".$inicio;
-									$result2 = pg_query($connect, $consulta2);
+								$numero_total_registros = pg_num_rows($result);
+								$total_paginas = ceil($numero_total_registros / $tamano_pagina);
+								$consulta2 = "SELECT * FROM sp_mostrar_familiares_empleados() limit ".$tamano_pagina." offset ".$inicio;
+								$result2 = pg_query($connect, $consulta2);
 
-									echo '<table id="lista_fam"><tr class="nombre_columna">
-										<th>Apellido Empleado</th>
-										<th>Nombre Empleado</th>
-										<th>Numero de Documento</th>
-										<th>Tipo</th>
-										<th>Nombre Familiar</th>
-										<th>Apellido Familiar</th>
-										<th>Numero de Documento</th>
-										<th>Tipo</th>
-										<th>Parentezco</th>
-										<th>MODIFICAR</th>
-										<th>ELIMINAR</th></tr>';
-									while($row = pg_fetch_assoc($result2)){
-										echo '<tr class="fila_resultado">
-												<td>'.$row['apellido_empleado'].'</td>
-												<td>'.$row['nombre_empleado'].'</td>
-												<td>'.$row['dni_empleado'].'</td>
-												<td>'.$row['tipo_doc_empleado'].'</td>
-												<td>'.$row['apellido_familiar'].'</td>
-												<td>'.$row['nombre_familiar'].'</td>
-												<td>'.$row['dni_familiar' ].'</td>
-												<td>'.$row['tipo_doc_familiar' ].'</td>
-												<td>'.$row['parentezco' ].'</td>
-												<td><a class="link-button blue" href=modificar.php?ID='.$row['numero_socio'].'&tipo_busq=1>Modificar</a></td>
-												<td><a class="link-button red" href=eliminar_familiar.php?dni='.$row['dni_familiar'].'&tipo='.$row['tipo_doc_familiar'].'>Eliminar</a></td></tr>';
+								echo '<table id="lista_fam"><tr class="nombre_columna">
+									<th>Apellido Empleado</th>
+									<th>Nombre Empleado</th>
+									<th>Numero de Documento</th>
+									<th>Tipo</th>
+									<th>Nombre Familiar</th>
+									<th>Apellido Familiar</th>
+									<th>Numero de Documento</th>
+									<th>Tipo</th>
+									<th>Parentezco</th>
+									<th>MODIFICAR</th>
+									<th>ELIMINAR</th></tr>';
+								while($row = pg_fetch_assoc($result2)){
+									echo '<tr class="fila_resultado">
+											<td>'.$row['apellido_empleado'].'</td>
+											<td>'.$row['nombre_empleado'].'</td>
+											<td>'.$row['dni_empleado'].'</td>
+											<td>'.$row['tipo_doc_empleado'].'</td>
+											<td>'.$row['apellido_familiar'].'</td>
+											<td>'.$row['nombre_familiar'].'</td>
+											<td>'.$row['dni_familiar' ].'</td>
+											<td>'.$row['tipo_doc_familiar' ].'</td>
+											<td>'.$row['parentezco' ].'</td>
+											<td><a class="link-button blue" href=modificar.php?ID='.$row['numero_socio'].'&tipo_busq=1>Modificar</a></td>
+											<td><a class="link-button red" href=eliminar_familiar.php?dni='.$row['dni_familiar'].'&tipo='.$row['tipo_doc_familiar'].'>Eliminar</a></td></tr>';
 
-									}
-									echo '</table><br><div class="paginador" >';
-									
-									if($total_paginas > 1){
-											if($pagina != 1){
-													echo '<a class="link-button" href="empleados.php?paginaf='.($pagina-1).'"> <<< </a> ';
-												}
-											for($i=1; $i<=$total_paginas;$i++){
-
-												if($pagina == $i){
-													echo '<a class="link-button red">'.$pagina . '</a> ';
-												}else{
-													echo '<a class="link-button" href="empleados.php?paginaf=' . $i . '">' . $i . '</a> '; 
-												}
+								}
+								echo '</table><br><div class="paginador" >';
+								
+								if($total_paginas > 1){
+										if($pagina != 1){
+												echo '<a class="link-button" href="empleados.php?paginaf='.($pagina-1).'"> <<< </a> ';
 											}
-											if($pagina != $total_paginas){
-												echo ' <a class="link-button" href="empleados.php?paginaf='.($pagina+1).'"> >>> </a> ';
+										for($i=1; $i<=$total_paginas;$i++){
+
+											if($pagina == $i){
+												echo '<a class="link-button red">'.$pagina . '</a> ';
+											}else{
+												echo '<a class="link-button" href="empleados.php?paginaf=' . $i . '">' . $i . '</a> '; 
 											}
 										}
-									echo "</div><br><br>";
-								}else{
-									echo "No hay registros";
-								}
-								
-						?>
-					</div>
-					
+										if($pagina != $total_paginas){
+											echo ' <a class="link-button" href="empleados.php?paginaf='.($pagina+1).'"> >>> </a> ';
+										}
+									}
+								echo "</div><br><br>";
+							}else{
+								echo "No hay registros";
+							}
+							
+					?>
+					</div>	
 				</div>
 			<!--end familiares de empleados -->
-			<!-- listado empleados -->
-				<div class="page-content entry-content feature cf">
-					<div class="toggle-trigger">
-						<img class="mas" src="img/bullets/plus.png">
-						<img class="menos" src="img/bullets/minus.png">
-						Lista de Empleados
-						<img class="mas" src="img/bullets/plus.png">
-						<img class="menos" src="img/bullets/minus.png">
-					</div>	
-					<div class="toggle-container">
-						<?php
-							$consulta = "SELECT * FROM sp_listado_empleados()";
-							$result = pg_query($connect, $consulta);
-							//pag
-							$tamano_pagina = 10;
-							$pagina = $_GET["pagina"];
-							if(!$pagina){
-								$inicio = 0;
-								$pagina = 1;
-							}else{
-								$inicio = ($pagina - 1) * $tamano_pagina ;
-							}
-
-							$numero_total_registros = pg_num_rows($result);
-							$total_paginas = ceil($numero_total_registros / $tamano_pagina);
-							$consulta2 = "SELECT * FROM sp_listado_empleados()limit ".$tamano_pagina." offset ".$inicio;
-							$result2 = pg_query($connect, $consulta2);
-							$result2 = pg_query($connect, $consulta2);
-
-							echo '<table id="listado_empl"><tr class="nombre_columna"><th>Apellidos</th><th>Nombres</th><th>Numero de documento</th><th>Tipo Documento</th><th>Sueldo</th><th>Apellido Cónyuge</th><th>Nombre Cónyuge</th><th>Número de Hijos</th></tr>';
-							while($row = pg_fetch_assoc($result2)){
-								echo '<tr class="fila_resultado"><td>'.$row['apellido'].'</td><td>'.$row['nombre'].'</td><td>'.$row['dni'].'</td><td>'.$row['tipo_doc'].'</td><td>'.$row['salario'].'</td><td>'.$row['apellido_conyugue']."</td><td>".$row['nombre_conyugue'].'</td><td>'.$row['numero_hijos'].'</td></tr>';
-							}
-							echo '</table><br><div class="paginador" >';
-							if($total_paginas > 1){
-									if($pagina != 1){
-											echo '<a class="link-button" href="empleados.php?pagina='.($pagina-1).'"> <<< </a> ';
-										}
-									for($i=1; $i<=$total_paginas;$i++){
-
-										if($pagina == $i){
-											echo '<a class="link-button red">'.$pagina . '</a> ';
-										}else{
-											echo '<a class="link-button" href="empleados.php?pagina=' . $i . '">' . $i . '</a> '; 
-										}
-									}
-									if($pagina != $total_paginas){
-										echo ' <a class="link-button" href="empleados.php?pagina='.($pagina+1).'"> >>> </a> ';
-									}
-								}
-							echo "</div><br><br>";
-
-						?>
-					</div>
-				</div>
-			<!-- end listado empleados-->
 		</div>
 
 		<!-- ENDS MAIN -->

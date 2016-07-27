@@ -11,7 +11,19 @@
 
 	?>
 <body>
-
+	<script type="text/javascript">
+		function mostrar(id){
+			$("id").show();
+			if (id == "num_dni") {
+				$("#tipo_y_dni").show();
+				$("#num_soc").hide();
+			};
+			if (id == "num_soc") {
+				$("#tipo_y_dni").hide();
+				$("#num_soc").show();
+			};
+		}
+	</script>
 	<!-- WRAPPER -->
 	<div class="wrapper cf">
 		<!-- ribbon -->
@@ -54,222 +66,79 @@
 			<!-- Toggle opciones -->
 				<div class="page-content entry-content feature cf">
 				
-					<h2 class="heading" style="text-align:center;">Opciones para Socios</h2>
+					<h2 class="heading" style="text-align:center;">Opciones</h2>
 
 					<div class="toggle-trigger">
 						<img class="mas" src="img/bullets/plus.png">
 						<img class="menos" src="img/bullets/minus.png">
-						 Nuevo Alquiler de Socio
+						Dar de alta un nuevo Alquiler de Socio
 						<img class="mas" src="img/bullets/plus.png">
 						<img class="menos" src="img/bullets/minus.png">
 					</div>		
-					
-						<!-- form -->
-					<!-- Modificado 28/06/2016 -->
 					<div class="toggle-container">
-						<div id="por_apellido">
-								<form id="contactForm" >
-									<fieldset>
-											<p> Socio
-												<input class="busqueda" name="apellido_n" id="apellido_n" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="Comience a escribir el apellido..."/>
-											</p>
-
-									</fieldset>
-
-								</form>
-						</div>
-						<form id="contactForm" action="alta_alquiler.php" method="post">
+						<!-- form -->
+				<!-- Modificado 28/06/2016 -->
+				<div class="toggle-container">
+						<form id="contactForm" action="socios.php" method="post">
 							<fieldset>
 								<p>
-									<input type="text" style="display:none" name="numero_soc" id="numero_soc" class="form-poshytip">
+									Elija el tipo de Busqueda
+									<select name="status" id="status" class="form-poshytip" onChange="mostrar(this.value);">
+										<option disabled="disabled" selected>Elija una Opcion Aca</option>
+										<option value="num_dni">Por Numero y Tipo de DNI</option>
+										<option value="num_soc">Por Numero de Socio</option>
+									</select>
 								</p>
-								<p>
-									<input type="text" style="display:none" name="tipo_alq" id="tipo_alq" class="form-poshytip">
-								</p>
-								<p>
-										<label for="instalacion">Seleccione instalación</label>
-										<select name="instalacion" id="instalacion" class="form-poshytip" title="Elija una opción" required >
-											<option value="" selected disabled>Elija una opción</option>
-											<option value="CANCHA DE FUTBOL 11">CANCHA DE FUTBOL 11</option>
-											<option value="CANCHA DE TENIS">CANCHA DE TENIS</option>
-											<option value="CANCHA DE BASKET">CANCHA DE BASKET</option>
-											<option value="CANCHA DE FUTBOL 5 1">CANCHA DE FUTBOL 5 1</option>
-											<option value="CANCHA DE FUTBOL 5 2">CANCHA DE FUTBOL 5 2</option>
-											<option value="PISCINA 1">PISCINA 1</option>
-											<option value="PISCINA 2">PISCINA 2</option>
-											<option value="SALÓN 1">SALÓN 1</option>
-											<option value="SALÓN 2">SALÓN 2</option>
-										</select>
-									</p>
-									<p>
-										<label for="fecha">Fecha Alquiler</label>
-										<input name="fecha" id="fecha" type="date" class="form-poshytip"   title="Enter your document number" required/>
-									</p>
-									<br>
-									<p>
-										<label for="hora">Hora Alquiler</label>
-										<input name="hora" id="hora" type="time" class="form-poshytip"   title="Enter your document number" required/>
-									</p>
-									<br>
-									<p>
-										<label for="costo">Costo</label>
-										<input name="costo" id="costo" type="text" class="form-poshytip"   maxlength="8" title="Enter your document number" required/>
-									</p>
-									
-									<p><input class="link-button green" type="submit" value="Enviar" name="submit" id="submit" /></p>
 							</fieldset>
 						</form>
-					</div>
-					<div class="toggle-trigger">
-						<img class="mas" src="img/bullets/plus.png">
-						<img class="menos" src="img/bullets/minus.png">
-						 Eliminar Alquiler de Socio
-						<img class="mas" src="img/bullets/plus.png">
-						<img class="menos" src="img/bullets/minus.png">
-					</div>	
-					<div class="toggle-container">
-					</div>
-				</div>
-				<!--opciones para no socios -->
-					<div class="page-content entry-content feature cf">
-						<h2 class="heading" style="text-align:center;">Opciones para No Socios</h2>
-						<div class="toggle-trigger">
-							<img class="mas" src="img/bullets/plus.png">
-							<img class="menos" src="img/bullets/minus.png">
-							 Nuevo Alquiler de No Socio
-							<img class="mas" src="img/bullets/plus.png">
-							<img class="menos" src="img/bullets/minus.png">
-						</div>	
-						<div class="toggle-container">
-							<form id="contactForm" action="alta_alquiler.php" method="post">
+						<div id="tipo_y_dni" style="display:none;">
+							<form id="contactForm" action="buscar_socio_modificar.php" method="post">
 								<fieldset>
 									<p>
-										<label for="nombre">Nombre</label>
-										<input name="nombre" id="nombre" type="text" class="form-poshytip"   title="Enter your document number" required/>
-									</p>
-									<p>
-										<label for="apellido">Apellido</label>
-										<input name="apellido" id="apellido" type="text" class="form-poshytip"   title="Enter your document number" required/>
+										<label for="num_doc">Numero de Documento</label>
+										<input name="num_doc" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" />
 									</p>
 									<p>
 										<label for="tipo_doc">Tipo de Documento</label>
-										<select name="tipo_doc" id="tipo_doc" class="form-poshytip" title="Elija una opción">
-											<option value="DNI">DNI</option>
+										<select name="Tipo_doc" id="tipo_doc" class="form-poshytip" title="Enter your type of document">
+											<option value="DNI" selected>DNI</option>
 											<option value="PAS">PASAPORTE</option>
 											<option value="LE">LIBRETA DE ENROLAMIENTO</option>
 											<option value="LC">LIBRETA CIVICA</option>
 										</select>
 									</p>
 									<p>
-										<label for="num_doc">Número de Documento</label>
-										<input name="num_doc" id="num_doc" type="text" class="form-poshytip"  maxlength="8" title="Enter your document number" required/>
+										<input type="submit" value="Buscar" name="submit" id="submit">
 									</p>
-									<p>
-										<label for="instalacion">Seleccione instalación</label>
-										<select name="instalacion" id="instalacion" class="form-poshytip" title="Elija una opción" required >
-											<option value="" selected disabled>Elija una opción</option>
-											<option value="CANCHA DE FUTBOL 11">CANCHA DE FUTBOL 11</option>
-											<option value="CANCHA DE TENIS">CANCHA DE TENIS</option>
-											<option value="CANCHA DE BASKET">CANCHA DE BASKET</option>
-											<option value="CANCHA DE FUTBOL 5 1">CANCHA DE FUTBOL 5 1</option>
-											<option value="CANCHA DE FUTBOL 5 2">CANCHA DE FUTBOL 5 2</option>
-											<option value="PISCINA 1">PISCINA 1</option>
-											<option value="PISCINA 2">PISCINA 2</option>
-											<option value="SALÓN 1">SALÓN 1</option>
-											<option value="SALÓN 2">SALÓN 2</option>
-										</select>
-									</p>
-									<p>
-										<label for="fecha">Fecha Alquiler</label>
-										<input name="fecha" id="fecha" type="date" class="form-poshytip"   title="Enter your document number" required/>
-									</p>
-									<br>
-									<p>
-										<label for="hora">Hora Alquiler</label>
-										<input name="hora" id="hora" type="time" class="form-poshytip"   title="Enter your document number" required/>
-									</p>
-									<br>
-									<p>
-										<label for="costo">Costo</label>
-										<input name="costo" id="costo" type="text" class="form-poshytip"   maxlength="8" title="Enter your document number" required/>
-									</p>
-									<p>
-										<label for="senia">Seña</label>
-										<input name="senia" id="senia" type="text" class="form-poshytip"   maxlength="8" title="Enter your document number" required/>
-									</p>
-									<p>
-										<input type="text" style="display:none" name="tipo_alq" id="tipo_alq" class="form-poshytip" value="2">
-									</p>
-									<p><input class="link-button green" type="submit" value="Enviar" name="submit" id="submit" /></p>
-							</fieldset>
+								</fieldset>
 							</form>
-					</div>
-					</div>
-				<!--fin opciones para no socios-->
-				<!-- listado de alquileres-->
-				<div class="page-content entry-content feature cf">
-					<div class="toggle-trigger">
-						<img class="mas" src="img/bullets/plus.png">
-						<img class="menos" src="img/bullets/minus.png">
-						 Listado de alquileres
-						<img class="mas" src="img/bullets/plus.png">
-						<img class="menos" src="img/bullets/minus.png">
-					</div>	
-					<div class="toggle-container">
+						</div>
+						<div id="num_soc" style="display:none;">
+							<form id="contactForm" action="buscar_socio_modificar.php" method="post">
+								<fieldset>
+									<p>
+										<label for="num_soc">Numero de Socio</label>
+										<input name="num_soc" id="num_soc" type="text" class="form-poshytip" title="Enter your document number" />
+									</p>
+									<p>
+										<input type="submit" value="Buscar" name="buscar" id="buscar">
+									</p>
+								</fieldset>
+							</form>
+						</div>
 						<?php
-							$consulta = "SELECT * FROM sp_listado_alquiler()";
+
+							$consulta = "SELECT * from socios s inner join personas p using(id_persona)";
 							$result = pg_query($connect, $consulta);
-							//pag
-							$tamano_pagina = 10;
-							$pagina = $_GET["pagina"];
-							if(!$pagina){
-								$inicio = 0;
-								$pagina = 1;
-							}else{
-								$inicio = ($pagina - 1) * $tamano_pagina ;
+
+							echo "<table><tr><th>Número de Socio</th><th>Nombres</th><th>Apellidos</th><th>DNI</th><th>MODIFICAR</th><th>ELIMINAR</th></tr>";
+							while($row = pg_fetch_assoc($result)){
+								echo "<tr><td>".$row['numero_socio']."</td><td>".$row['nombre']."</td><td>".$row['apellido']."</td><td>".$row['dni']."</td><td><a href=alta_alquiler.php?ID=".$row['numero_socio']."&tipo_busq=1>Dar Alta Alquiler</a></td></tr>";
 							}
-
-							$numero_total_registros = pg_num_rows($result);
-							$total_paginas = ceil($numero_total_registros / $tamano_pagina);
-							$consulta2 = "SELECT * FROM sp_listado_alquiler()limit ".$tamano_pagina." offset ".$inicio;
-							$result2 = pg_query($connect, $consulta2);
-							$result2 = pg_query($connect, $consulta2);
-
-							echo '<table id="listado_empl"><tr class="nombre_columna"><th>Fecha</th><th>Hora</th><th>Apellidos</th><th>Nombres</th><th>Número de Socio</th><th>Instalación</th><th>Costo</th><th>Pagado</th></tr>';
-							while($row = pg_fetch_assoc($result2)){
-								if($row['numero_socio']==0){
-									$row['numero_socio']='';
-								}
-								if($row['pagado']=='f'){
-									$row['pagado']='No';
-								}
-								if($row['pagado']=='t'){
-									$row['pagado']='Si';
-								}
-								echo '<tr class="fila_resultado"><td>'.$row['fecha'].'</td><td>'.$row['hora'].'</td><td>'.$row['apellido'].'</td><td>'.$row['nombre'].'</td><td>'.$row['numero_socio'].'</td><td>'.$row['nombre_instalacion'].'</td><td>'.$row['costo'].'</td><td>'.$row['pagado'].'</td></tr>';
-							}
-							echo '</table><br><div class="paginador" >';
-							if($total_paginas > 1){
-									if($pagina != 1){
-											echo '<a class="link-button" href="alquileres.php?pagina='.($pagina-1).'"> <<< </a> ';
-										}
-									for($i=1; $i<=$total_paginas;$i++){
-
-										if($pagina == $i){
-											echo '<a class="link-button red">'.$pagina . '</a> ';
-										}else{
-											echo '<a class="link-button" href="alquileres.php?pagina=' . $i . '">' . $i . '</a> '; 
-										}
-									}
-									if($pagina != $total_paginas){
-										echo ' <a class="link-button" href="alquileres.php?pagina='.($pagina+1).'"> >>> </a> ';
-									}
-								}
-							echo "</div><br><br>";
-
+							echo "</table>";
+							echo $row['id_persona'];
 						?>
-					</div>
-
+				</div>
 			</div>
 		</div>
 		<footer>
@@ -282,8 +151,5 @@
 		<!-- ENDS ribbon -->		
 		</footer>
 	</div>
-	<?php 
-		include('html/scripts.html');
-	?>
 </body>
 </html>

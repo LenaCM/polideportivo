@@ -69,8 +69,6 @@
 							var fechaing = $("#apellido_n").attr("data-fechaingre");
 							var estado = $("#apellido_n").attr("data-est-cuenta");
 
-							$("#numero_soc").attr('value', numero_socio);
-							$("#tipo_alq").attr('value', 1);
 							$("#lista_soc .fila_resultado").remove();
 							$(".paginador").remove();
 							$("#lista_soc").append('<tr class="fila_resultado"><td>'+numero_socio+'</td><td>'+nombre+'</td><td>'+apellido+'</td><td>'+dni+'</td><td>'+tipo_doc+'</td><td>'+fechaing+'</td><td>'+estado+'</td><td><a class="link-button blue" href=modificar.php?ID='+numero_socio+'&tipo_busq=1>Modificar</a></td><td><a class="link-button red" href=borrar_socio_resul.php?ID='+numero_socio+'&tipo_busq=1>Eliminar</a></td></tr>');

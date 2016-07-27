@@ -73,38 +73,3 @@ begin
 end;
 $$
 	language plpgsql;
---por apellido
-create or replace function sp_mostrar_familiares_empleados(apellido_ text)
-	returns setof familiares_empleados as
-$$
-declare
-	rec familiares_empleados%rowtype;
-begin
-	if (select sp_busqueda_empleado(1,apellido_)) is null then
-		raise exception 'El empleado no existe';
-	end if;
-	for rec in select e.apellido, 
-		          e.nombre,
-		          e.dni, 
-		          te.tipo_doc, 
-		          fa.apellido, 
-		          fa.nombre, 
-		          fa.dni, 
-		          tf.tipo_doc, 
-		          f.parentezco
-		from tipos_doc te  
-		inner join personas e on te.id_tipo_doc=e.id_tipo_doc 
-		inner join familiares f on f.id_persona_empl=e.id_persona
-		inner join personas fa on f.id_persona=fa.id_persona
-		inner join tipos_doc tf on fa.id_tipo_doc=tf.id_tipo_doc
-		where e.apellido like '%'||apellido_||'%'
-		order by f.fecha_adicion desc
-	loop
-		return next rec;
-	end loop;
-	if rec is null then
-		raise exception 'El empleado no tiene familiares';
-	end if;
-end;
-$$
-	language plpgsql;

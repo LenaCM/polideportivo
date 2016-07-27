@@ -17,7 +17,7 @@ begin
 	if costo_al<=0 then
 		raise exception 'El monto ingresado no es valido';
 	end if;
-	if hora_al<'07:00:00' or hora_al>'23:59:59' then
+	if hora_al<'07:00:00' or hora_al>'22:00:00' then
 		raise exception 'Alquiler fuera de horario';
 	end if;
 	id_inst := (select id_instalacion from instalaciones where nombre_instalacion like '%'||instal||'%');
@@ -77,7 +77,7 @@ begin
 	if senia_al<=0 then
 		raise exception 'El monto ingresado como senia no es valido';
 	end if;
-	if hora_al<'07:00:00' or hora_al>'23:59:59' then
+	if hora_al<'07:00:00' or hora_al>'22:00:00' then
 		raise exception 'Alquiler fuera de horario';
 	end if;
 	id_inst := (select id_instalacion from instalaciones where nombre_instalacion like '%'||instal||'%');
@@ -86,9 +86,8 @@ begin
 	end if;
 	if (select id_persona from personas where dni=numero and id_tipo_doc=(select busca_id_documento(tipo_d))) is null then
 		perform sp_alta_persona(nombre_al, apellido_al, numero, tipo_d);
-		id_pers := (select id_persona from personas where dni=numero and id_tipo_doc=(select busca_id_documento(tipo_d)));
 		insert into no_socios values (id_pers);
-		
+		id_pers := (select id_persona from personas where dni=numero and id_tipo_doc=(select busca_id_documento(tipo_d)));
 	else
 		id_pers := (select id_persona from personas where dni=numero and id_tipo_doc=(select busca_id_documento(tipo_d)));
 	end if;
