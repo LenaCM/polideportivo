@@ -25,7 +25,7 @@
 				<a href="index.html" ><img src="img/logo.png" alt="" /></a>
 			</div>
 			
-			<!-- nav -->
+					<!-- nav -->
 			<nav class="cf">
 				<ul id="nav" class="sf-menu">
 					<!-- Nuevo menu para socios? -->
@@ -43,16 +43,16 @@
 
 		<div class="toggle-container">
 			<?php
-				$tipo_d = $_GET['tipo'];
-				$numero = $_GET['ID'];
+				$tipo_doc = $_GET['tipo'];
+				$dni = $_GET['dni'];
 
-				if(isset($tipo_d) and isset($numero)){
+				if(isset($tipo_doc) and isset($dni)){
 					
-					$consulta = "SELECT sp_baja_empleado('$tipo_d', $numero)";
+					$consulta = "select sp_baja_familiares($dni, '$tipo_doc')";
 					if (!$result = pg_query($connect,$consulta)) {
 						echo '<p class="infobox-error">'.pg_last_error($connect).'</p><br>';
 					} else {
-						echo '<p class="infobox-success">Se eliminó correctamente</p><br>';
+						echo '<p class="infobox-success">Eliminado con éxito</p><br>';
 					}
 					
 				}else{

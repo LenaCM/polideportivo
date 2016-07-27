@@ -83,6 +83,7 @@
 
 								if (pg_query($connect, $query)) {
 									echo '<p class="infobox-success">Modificado con éxito</p><br>';
+									echo '<p class="infobox-warning">'.pg_last_notice($connect).'</p><br>';
 									
 								} else {
 									echo '<p class="infobox-error">'.pg_last_error($connect).'</p><br>';

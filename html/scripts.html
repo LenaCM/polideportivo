@@ -280,10 +280,22 @@
 							}
 								
 					});
+					$( "#apellido_empleado" ).autocomplete({
+						      source: 'buscador.php?busqueda=2',
+						      minLength: 2,
+						      select: function (event, ui) {
+						            $("#apellido_n").attr('data-dni',ui.item.dni );
+						            $("#apellido_n").attr('data-tipo-doc',ui.item.tipo_doc );
+								}
 
-					$("#modificar").click("submit", function(e){
-						
-						$("form", "#modificar").hide();
+	   				});//fin buscador
+	   				$( "#apellido_empleado" ).on("keydown blur", function(){
+								//alert($("#apellido_n").val());
+							if(event.which==13 || event.type=="blur"){
+								$("#dni_empl").attr( 'value', $("#apellido_n").attr('data-dni'));
+								$("#tipo_dni_empl").attr('value', $("#apellido_n").attr('data-tipo-doc'));
+							}
+								
 					});
 
 				}

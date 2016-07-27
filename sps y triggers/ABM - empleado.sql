@@ -91,7 +91,7 @@ begin
 			end if;
 		end if;
 		update empleados
-		set salario=salario_mod, set antiguedad=antiguedad_mod, set hora_entrada=hora_entrada_mod, set hora_salida=hora_salida_mod
+		set salario=salario_mod, antiguedad=antiguedad_mod, hora_entrada=hora_entrada_mod, hora_salida=hora_salida_mod
 		where id_persona=id_pers;
 	else
 		raise exception 'El emplead@ no existe';

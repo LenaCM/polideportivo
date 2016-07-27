@@ -2,7 +2,7 @@
 
 -- DROP FUNCTION sp_busqueda_empleado(integer, text);
 
-CREATE OR REPLACE FUNCTION sp_busqueda_empleado(tipo_busq integer, dato text)
+CREATE OR REPLACE FUNCTION sp_busqueda_empleado(tipo_busq integer, dato text, dato2 text)
   RETURNS SETOF personas_empleados AS
 $BODY$
 DECLARE
@@ -38,7 +38,7 @@ BEGIN
 			FROM empleados
 			inner join personas  using(id_persona)
 			inner join tipos_doc using(id_tipo_doc)
-			where dni=cast(dato as integer)
+			where dni=cast(dato as integer) and tipo_doc like '%'||dato2||'%'
 		LOOP
 		RETURN NEXT rec;
 		END LOOP;

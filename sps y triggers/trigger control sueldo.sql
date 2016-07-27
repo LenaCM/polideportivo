@@ -1,18 +1,22 @@
-﻿--Trigger para contolar el sueldo
-create or replace function sp_control_sueldos()
-	returns trigger as
-$tg_controla_sueldo$
+﻿-- Function: sp_control_sueldos()
+
+-- DROP FUNCTION sp_control_sueldos();
+
+CREATE OR REPLACE FUNCTION sp_control_sueldos()
+  RETURNS trigger AS
+$BODY$
 declare 
 	permitido numeric;
 begin
 	permitido := (OLD.salario * 20)/100;
 	if NEW.salario > (OLD.salario + permitido) then
 		NEW.salario = OLD.salario + permitido;
+		raise notice 'El aumento al salario no debe superar el 20 por ciento. Se aumento hasta el limite permitido.';
 	end if;
 	return NEW;
 end;
-$tg_controla_sueldo$
-	language plpgsql;
-
-create trigger tg_controla_sueldo before update of salario ON empleados for each row when
-(NEW.salario>OLD.salario) execute procedure sp_control_sueldos()
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION sp_control_sueldos()
+  OWNER TO postgres;
