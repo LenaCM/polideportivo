@@ -136,9 +136,8 @@
 											</p>
 
 									</fieldset>
-
+									<a href="eliminar_alquiler.php" class="link-button red" id="el_alquiler" href="">Eliminar</a>
 								</form>
-								<table id="listado_al_socio" style="display:none"><tr class="nombre_columna"><th>Fecha</th><th>Hora</th><th>Apellidos</th><th>Nombres</th><th>Número de Socio</th><th>Instalación</th><th>Costo</th><th>Pagado</th></tr></table>
 						</div>
 					</div>
 				</div>

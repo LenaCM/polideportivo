@@ -37,6 +37,9 @@
 			var tipo_doc;
 			var tipo_doc2;
 			var parentezco;
+			var instalacion;
+			var fecha;
+			var hora;
 			$(".busqueda").on("focus",function(){
 				busqueda = $(this).attr('data-busqueda');
 				
@@ -294,12 +297,25 @@
 		   						
 		   					}
 		   				});
-		   			
-						
-						
+					});
+					//
+					$( "#eliminar_alquiler" ).autocomplete({
+				      source: 'buscador.php?busqueda=14',
+				      minLength: 2,
+				      select: function (event, ui) {
+				      	 numero_socio = ui.item.numero_socio;
+						 instalacion = ui.item.nombre_instalacion;
+						 fecha = ui.item.fecha;
+						 hora = ui.item.hora;
+				        }
+	   				 });
+					//
+				     $("#eliminar_alquiler").on("keydown blur",function(){
+						if(event.which == 13 || event.type == "blur"){
+							$("#el_alquiler").attr('href', 'eliminar_alquiler.php?num='+numero_socio+'&inst='+instalacion+'&fec='+fecha+'&hor='+hora);		
+						}
 						
 					});
-					
 				}
 				if(busqueda==2){
 					
