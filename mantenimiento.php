@@ -239,6 +239,36 @@
 								<input type="hidden" name="instalaciones" id="instalaciones">
 							</form>
 			</div>
+
+			<div class="toggle-trigger">
+				<img class="mas" src="img/bullets/plus.png">
+				<img class="menos" src="img/bullets/minus.png">
+				Lista de insumos 
+				<img class="mas" src="img/bullets/plus.png">
+				<img class="menos" src="img/bullets/minus.png">
+			</div>
+			<div class="toggle-container" id="relacionar">
+				<table>
+					<tr>
+						<td>Nombre</td>
+						<td>Stock</td>
+					</tr>
+					<?php 
+						$consulta = "select * from buscar_insumos('')";
+					    $result = pg_query($connect,$consulta);
+						while($row=pg_fetch_array($result)){
+							echo '<tr>';
+							echo '<td>'.$row['nombre'].'</td>';
+							echo '<td>'.$row['stock'].'</td>';
+							echo '</tr>';
+						}
+
+					 ?>
+				</table>
+			</div>
+					
+				
+
 					<!-- ENDS Toggle opciones -->
 				
 		</div>
