@@ -125,12 +125,12 @@
 				<!-- Modificado 28/06/2016 -->
 				<table>
 					<tr>
-						<td>Número de socio</td>
-						<td>Nombre</td>
-						<td>Apellido</td>
-						<td>Tipo Documento</td>
-						<td>Número de documento</td>
-						<td>Puesto</td>
+						<th>Número de socio</th>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Tipo Documento</th>
+						<th>Número de documento</th>
+						<th>Puesto</th>
 					</tr>
 					<?php 
 						$consulta = "select * from mostrar_directivos()";

@@ -122,7 +122,7 @@
 					<div class="toggle-trigger">
 						<img class="mas" src="img/bullets/plus.png">
 						<img class="menos" src="img/bullets/minus.png">
-						Buscar y Modificar o Borrar un Empleado
+						Modificar o Borrar un Empleado
 						<img class="mas" src="img/bullets/plus.png">
 						<img class="menos" src="img/bullets/minus.png">
 					</div>				
@@ -138,7 +138,7 @@
 								</fieldset>
 							</form>
 						</div>
-						
+						<div style="overflow-x:scroll;">
 						<?php
 
 							$consulta = "SELECT * FROM sp_busqueda_empleado(1,'')";
@@ -182,7 +182,7 @@
 							echo "</div><br><br>";
 
 						?>
-						
+					</div>
 					</div>
 					<!-- ENDS Toggle opciones -->
 				</div>
@@ -256,7 +256,7 @@
 					<div class="toggle-trigger">
 						<img class="mas" src="img/bullets/plus.png">
 						<img class="menos" src="img/bullets/minus.png">
-						Modificar o Eliminar Familiar de Empleado
+						Eliminar Familiar de Empleado
 						<img class="mas" src="img/bullets/plus.png">
 						<img class="menos" src="img/bullets/minus.png">
 					</div>
@@ -270,6 +270,7 @@
 								</fieldset>
 							</form>
 						</div>
+						<div style="overflow-x:scroll;">
 						<?php
 							$consulta = "SELECT * FROM sp_mostrar_familiares_empleados()";
 								$result = pg_query($connect, $consulta);
@@ -290,7 +291,7 @@
 									$consulta2 = "SELECT * FROM sp_mostrar_familiares_empleados() limit ".$tamano_pagina." offset ".$inicio;
 									$result2 = pg_query($connect, $consulta2);
 
-									echo '<table id="lista_fam"><tr class="nombre_columna">
+									echo '<table id="lista_fam" ><tr class="nombre_columna">
 										<th>Apellido Empleado</th>
 										<th>Nombre Empleado</th>
 										<th>Numero de Documento</th>
@@ -313,7 +314,6 @@
 												<td>'.$row['dni_familiar' ].'</td>
 												<td>'.$row['tipo_doc_familiar' ].'</td>
 												<td>'.$row['parentezco' ].'</td>
-												<td><a class="link-button blue" href=modificar.php?ID='.$row['numero_socio'].'&tipo_busq=1>Modificar</a></td>
 												<td><a class="link-button red" href=eliminar_familiar.php?dni='.$row['dni_familiar'].'&tipo='.$row['tipo_doc_familiar'].'>Eliminar</a></td></tr>';
 
 									}
@@ -341,6 +341,7 @@
 								}
 								
 						?>
+						</div>
 					</div>
 					
 				</div>

@@ -53,6 +53,10 @@
 						echo '<p class="infobox-warning">'.pg_last_notice($connect).'</p><br>';
 					} else {
 						echo '<p class="infobox-success">Datos ingresados correctamente</p><br>';
+						if(pg_last_notice($connect)){
+							echo '<p class="infobox-warning">'.pg_last_notice($connect).'</p><br>';
+						}
+						echo pg_get_result($connect);
 					}
 					
 				}else{

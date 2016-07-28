@@ -23,6 +23,7 @@
 		<header class="cf">	
 			<div id="logo" class="cf">
 				<a href="index.html" ><img src="img/logo.png" alt="" /></a>
+				
 			</div>
 			
 			<!-- nav -->

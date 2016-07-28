@@ -392,6 +392,7 @@ table {
   text-align: center;
   background: #fff;
   font-size: 1em;
+  overflow: scroll;
   
 }
 th, td{

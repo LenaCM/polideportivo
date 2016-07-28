@@ -29,8 +29,8 @@
 			<nav class="cf">
 				<ul id="nav" class="sf-menu">
 					<!-- Nuevo menu para socios? -->
-					<li><a href="directivos.php"><span>DIRECTIVOS</span></a></li>
-					<li class="current-menu-item"><a href="socios.php"><span>SOCIOS</span></a></li> 
+					<li  class="current-menu-item"><a href="directivos.php"><span>DIRECTIVOS</span></a></li>
+					<li><a href="socios.php"><span>SOCIOS</span></a></li> 
 					<li><a href="cuotas.php"><span>CUOTAS</span></a></li>
 					<li><a href="alquileres.php"><span>ALQUILER</span></a></li>
 					<li><a href="empleados.php"><span>EMPLEADOS</span></a></li>

@@ -447,13 +447,13 @@
 									$result3 = pg_query($connect, $consulta3);
 									echo '<table id="ultimos_familiares"><caption>Ultimos agregados</caption>
 											<tr>
-												<td>Número socio</td>
-												<td>Nombre Socio</td>
-												<td>Apellido Socio</td>
-												<td>Número Socio Familiar</td>
-												<td>Nombre Familiar</td>
-												<td>Apellido Familiar</td>
-												<td>Eliminar</td>
+												<th>Número socio</th>
+												<th>Nombre Socio</th>
+												<th>Apellido Socio</th>
+												<th>Número Socio Familiar</th>
+												<th>Nombre Familiar</th>
+												<th>Apellido Familiar</th>
+												<th>Eliminar</th>
 												</tr>';
 									while($row = pg_fetch_assoc($result3)){
 										echo '<tr class="fila_resultado">
@@ -533,12 +533,12 @@
 						</form>
 						<table id="busqueda_familiares_socios" style="display:none">
 						    <tr>
-								<td>Número socio</td>
-								<td>Nombre Socio</td>
-								<td>Apellido Socio</td>
-								<td>Número Socio Familiar</td>
-								<td>Nombre Familiar</td>
-								<td>Apellido Familiar</td>
+								<th>Número socio</th>
+								<th>Nombre Socio</th>
+								<th>Apellido Socio</th>
+								<th>Número Socio Familiar</th>
+								<th>Nombre Familiar</th>
+								<th>Apellido Familiar</th>
 							</tr>
 						</table><br>
 					</div>
