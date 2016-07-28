@@ -215,16 +215,18 @@
 								<fieldset>				
 									<p>
 										<label for="buscar_provs" >Instalaciones</label>
-										<select name="instalaciones" required>
+										<select name="instalaciones" id="inst" required>
 											<option>Seleccionar</option>
 											<?php
 												$consulta = "select * from instalaciones";
 												$result = pg_query($connect,$consulta);
 												while($row=pg_fetch_array($result)){
-													echo "<option value=".$row['nombre_instalacion'].">".$row['nombre_instalacion']."</option>";
+													$i = $row['nombre_instalacion'];
+													echo "<option>".$row['nombre_instalacion']."</option>";
 												}
 											  ?>
 										</select>
+
 									</p>
 									<p>
 										<label for="buscar_provs" >Nombre insumo</label>
@@ -234,6 +236,7 @@
 								</fieldset>
 								
 								<input type="hidden" name="insumo" id="insumos">
+								<input type="hidden" name="instalaciones" id="instalaciones">
 							</form>
 			</div>
 					<!-- ENDS Toggle opciones -->

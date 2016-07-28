@@ -471,7 +471,11 @@
 				}
 			});
 				
-		
+		//solucion select mantenimiento
+		$("#inst").on("change",function(){
+			instalacion = $(this).val();
+			$("#instalaciones").attr("value",instalacion);
+ 		});
 							
 		});//fin jquery
 	</script>
