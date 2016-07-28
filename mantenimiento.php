@@ -250,8 +250,8 @@
 			<div class="toggle-container" id="relacionar">
 				<table>
 					<tr>
-						<td>Nombre</td>
-						<td>Stock</td>
+						<th>Nombre</th>
+						<th>Stock</th>
 					</tr>
 					<?php 
 						$consulta = "select * from buscar_insumos('')";
