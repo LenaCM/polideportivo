@@ -30,9 +30,9 @@
 				<ul id="nav" class="sf-menu">
 					<!-- Nuevo menu para socios? -->
 					<li><a href="directivos.php"><span>DIRECTIVOS</span></a></li>
-					<li class="current-menu-item"><a href="socios.php"><span>SOCIOS</span></a></li> 
+					<li><a href="socios.php"><span>SOCIOS</span></a></li> 
 					<li><a href="cuotas.php"><span>CUOTAS</span></a></li>
-					<li><a href="alquileres.php"><span>ALQUILER</span></a></li>
+					<li  class="current-menu-item" ><a href="alquileres.php"><span>ALQUILER</span></a></li>
 					<li><a href="empleados.php"><span>EMPLEADOS</span></a></li>
 					<li><a href="mantenimiento.php"><span>MANTENIMIENTO</span></a></li>
 				</ul>
@@ -43,26 +43,25 @@
 
 		<div class="toggle-container">
 			<?php
-			
+				$instalacion = $_GET['inst'];
+				$num_soc = $_GET['num'];
+				$fecha = $_GET['fec'];
+				$hora = $_GET['hor'];
 
-				if(isset($_POST['num_socio']) and isset($_POST['puesto-directivo'])){
+				if(isset($instalacion) and isset($num_soc) and isset($fecha) and isset($hora)){
 					
-					$num_socio = $_POST['num_socio'];
-					$puesto = $_POST['puesto-directivo'];
-
-					$consulta = "SELECT alta_comision_directiva(1,'null',$num_socio,'$puesto')";
+					$consulta = "SELECT sp_baja_alquiler(1, null, $num_soc, '$instalacion', '$fecha', '$hora')";
 					if (!$result = pg_query($connect,$consulta)) {
 						echo '<p class="infobox-error">'.pg_last_error($connect).'</p><br>';
 					} else {
-						echo '<p class="infobox-success">Datos ingresados correctamente</p><br>';
+						echo '<p class="infobox-success">Alquiler eliminado</p><br>';
 					}
 					
 				}else{
 					echo '<p class="infobox-warning">No se cuenta con todos los datos requeridos</p><br>';
 				}
-				echo '<br>';
 			?>
-			<a href="directivos.php" class="link-button">Volver</a>
+			<a href="alquileres.php" class="link-button">Volver</a>
 			<br><br>
 
 			</table>

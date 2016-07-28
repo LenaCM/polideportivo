@@ -71,71 +71,166 @@
 					<div class="toggle-trigger">
 						<img class="mas" src="img/bullets/plus.png">
 						<img class="menos" src="img/bullets/minus.png">
-						Dar de alta una Cuota
+						Agregar Cuota a Socio
 						<img class="mas" src="img/bullets/plus.png">
 						<img class="menos" src="img/bullets/minus.png">
 					</div>
-
+						
 					<div class="toggle-container">
-						<form id="contactForm" action="socios.php" method="post">
-							<fieldset>
-								<p>
-									Elija el tipo de Busqueda
-									<select name="status" id="status" class="form-poshytip" onChange="mostrar(this.value);">
-										<option disabled="disabled" selected>Elija una Opcion Aca</option>
-										<option value="num_dni">Por Numero y Tipo de DNI</option>
-										<option value="num_soc">Por Numero de Socio</option>
-									</select>
-								</p>
-							</fieldset>
-						</form>
-						<div id="tipo_y_dni" style="display:none;">
-							<form id="contactForm" action="buscar_socio_modificar.php" method="post">
-								<fieldset>
-									<p>
-										<label for="num_doc">Numero de Documento</label>
-										<input name="num_doc" id="num_doc" type="text" class="form-poshytip" title="Enter your document number" />
-									</p>
-									<p>
-										<label for="tipo_doc">Tipo de Documento</label>
-										<select name="Tipo_doc" id="tipo_doc" class="form-poshytip" title="Enter your type of document">
-											<option value="DNI" selected>DNI</option>
-											<option value="PAS">PASAPORTE</option>
-											<option value="LE">LIBRETA DE ENROLAMIENTO</option>
-											<option value="LC">LIBRETA CIVICA</option>
-										</select>
-									</p>
-									<p>
-										<input type="submit" value="Buscar" name="submit" id="submit">
-									</p>
-								</fieldset>
-							</form>
+						<div id="por_apellido">
+								<form id="contactForm" action="agregar_cuota.php" method="post">
+									<fieldset>
+											<p> Socio
+												<input class="busqueda" name="apellido_n" id="apellido_n" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="Comience a escribir el apellido..."/>
+											</p>
+											<p>
+												<input type="text" style="display:none" name="numero_soc" id="numero_soc" class="form-poshytip">
+											</p>
+											<p>
+												<label for="fecha">Fecha Cuota</label>
+												<input name="fecha" id="fecha" type="date" class="form-poshytip"   title="Enter your document number" required/>
+											</p>
+											<p>
+												<label for="monto">Monto</label>
+												<input name="monto" id="monto" type="text" class="form-poshytip"   maxlength="8" title="Enter your document number" required/>
+											</p>
+											<p>
+												<label for="desc">Descuento</label>
+												<input name="desc" id="desc" type="text" class="form-poshytip"   maxlength="8" title="Enter your document number" required/>
+											</p>
+
+											<p><input class="link-button green" type="submit" value="Agregar Cuota" name="submit" id="submit" /></p>
+									</fieldset>
+
+								</form>
 						</div>
-						<div id="num_soc" style="display:none;">
-							<form id="contactForm" action="buscar_socio_modificar.php" method="post">
-								<fieldset>
-									<p>
-										<label for="num_soc">Numero de Socio</label>
-										<input name="num_soc" id="num_soc" type="text" class="form-poshytip" title="Enter your document number" />
-									</p>
-									<p>
-										<input type="submit" value="Buscar" name="buscar" id="buscar">
-									</p>
-								</fieldset>
-							</form>
+					</div>
+					<div class="toggle-trigger">
+						<img class="mas" src="img/bullets/plus.png">
+						<img class="menos" src="img/bullets/minus.png">
+							Modificar Cuotas
+						<img class="mas" src="img/bullets/plus.png">
+						<img class="menos" src="img/bullets/minus.png">
+					</div>
+					<div class="toggle-container">
+						<div id="por_apellido">
+								<form id="contactForm" action="modificar_cuota.php" method="post">
+									<fieldset>
+											<p> Cuota de Socio
+												<input class="busqueda" name="apellido_cuotas" id="apellido_cuotas" type="text" class="form-poshytip" title="Enter your document number" data-busqueda="1" placeholder="Comience a escribir el apellido..."/>
+											</p>
+											<p>
+												<input type="text" style="display:none" name="numero_soc_mod" id="numero_soc_mod" class="form-poshytip">
+											</p>
+											<p>
+												<input style="display:none" name="fecha_mod" id="fecha_mod" type="date" class="form-poshytip"   title="Enter your document number" required/>
+											</p>
+											<p>
+												<input style="display:none" name="pasa" id="pasa" type="number" class="form-poshytip"   title="Enter your document number" required/>
+											</p>
+											<p>
+												<label for="monto_mod">Monto</label>
+												<input name="monto_mod" id="monto_mod" type="text" class="form-poshytip"   maxlength="8" title="Enter your document number" required/>
+											</p>
+											<p>
+												<label for="desc_mod">Descuento</label>
+												<input name="desc_mod" id="desc_mod" type="text" class="form-poshytip"   maxlength="8" title="Enter your document number" required/>
+											</p>
+											<p>
+												<label for="pagado">Pagado</label><br>
+												<select name="pagado" id="pagado">
+													
+													<option value="true">Si</option>
+													<option value="false" selected>No</option>
+												</select>
+											</p>
+											<p><input class="link-button green" type="submit" value="Modificar Cuota" name="submit" id="submit" /></p>
+									</fieldset>
+
+								</form>
 						</div>
-						<form id="contactForm" method = "POST" action="agregar_cuotas_general.php">
-							<h2>Agregar Cuotas en General</h2>
-							<p>
-								<label for="monto">Monto de la Cuota</label>
-								<input name="monto"  id="monto" type="text" class="form-poshytip" title="Enter your name"/>
-							</p>
-							<p>
-								<label for="descuento" >Descuento</label>
-								<input name="descuento"  id="descuento" type="text" class="form-poshytip" title="Enter your sub name"/>
-							</p>
-							<input type="submit" value="Agregar" name="Agregar"/>
-						</form>
+						
+					</div>
+					<div class="toggle-trigger">
+						<img class="mas" src="img/bullets/plus.png">
+						<img class="menos" src="img/bullets/minus.png">
+						Actualizar Cuotas a todos los socios
+						<img class="mas" src="img/bullets/plus.png">
+						<img class="menos" src="img/bullets/minus.png">
+					</div>
+					<div class="toggle-container">
+						<form id="contactForm" action="agregar_cuotas_general.php" method="post">
+									<fieldset>
+											<p>
+												<label for="monto">Monto</label>
+												<input name="monto" id="monto" type="text" class="form-poshytip"   maxlength="8" title="Enter your document number" required/>
+											</p>
+											<p>
+												<label for="desc">Descuento</label>
+												<input name="desc" id="desc" type="text" class="form-poshytip"   maxlength="8" title="Enter your document number" required/>
+											</p>
+											<p><input class="link-button green" type="submit" value="Agregar Cuotas" name="submit" id="submit" /></p>
+									</fieldset>
+
+								</form>
+					</div>
+					<div class="toggle-trigger">
+						<img class="mas" src="img/bullets/plus.png">
+						<img class="menos" src="img/bullets/minus.png">
+							Listado de Cuotas
+						<img class="mas" src="img/bullets/plus.png">
+						<img class="menos" src="img/bullets/minus.png">
+					</div>
+					<div class="toggle-container">
+					
+						<?php
+							$consulta = "SELECT * FROM sp_buscar_cuotas('')";
+							$result = pg_query($connect, $consulta);
+							//pag
+							$tamano_pagina = 10;
+							$pagina = $_GET["pagina"];
+							if(!$pagina){
+								$inicio = 0;
+								$pagina = 1;
+							}else{
+								$inicio = ($pagina - 1) * $tamano_pagina ;
+							}
+
+							$numero_total_registros = pg_num_rows($result);
+							$total_paginas = ceil($numero_total_registros / $tamano_pagina);
+							$consulta2 = "SELECT * FROM sp_buscar_cuotas('')limit ".$tamano_pagina." offset ".$inicio;
+							$result2 = pg_query($connect, $consulta2);
+							$result2 = pg_query($connect, $consulta2);
+
+							echo '<table id="listado_cuotas"><tr class="nombre_columna"><th>Fecha</th><th>Número Socio</th><th>Apellido</th><th>Nombre</th><th>`Documento</th><th>Tipo</th><th>Precio</th><th>Descuento</th><th>Precio Final</th><th>Pagada</th></tr>';
+							while($row = pg_fetch_assoc($result2)){
+								if($row['pagada']=='f'){
+									$row['pagada']='No';
+								}
+								if($row['pagada']=='t'){
+									$row['pagada']='Si';
+								}
+								echo '<tr class="fila_resultado"><td>'.$row['fecha'].'</td><td>'.$row['numero_socio'].'</td><td>'.$row['apellido'].'</td><td>'.$row['nombre'].'</td><td>'.$row['dni'].'</td><td>'.$row['tipo_doc'].'</td><td>'.$row['precio'].'</td><td>'.$row['descuento'].'</td><td>'.$row['precio_final'].'</td><td>'.$row['pagada'].'</td></tr>';
+							}
+							echo '</table><br><div class="paginador" >';
+							if($total_paginas > 1){
+									if($pagina != 1){
+											echo '<a class="link-button" href="alquileres.php?pagina='.($pagina-1).'"> <<< </a> ';
+										}
+									for($i=1; $i<=$total_paginas;$i++){
+
+										if($pagina == $i){
+											echo '<a class="link-button red">'.$pagina . '</a> ';
+										}else{
+											echo '<a class="link-button" href="alquileres.php?pagina=' . $i . '">' . $i . '</a> '; 
+										}
+									}
+									if($pagina != $total_paginas){
+										echo ' <a class="link-button" href="alquileres.php?pagina='.($pagina+1).'"> >>> </a> ';
+									}
+								}
+							echo "</div><br><br>";
+						?>
 					</div>
 				</div>
 			

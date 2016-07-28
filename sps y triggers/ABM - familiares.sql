@@ -43,3 +43,19 @@ begin
 end;
 $BODY$
   LANGUAGE plpgsql;
+ --modificar familiar
+  CREATE OR REPLACE FUNCTION sp_modificar_familiares(dni_familiar integer, tipo_dni_familiar character varying, dni_mod integer, tipo_d_mod text, nombre_mod character varying, apellido_mod character varying, parentezco_mod character varying)
+  RETURNS void AS
+$BODY$
+declare
+	id_persona_familiar integer;
+begin
+	id_persona_familiar := (select id_persona from familiares inner join personas using (id_persona) where dni=dni_familiar and id_tipo_doc=(select busca_id_documento(tipo_dni_familiar)));
+	if id_persona_familiar is null then
+		raise exception 'El familiar no existe';
+	else
+		
+	end if;
+end;
+$BODY$
+  LANGUAGE plpgsql;

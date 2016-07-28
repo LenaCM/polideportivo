@@ -40,6 +40,10 @@
 			var instalacion;
 			var fecha;
 			var hora;
+			var desc;
+			var pagado;
+			var precio;
+			var pasa;
 			$(".busqueda").on("focus",function(){
 				busqueda = $(this).attr('data-busqueda');
 				
@@ -316,6 +320,40 @@
 						}
 						
 					});
+				     $( "#apellido_cuotas" ).autocomplete({
+				      source: 'buscador.php?busqueda=15',
+				      minLength: 2,
+				      select: function (event, ui) {
+				      	numero_socio = ui.item.numero_socio;
+				      	fecha = ui.item.fecha;
+						 desc=ui.item.descuento;
+						 precio = ui.item.precio;
+				      	}
+	   				 });
+	   				 //
+	   				 $("#apellido_cuotas").on("keydown blur",function(){
+						if(event.which == 13 || event.type == "blur"){
+							$("#numero_soc_mod").attr('value', numero_socio);
+							$("#fecha_mod").attr('value', fecha);
+							$("#desc_mod").attr('value', desc);
+							$("#monto_mod").attr('value', precio);
+							pasa = 0;
+							$("#pasa").attr('value', pasa);
+						}
+						
+					});
+	   				$("#desc_mod").on("change", function(){
+	   					pasa = 1;
+	   					$("#pasa").attr('value', pasa);
+	   				});
+	   				$("#monto_mod").on("change", function(){
+	   					pasa = 1;
+	   					$("#pasa").attr('value', pasa);
+	   				});
+	   				$("#pagado").on("change", function(){
+	   					pasa = 1;
+	   					$("#pasa").attr('value', pasa);
+	   				});
 				}
 				if(busqueda==2){
 					

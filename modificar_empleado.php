@@ -89,7 +89,7 @@
 									echo '<p class="infobox-error">'.pg_last_error($connect).'</p><br>';
 								}
 							}else{
-								echo '<p class="infobox-warning">Los arreglos son iguales</p><br>';
+								echo '<p class="infobox-warning">No se modificaron los datos</p><br>';
 							}
 							
 						} else {

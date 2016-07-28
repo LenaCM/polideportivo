@@ -242,4 +242,23 @@ if($busqueda==14){
 			}
 			echo json_encode($arreglo_completo);
 }
+if($busqueda==15){
+	$query = "select * from sp_buscar_cuotas('$valor')";
+			$consulta = pg_query($connect,$query);
+
+			while($row = pg_fetch_array($consulta)){
+				if($row['pagada']=="t"){
+					$row['pagada']="true";
+				}
+				$array['value'] = $row['apellido'].", ".$row['nombre']." cuota del  ".$row['fecha'];
+				$array['numero_socio'] = $row['numero_socio'];
+				$array['precio'] = $row['precio'];
+				$array['fecha'] = $row['fecha'];
+				$array['hora'] = $row['hora'];
+				$array['descuento']=$row['descuento'];
+				$array['pagada']= $row['pagada'];
+				$arreglo_completo[] = $array;
+			}
+			echo json_encode($arreglo_completo);
+}
 ?>

@@ -59,6 +59,7 @@
 				}else{
 					echo '<p class="infobox-warning">No se cuenta con todos los datos requeridos</p><br>';
 				}
+				echo '<br>';
 			?>
 			<a href="directivos.php" class="link-button">Volver</a>
 			<br><br>

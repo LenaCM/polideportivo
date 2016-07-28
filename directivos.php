@@ -81,6 +81,8 @@
 										<option value="SUBDIRECTOR">Subdirector</option>
 										<option value="TESORERO">Tesorero</option>
 										<option value="CONTADOR">Contador</option>
+										<option value="SECRETARIO 1">Secretario 1</option>
+										<option value="SECRETARIO 2">Secretario 2</option>
 									</select>
 
 									<input type="submit" name="Cargar">
